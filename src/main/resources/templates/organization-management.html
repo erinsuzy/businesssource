@@ -1,0 +1,17 @@
+<!-- src/main/resources/templates/business-plan/organization-management.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Organization and Management</title>
+</head>
+<body>
+<h1>Organization and Management</h1>
+<form action="#" th:action="@{/business-plan/organization-management}" th:object="${businessPlan}" method="post">
+    <div>
+        <label for="managementStructure">Management Structure:</label>
+        <textarea id="managementStructure" th:field="${businessPlan.organizationManagement}" placeholder="Describe the management structure" required></textarea>
+    </div>
+    <button type="submit">Save and Continue</button>
+</form>
+</body>
+</html>

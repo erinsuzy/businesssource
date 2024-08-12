@@ -1,0 +1,17 @@
+<!-- src/main/resources/templates/business-plan/products-services.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products and Services</title>
+</head>
+<body>
+<h1>Products and Services</h1>
+<form action="#" th:action="@{/business-plan/products-services}" th:object="${businessPlan}" method="post">
+    <div>
+        <label for="productsServices">Products/Services:</label>
+        <textarea id="productsServices" th:field="${businessPlan.productsServices}" placeholder="Describe your products or services" required></textarea>
+    </div>
+    <button type="submit">Save and Continue</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!-- src/main/resources/templates/business-plan/create.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Business Plan</title>
+</head>
+<body>
+<h1>Create Your Business Plan</h1>
+<form action="#" th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
+    <div>
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your company name" required />
+    </div>
+    <div>
+        <label for="missionStatement">Mission Statement:</label>
+        <textarea id="missionStatement" th:field="*{missionStatement}" placeholder="Enter your mission statement" required></textarea>
+    </div>
+    <button type="submit">Save and Continue</button>
+</form>
+</body>
+</html>
