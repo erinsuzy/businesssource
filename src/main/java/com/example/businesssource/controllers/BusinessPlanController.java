@@ -20,9 +20,8 @@ public class BusinessPlanController {
     @GetMapping("/create")
     public String createBusinessPlanForm(Model model) {
         model.addAttribute("businessPlan", new BusinessPlan());
-        return "business-plan/create"; // Thymeleaf template to start the plan
+        return "business-plan/company-descrit";
     }
-
     @PostMapping("/company-description")
     public String saveCompanyDescription(@ModelAttribute BusinessPlan businessPlan, Model model) {
         businessPlanService.save(businessPlan);
