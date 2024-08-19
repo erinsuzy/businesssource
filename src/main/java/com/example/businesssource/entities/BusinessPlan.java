@@ -41,7 +41,7 @@ public class BusinessPlan {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    // Getters and setters
+
 
 
     public BusinessPlan(Long id, String companyName, String missionStatement, String marketAnalysis, String organizationManagement, String productsServices, String marketingStrategy, String fundingRequest, String financialProjections, String appendix, Timestamp createdAt, Timestamp updatedAt) {

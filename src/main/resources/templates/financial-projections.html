@@ -1,0 +1,17 @@
+<!-- src/main/resources/templates/business-plan/products-services.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Financial Projections</title>
+</head>
+<body>
+<h1>Products and Services</h1>
+<form action="#" th:action="@{/business-plan/financial-projections}" th:object="${businessPlan}" method="post">
+  <div>
+    <label for="financialProjections">Financial/Projections:</label>
+    <textarea id="financialProjections" th:field="${businessPlan.financialProjections}" placeholder="What are your financial projections for the first year?" required></textarea>
+  </div>
+  <button type="submit">Save and Continue</button>
+</form>
+</body>
+</html>

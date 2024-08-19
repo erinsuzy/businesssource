@@ -1,0 +1,17 @@
+<!-- src/main/resources/templates/business-plan/products-services.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Funding Request</title>
+</head>
+<body>
+<h1>Products and Services</h1>
+<form action="#" th:action="@{/business-plan/funding-request}" th:object="${businessPlan}" method="post">
+    <div>
+        <label for="fundingRequest">Products/Services:</label>
+        <textarea id="fundingRequest" th:field="${businessPlan.fundingRequest}" placeholder="Where will you obtain funding for your business?" required></textarea>
+    </div>
+    <button type="submit">Save and Continue</button>
+</form>
+</body>
+</html>
