@@ -5,13 +5,16 @@
     <title>Market Analysis</title>
 </head>
 <body>
-<h1>Market Analysis</h1>
-<form action="#" th:action="@{/business-plan/market-analysis}" th:object="${businessPlan}" method="post">
-    <div>
-        <label for="marketOverview">Market Overview:</label>
-        <textarea id="marketOverview" th:field="${businessPlan.marketAnalysis}" placeholder="Provide an overview of the market" required></textarea>
-    </div>
-    <button type="submit">Save and Continue</button>
-</form>
+<div th:replace="layout :: content">
+    <h1>Market Analysis</h1>
+    <form action="#" th:action="@{/business-plan/market-analysis}" th:object="${businessPlan}" method="post">
+        <input type="hidden" th:field="${businessPlan.id}" />
+        <div>
+            <label for="marketOverview">Market Overview:</label>
+            <textarea id="marketOverview" th:field="${businessPlan.marketAnalysis}" placeholder="Provide an overview of the market" required></textarea>
+        </div>
+        <button type="submit">Save and Continue</button>
+    </form>
+</div>
 </body>
 </html>

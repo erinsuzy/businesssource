@@ -1,0 +1,80 @@
+ /* Base styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* Light background for contrast */
+    color: #333; /* Dark text color for readability */
+}
+
+/* Sidebar navigation */
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1a1a1a; /* Black for sidebar */
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #a6e22e; /* Green links */
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: #333; /* Darker gray on hover */
+    color: #fff; /* White text on hover */
+}
+
+/* Main content */
+.main-content {
+    margin-left: 250px; /* Match the sidebar width */
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: #1a1a1a; /* Dark gray headings */
+}
+
+button {
+    background-color: #a6e22e; /* Green buttons */
+    border: none;
+    color: #1a1a1a;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #7fbf19; /* Slightly darker green on hover */
+    color: white; /* White text on hover */
+}
+
+/* Form input fields */
+input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Links */
+a {
+    color: #1a1a1a;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #a6e22e;
+}

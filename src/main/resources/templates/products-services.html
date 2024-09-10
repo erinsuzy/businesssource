@@ -5,13 +5,16 @@
     <title>Products and Services</title>
 </head>
 <body>
-<h1>Products and Services</h1>
-<form action="#" th:action="@{/business-plan/products-services}" th:object="${businessPlan}" method="post">
-    <div>
-        <label for="productsServices">Products/Services:</label>
-        <textarea id="productsServices" th:field="${businessPlan.productsServices}" placeholder="Describe your products or services" required></textarea>
-    </div>
-    <button type="submit">Save and Continue</button>
-</form>
+<div th:replace="layout :: content">
+    <h1>Products and Services</h1>
+    <form action="#" th:action="@{/business-plan/products-services}" th:object="${businessPlan}" method="post">
+        <input type="hidden" th:field="${businessPlan.id}" />
+        <div>
+            <label for="productsServices">Products/Services:</label>
+            <textarea id="productsServices" th:field="${businessPlan.productsServices}" placeholder="Describe your products or services" required></textarea>
+        </div>
+        <button type="submit">Save and Continue</button>
+    </form>
+</div>
 </body>
 </html>

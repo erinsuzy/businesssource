@@ -5,41 +5,46 @@
     <title>Review Business Plan</title>
 </head>
 <body>
-<h1>Review Your Business Plan</h1>
-<div>
-    <h2>Company Name</h2>
-    <p th:text="${businessPlan.companyName}"></p>
+<div th:replace="layout :: content">
+    <h1>Review Your Business Plan</h1>
+    <input type="hidden" th:field="${businessPlan.id}" />
+
+
+    <div>
+        <h2>Company Name</h2>
+        <p th:text="${businessPlan.companyName}"></p>
+    </div>
+    <div>
+        <h2>Mission Statement</h2>
+        <p th:text="${businessPlan.missionStatement}"></p>
+    </div>
+    <div>
+        <h2>Market Analysis</h2>
+        <p th:text="${businessPlan.marketAnalysis}"></p>
+    </div>
+    <div>
+        <h2>Organization and Management</h2>
+        <p th:text="${businessPlan.organizationManagement}"></p>
+    </div>
+    <div>
+        <h2>Products and Services</h2>
+        <p th:text="${businessPlan.productsServices}"></p>
+    </div>
+    <div>
+        <h2>Marketing Strategy</h2>
+        <p th:text="${businessPlan.marketingStrategy}"></p>
+    </div>
+    <div>
+        <h2>Funding Request</h2>
+        <p th:text="${businessPlan.fundingRequest}"></p>
+    </div>
+    <div>
+        <h2>Financial Projections</h2>
+        <p th:text="${businessPlan.financialProjections}"></p>
+    </div>
+
+    <button type="button" onclick="window.print()">Print Business Plan</button>
+    <button type="button" onclick="location.href='/business-plan/export'">Export as PDF</button>
 </div>
-<div>
-    <h2>Mission Statement</h2>
-    <p th:text="${businessPlan.missionStatement}"></p>
-</div>
-<div>
-    <h2>Market Analysis</h2>
-    <p th:text="${businessPlan.marketAnalysis}"></p>
-</div>
-<div>
-    <h2>Organization and Management</h2>
-    <p th:text="${businessPlan.organizationManagement}"></p>
-</div>
-<div>
-    <h2>Products and Services</h2>
-    <p th:text="${businessPlan.productsServices}"></p>
-</div>
-<div>
-    <h2>Products and Services</h2>
-    <p th:text="${businessPlan.marketingStrategy}"></p>
-</div>
-<div>
-    <h2>Products and Services</h2>
-    <p th:text="${businessPlan.fundingRequest}"></p>
-</div>
-<div>
-    <h2>Products and Services</h2>
-    <p th:text="${businessPlan.financialProjections}"></p>
-</div>
-<!-- Repeat for other sections as needed -->
-<button type="button" onclick="window.print()">Print Business Plan</button>
-<button type="button" onclick="location.href='/business-plan/export'">Export as PDF</button>
 </body>
 </html>
