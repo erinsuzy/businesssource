@@ -16,9 +16,18 @@ public class BusinessPlanController {
     @Autowired
     private BusinessPlanService businessPlanService;
 
+
+
     @GetMapping("/create")
     public String createBusinessPlanForm(Model model) {
         model.addAttribute("businessPlan", new BusinessPlan());
+        return "business-plan/create";
+    }
+
+    @PostMapping("/crate")
+    public String saveBusinessPlan(@ModelAttribute BusinessPlan businessPlan, Model model) {
+        BusinessPlan savedBusinessPlan = businessPlanService.save(businessPlan);
+        model.addAttribute("businessPlan", savedBusinessPlan);
         return "business-plan/company-description";
     }
 

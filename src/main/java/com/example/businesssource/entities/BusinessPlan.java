@@ -15,6 +15,9 @@ public class BusinessPlan {
     private String companyName;
 
     @Column(columnDefinition = "TEXT")
+    private String companyDescription;
+
+    @Column(columnDefinition = "TEXT")
     private String missionStatement;
 
     @Column(columnDefinition = "TEXT")
@@ -44,9 +47,10 @@ public class BusinessPlan {
 
 
 
-    public BusinessPlan(Long id, String companyName, String missionStatement, String marketAnalysis, String organizationManagement, String productsServices, String marketingStrategy, String fundingRequest, String financialProjections, String appendix, Timestamp createdAt, Timestamp updatedAt) {
+    public BusinessPlan(Long id, String companyName, String companyDescription, String missionStatement, String marketAnalysis, String organizationManagement, String productsServices, String marketingStrategy, String fundingRequest, String financialProjections, String appendix, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.companyName = companyName;
+        this.companyDescription = companyDescription;
         this.missionStatement = missionStatement;
         this.marketAnalysis = marketAnalysis;
         this.organizationManagement = organizationManagement;
@@ -76,6 +80,14 @@ public class BusinessPlan {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getCompanyDescription() {
+        return companyDescription;
+    }
+
+    public void setCompanyDescription(String companyDescription) {
+        this.companyDescription = companyDescription;
     }
 
     public String getMissionStatement() {

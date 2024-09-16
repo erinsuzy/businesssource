@@ -7,20 +7,20 @@
 <body>
 <div th:replace="layout :: content">
     <h1>Create Your Business Plan</h1>
-    <form action="#" th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
-
-        <input type="hidden" th:field="${businessPlan.id}" />
+    <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
+        <input type="hidden" th:field="*{id}" />
 
         <div>
             <label for="companyName">Company Name:</label>
-            <input type="text" id="companyName" th:field="*{businessPlan.companyName}" placeholder="Enter your company name" required />
+            <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your company name" required />
         </div>
         <div>
             <label for="missionStatement">Mission Statement:</label>
-            <textarea id="missionStatement" th:field="*{businessPlan.missionStatement}" placeholder="Enter your mission statement" required></textarea>
+            <textarea id="missionStatement" th:field="*{missionStatement}" placeholder="Enter your mission statement" required></textarea>
         </div>
         <button type="submit">Save and Continue</button>
     </form>
 </div>
 </body>
 </html>
+
