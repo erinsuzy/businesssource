@@ -1,11 +1,10 @@
-<!-- src/main/resources/templates/business-plan/create.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Business Plan</title>
 </head>
 <body>
-<div th:replace="layout :: content">
+<div th:replace="~{layout :: content}">
     <h1>Create Your Business Plan</h1>
     <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
         <input type="hidden" th:field="*{id}" />
@@ -23,4 +22,6 @@
 </div>
 </body>
 </html>
+
+
 

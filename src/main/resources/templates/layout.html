@@ -6,15 +6,17 @@
 </head>
 <body>
 <div class="sidebar">
-    <a href="/static">Home</a>
-    <a href="/services">Services</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
+    <a th:href="@{/static}">Home</a>
+    <a th:href="@{/services}">Services</a>
+    <a th:href="@{/about}">About</a>
+    <a th:href="@{/contact}">Contact</a>
 </div>
 
 <div class="main-content">
-    <div th:fragment="content"></div> <!-- Placeholder for child template content -->
+    <div th:replace="content :: fragment"></div>
+
 </div>
 </body>
 </html>
+
 

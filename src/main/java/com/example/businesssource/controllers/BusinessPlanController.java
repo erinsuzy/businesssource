@@ -24,11 +24,21 @@ public class BusinessPlanController {
         return "business-plan/create";
     }
 
-    @PostMapping("/crate")
+    @PostMapping("/create")
     public String saveBusinessPlan(@ModelAttribute BusinessPlan businessPlan, Model model) {
         BusinessPlan savedBusinessPlan = businessPlanService.save(businessPlan);
         model.addAttribute("businessPlan", savedBusinessPlan);
-        return "business-plan/company-description";
+        return "redirect:/business-plan/company-description?planId=" + savedBusinessPlan.getId();
+    }
+    @GetMapping("/company-description")
+    public String createCompanyDescription(@ModelAttribute Long planId, Model model) {
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+        if (optionalPlan.isPresent()) {
+            model.addAttribute("businessPlan", optionalPlan.get());
+            return "business-plan/company-description"; // Thymeleaf template for company description
+        } else {
+            return "redirect:/business-plan/create"; // Handle the case where the plan is not found
+        }
     }
 
     @PostMapping("/company-description")
