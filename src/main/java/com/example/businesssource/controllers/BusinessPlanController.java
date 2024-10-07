@@ -84,7 +84,7 @@ public class BusinessPlanController {
         return "redirect:/business-plan/products-services?planId=" + savedPlan.getId();
    }
 
-   @GetMapping("products-services")
+   @GetMapping("/products-services")
    public String productsServicesForm(@RequestParam("planId") Long planId, Model model) {
        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
        if (optionalPlan.isPresent()) {

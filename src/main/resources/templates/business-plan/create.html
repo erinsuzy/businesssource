@@ -1,27 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Create Business Plan</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div th:replace="~{layout :: content}">
-    <h1>Create Your Business Plan</h1>
-    <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
-        <input type="hidden" th:field="*{id}" />
 
-        <div>
-            <label for="companyName">Company Name:</label>
-            <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your company name" required />
-        </div>
-        <div>
-            <label for="missionStatement">Mission Statement:</label>
-            <textarea id="missionStatement" th:field="*{missionStatement}" placeholder="Enter your mission statement" required></textarea>
-        </div>
-        <button type="submit">Save and Continue</button>
-    </form>
+<!-- Use th:replace to inject the content into layout.html's content fragment -->
+<div th:replace="~{layout :: content}">
+    <div class="main-content">
+        <h1>Create Your Business Plan</h1>
+        <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <div>
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your company name" required />
+            </div>
+            <div>
+                <label for="missionStatement">Mission Statement:</label>
+                <textarea id="missionStatement" th:field="*{missionStatement}" placeholder="Enter your mission statement" required></textarea>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
 </div>
+
 </body>
 </html>
+
+
+
 
 
 
