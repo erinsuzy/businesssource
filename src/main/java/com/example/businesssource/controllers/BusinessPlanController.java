@@ -13,9 +13,11 @@ import java.util.Optional;
 @RequestMapping("/business-plan")
 public class BusinessPlanController {
 
-    @Autowired
-    private BusinessPlanService businessPlanService;
+    private final BusinessPlanService businessPlanService;
 
+    public BusinessPlanController(BusinessPlanService businessPlanService) {
+        this.businessPlanService = businessPlanService;
+    }
 
 
     @GetMapping("/create")

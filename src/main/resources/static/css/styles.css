@@ -1,10 +1,10 @@
- /* Base styling */
+/* Base styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9; /* Light background for contrast */
-    color: #333; /* Dark text color for readability */
+    background-color: #f9f9f9;
+    color: #333;
 }
 
 /* Sidebar navigation */
@@ -14,7 +14,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #1a1a1a; /* Black for sidebar */
+    background-color: #1a1a1a;
     padding-top: 20px;
 }
 
@@ -22,41 +22,38 @@ body {
     padding: 15px 20px;
     text-decoration: none;
     font-size: 18px;
-    color: #a6e22e; /* Green links */
+    color: #a6e22e;
     display: block;
 }
 
 .sidebar a:hover {
-    background-color: #333; /* Darker gray on hover */
-    color: #fff; /* White text on hover */
+    background-color: #333;
+    color: #fff;
 }
 
 /* Main content */
 .main-content {
-    margin-left: 250px; /* Match the sidebar width */
+    margin-left: 260px; /* Adjusted for sidebar width */
     padding: 20px;
 }
 
 h1, h2, h3 {
-    color: #1a1a1a; /* Dark gray headings */
+    color: #1a1a1a;
 }
 
 button {
-    background-color: #a6e22e; /* Green buttons */
+    background-color: #a6e22e;
     border: none;
     color: #1a1a1a;
     padding: 10px 20px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #7fbf19; /* Slightly darker green on hover */
-    color: white; /* White text on hover */
+    background-color: #7fbf19;
+    color: white;
 }
 
 /* Form input fields */
@@ -78,3 +75,34 @@ a {
 a:hover {
     color: #a6e22e;
 }
+
+/* New header styles */
+.header {
+    background-color: #1a1a1a;
+    padding: 10px 0;
+}
+
+.header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.header nav ul li {
+    display: inline;
+}
+
+.header nav ul li a {
+    color: #a6e22e;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+
+.header nav ul li a:hover {
+    color: #fff;
+    background-color: #333;
+}
+
