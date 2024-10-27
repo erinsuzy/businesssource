@@ -1,22 +1,20 @@
 <!-- src/main/resources/templates/business-plan/company-description.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-  <title>Company Description</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
+<div th:replace="fragments/layout :: content">
 
-</head>
-<body>
-<div th:replace="layout :: content">
+  <h2>Business Plan for <span th:text="${businessPlan.companyName}">[Company Name]</span></h2>
+
   <h1>Company Description</h1>
-  <input type="hidden" th:field="${businessPlan.id}" />
-  <form action="#" th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
+  <form th:action="@{/business-plan/market-analysis}" th:object="${businessPlan}" method="post">
+    <input type="hidden" th:field="${businessPlan.id}" />
+
     <div>
       <label for="companyDescription">Company Description</label>
-      <textarea id="companyDescription" th:field="${businessPlan.companyDescription}" placeholder="Please describe your company:" required></textarea>
+      <textarea id="companyDescription" th:field="${businessPlan.companyDescription}"
+                placeholder="Please describe your company:" required></textarea>
     </div>
+
     <button type="submit">Save and Continue</button>
   </form>
 </div>
-</body>
-</html>
+
+

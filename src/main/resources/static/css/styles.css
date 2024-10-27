@@ -41,6 +41,23 @@ h1, h2, h3 {
     color: #1a1a1a;
 }
 
+.next-button {
+    background-color: #a6e22e;
+    color: #1a1a1a;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.next-button:hover {
+    background-color: #7fbf19;
+    color: white;
+}
+
+
 button {
     background-color: #a6e22e;
     border: none;
@@ -105,4 +122,64 @@ a:hover {
     color: #fff;
     background-color: #333;
 }
+/* App Header Styling */
+.app-header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #1a1a1a; /* Optional: matches sidebar color */
+}
+
+.app-header h1 {
+    font-size: 36px;
+    color: #a6e22e; /* Matches your color scheme */
+    margin: 0;
+    font-weight: bold;
+}
+
+.feature-box-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.feature-box {
+    background-color: #fff;
+    border: 2px solid #a6e22e;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.feature-box-container a.feature-box:hover {
+    background-color: #e0e8e0; /* Slightly darker shade of light color */
+    transform: scale(1.05); /* Keeps the slight scale effect */
+}
+
+
+.feature-box h3 {
+    color: #1a1a1a;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    color: #333;
+    font-size: 16px;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
 

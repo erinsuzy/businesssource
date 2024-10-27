@@ -12,6 +12,7 @@ public class BusinessPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String companyName;
 
     @Column(columnDefinition = "TEXT")

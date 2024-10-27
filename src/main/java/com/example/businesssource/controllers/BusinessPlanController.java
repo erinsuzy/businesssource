@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -32,16 +33,21 @@ public class BusinessPlanController {
         model.addAttribute("businessPlan", savedBusinessPlan);
         return "redirect:/business-plan/company-description?planId=" + savedBusinessPlan.getId();
     }
+
     @GetMapping("/company-description")
-    public String createCompanyDescription(@ModelAttribute Long planId, Model model) {
+    public String createCompanyDescription(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
-            return "business-plan/company-description"; // Thymeleaf template for company description
+            model.addAttribute("content", "business-plan/company-description :: content");
+            model.addAttribute("pageTitle", "Company Description"); // Set the page title
+            return "fragments/layout"; // Specify layout location
         } else {
-            return "redirect:/business-plan/create"; // Handle the case where the plan is not found
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
+            return "redirect:/business-plan/create";
         }
     }
+
 
     @PostMapping("/company-description")
     public String saveCompanyDescription(@ModelAttribute BusinessPlan businessPlan, Model model) {
@@ -51,12 +57,15 @@ public class BusinessPlanController {
     }
 
     @GetMapping("/market-analysis")
-    public String marketAnalysisForm(@RequestParam("planId") Long planId, Model model) {
+    public String marketAnalysisForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
+            model.addAttribute("content", "business-plan/market-analysis :: content");
+            model.addAttribute("pageTitle", "Market Analysis");
             return "business-plan/market-analysis"; // Thymeleaf template for market analysis
         } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
             return "redirect:/business-plan/create"; // Handle the case where the plan is not found
         }
     }
@@ -69,12 +78,15 @@ public class BusinessPlanController {
     }
 
     @GetMapping("/organization-management")
-    public String organizationManagementForm(@RequestParam("planId") Long planId, Model model) {
+    public String organizationManagementForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
+            model.addAttribute("content", "business-plan/organization-management :: content");
+            model.addAttribute("pageTitle", "Organization Management");
             return "business-plan/organization-management";
         } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
             return "redirect:/business-plan/create";
         }
     }
@@ -87,12 +99,15 @@ public class BusinessPlanController {
    }
 
    @GetMapping("/products-services")
-   public String productsServicesForm(@RequestParam("planId") Long planId, Model model) {
+   public String productsServicesForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
        if (optionalPlan.isPresent()) {
            model.addAttribute("businessPlan", optionalPlan.get());
+           model.addAttribute("content", "business-plan/products-services :: content");
+           model.addAttribute("pageTitle", "Products and Services");
            return "business-plan/products-services";
        } else {
+           redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
            return "redirect:/business-plan/create";
        }
    }
@@ -105,12 +120,15 @@ public class BusinessPlanController {
    }
 
    @GetMapping("/marketing-strategy")
-   public String marketingStrategyForm(@RequestParam("planId") Long planId, Model model) {
+   public String marketingStrategyForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
        if (optionalPlan.isPresent()) {
            model.addAttribute("businessPlan", optionalPlan.get());
+           model.addAttribute("content", "business-plan/marketing-strategy :: content");
+           model.addAttribute("pageTitle", "Marketing Strategy");
            return "business-plan/marketing-strategy";
        } else {
+           redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
            return "redirect:/business-plan/create";
        }
    }
@@ -123,12 +141,15 @@ public class BusinessPlanController {
    }
 
    @GetMapping("/financial-projections")
-   public String financialProjectionsForm(@RequestParam("planId") Long planId, Model model) {
+   public String financialProjectionsForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
+            model.addAttribute("content", "business-plan/financial-projections :: content");
+            model.addAttribute("pageTitle", "Financial Projections");
             return "business-plan/financial-projections";
         } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
             return "redirect:/business-plan/create";
         }
    }
@@ -141,12 +162,15 @@ public class BusinessPlanController {
    }
 
    @GetMapping("/funding-request")
-   public String fundingRequestForm(@RequestParam("planId") Long planId, Model model) {
+   public String fundingRequestForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
+            model.addAttribute("content", "business-plan/funding-request :: content");
+            model.addAttribute("pageTitle", "Funding Request");
             return "business-plan/funding-request";
         } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
             return "redirect:/business-plan/create";
         }
    }
@@ -159,12 +183,13 @@ public class BusinessPlanController {
    }
 
     @GetMapping("/review")
-    public String reviewBusinessPlan(@RequestParam("planId") Long planId, Model model) {
+    public String reviewBusinessPlan(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
             return "business-plan/review"; // Thymeleaf template for reviewing the full plan
         } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
             return "redirect:/business-plan/create"; // Handle the case where the plan is not found
         }
     }
