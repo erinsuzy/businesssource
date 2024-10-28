@@ -19,19 +19,17 @@ public class BusinessPlanController {
     public BusinessPlanController(BusinessPlanService businessPlanService) {
         this.businessPlanService = businessPlanService;
     }
-
-
     @GetMapping("/create")
-    public String createBusinessPlanForm(Model model) {
+    public String createBusinessPlan(Model model) {
         model.addAttribute("businessPlan", new BusinessPlan());
         return "business-plan/create";
     }
 
     @PostMapping("/create")
     public String saveBusinessPlan(@ModelAttribute BusinessPlan businessPlan, Model model) {
-        BusinessPlan savedBusinessPlan = businessPlanService.save(businessPlan);
-        model.addAttribute("businessPlan", savedBusinessPlan);
-        return "redirect:/business-plan/company-description?planId=" + savedBusinessPlan.getId();
+        BusinessPlan savedPlan = businessPlanService.save(businessPlan);
+        model.addAttribute("businessPlan", savedPlan);
+        return "redirect:/business-plan/company-description?planId=" + savedPlan.getId();
     }
 
     @GetMapping("/company-description")
@@ -39,9 +37,8 @@ public class BusinessPlanController {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
-            model.addAttribute("content", "business-plan/company-description :: content");
             model.addAttribute("pageTitle", "Company Description"); // Set the page title
-            return "fragments/layout"; // Specify layout location
+            return "business-plan/company-description";
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found. Please create a new business plan.");
             return "redirect:/business-plan/create";
@@ -61,7 +58,6 @@ public class BusinessPlanController {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
-            model.addAttribute("content", "business-plan/market-analysis :: content");
             model.addAttribute("pageTitle", "Market Analysis");
             return "business-plan/market-analysis"; // Thymeleaf template for market analysis
         } else {
@@ -82,7 +78,6 @@ public class BusinessPlanController {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
-            model.addAttribute("content", "business-plan/organization-management :: content");
             model.addAttribute("pageTitle", "Organization Management");
             return "business-plan/organization-management";
         } else {
@@ -103,7 +98,6 @@ public class BusinessPlanController {
        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
        if (optionalPlan.isPresent()) {
            model.addAttribute("businessPlan", optionalPlan.get());
-           model.addAttribute("content", "business-plan/products-services :: content");
            model.addAttribute("pageTitle", "Products and Services");
            return "business-plan/products-services";
        } else {
@@ -124,7 +118,6 @@ public class BusinessPlanController {
        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
        if (optionalPlan.isPresent()) {
            model.addAttribute("businessPlan", optionalPlan.get());
-           model.addAttribute("content", "business-plan/marketing-strategy :: content");
            model.addAttribute("pageTitle", "Marketing Strategy");
            return "business-plan/marketing-strategy";
        } else {
@@ -145,7 +138,6 @@ public class BusinessPlanController {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
-            model.addAttribute("content", "business-plan/financial-projections :: content");
             model.addAttribute("pageTitle", "Financial Projections");
             return "business-plan/financial-projections";
         } else {
@@ -166,7 +158,6 @@ public class BusinessPlanController {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
             model.addAttribute("businessPlan", optionalPlan.get());
-            model.addAttribute("content", "business-plan/funding-request :: content");
             model.addAttribute("pageTitle", "Funding Request");
             return "business-plan/funding-request";
         } else {

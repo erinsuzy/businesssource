@@ -16,8 +16,10 @@ public class BusinessPlanService {
     private BusinessPlanRepository businessPlanRepository;
 
     public BusinessPlan save(BusinessPlan businessPlan) {
+        System.out.println("Saving Business Plan: " + businessPlan.getCompanyName());
         return businessPlanRepository.save(businessPlan);
     }
+
 
     public Optional<BusinessPlan> findById(Long id) {
         return businessPlanRepository.findById(id);

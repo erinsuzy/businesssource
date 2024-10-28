@@ -1,6 +1,8 @@
 package com.example.businesssource.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -42,7 +44,9 @@ public class BusinessPlan {
     @Column(columnDefinition = "TEXT")
     private String appendix;
 
+    @CreationTimestamp
     private Timestamp createdAt;
+    @UpdateTimestamp
     private Timestamp updatedAt;
 
 

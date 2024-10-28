@@ -2,29 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Create Business Plan</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-</head>
-<body>
-<div th:replace="/fragments/header :: header"></div>
-<div th:replace="/fragments/sidebar :: sidebar"></div>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <title>Create Business Plan</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+    </head>
+    <body>
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="/fragments/sidebar :: sidebar"></div>
 
-<div class="main-content">
-    <h1>Business Plan Creation Page</h1>
+    <div class="main-content">
+        <h1>Business Plan Creation Page</h1>
 
-    <!-- Error Message Display -->
-    <div th:if="${errorMessage}" class="error-message">
-        <p th:text="${errorMessage}"></p>
+        <!-- Error Message Display -->
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
+            <label for="companyName">Business Name:</label>
+            <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your business name">
+            <button type="submit">Save and Continue</button>
+        </form>
+
     </div>
+    </body>
+    </html>
 
-    <form th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
-        <label for="businessName">Business Name:</label>
-        <input type="text" id="businessName" name="businessName" placeholder="Enter your business name" required>
-
-        <button type="submit">Save and Continue</button>
-    </form>
-</div>
-</body>
-</html>
 
 
 
