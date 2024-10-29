@@ -15,7 +15,7 @@
   <h1>Company Description</h1>
 
     <form th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
-    <input type="hidden" th:field="${businessPlan.id}" />
+    <input type="th:field="${businessPlan.id}" />
     <div>
       <label for="companyDescription">Company Description</label>
       <textarea id="companyDescription" th:field="${businessPlan.companyDescription}"

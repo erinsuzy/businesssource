@@ -6,14 +6,19 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 
 </head>
-<body>
-<div th:replace="layout :: content">
+<div th:replace="/fragments/header :: header"></div>
+<div th:replace="/fragments/sidebar :: sidebar"></div>
+
+<div class="main-content">
     <h1>Funding Request</h1>
     <form action="#" th:action="@{/business-plan/funding-request}" th:object="${businessPlan}" method="post">
         <input type="hidden" th:field="${businessPlan.id}" />
         <div>
             <label for="fundingRequest">Products/Services:</label>
             <textarea id="fundingRequest" th:field="${businessPlan.fundingRequest}" placeholder="Where will you obtain funding for your business?" required></textarea>
+        </div>
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
         </div>
         <button type="submit">Save and Continue</button>
     </form>

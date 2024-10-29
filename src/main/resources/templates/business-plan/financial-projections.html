@@ -6,8 +6,11 @@
   <link rel="stylesheet" th:href="@{/css/styles.css}">
 
 </head>
+<div th:replace="/fragments/header :: header"></div>
+<div th:replace="/fragments/sidebar :: sidebar"></div>
 <body>
-<div th:replace="layout :: content">
+<div class="main-content">
+
   <h1>Financial Projections</h1>
   <form action="#" th:action="@{/business-plan/financial-projections}" th:object="${businessPlan}" method="post">
     <input type="hidden" th:field="${businessPlan.id}" />
@@ -15,6 +18,9 @@
     <div>
       <label for="financialProjections">Financial/Projections:</label>
       <textarea id="financialProjections" th:field="${businessPlan.financialProjections}" placeholder="What are your financial projections for the first year?" required></textarea>
+    </div>
+    <div th:if="${errorMessage}" class="error-message">
+      <p th:text="${errorMessage}"></p>
     </div>
     <button type="submit">Save and Continue</button>
   </form>

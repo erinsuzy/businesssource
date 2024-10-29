@@ -6,14 +6,20 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 
 </head>
+<div th:replace="/fragments/header :: header"></div>
+<div th:replace="/fragments/sidebar :: sidebar"></div>
 <body>
-<div th:replace="layout :: content">
+<div class="main-content">
+
     <h1>Organization and Management</h1>
     <form action="#" th:action="@{/business-plan/organization-management}" th:object="${businessPlan}" method="post">
         <input type="hidden" th:field="${businessPlan.id}" />
      <div>
          <label for="managementStructure">Management Structure:</label>
             <textarea id="managementStructure" th:field="${businessPlan.organizationManagement}" placeholder="Describe the management structure" required></textarea>
+        </div>
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
         </div>
         <button type="submit">Save and Continue</button>
     </form>
