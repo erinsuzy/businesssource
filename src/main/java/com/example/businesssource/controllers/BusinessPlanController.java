@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,9 +27,10 @@ public class BusinessPlanController {
     }
 
     @PostMapping("/create")
-    public String saveBusinessPlan(@ModelAttribute BusinessPlan businessPlan, Model model) {
+    public String saveBusinessPlan(@ModelAttribute BusinessPlan businessPlan, RedirectAttributes redirectAttributes) {
+        businessPlan.setStatus("draft");
         BusinessPlan savedPlan = businessPlanService.save(businessPlan);
-        model.addAttribute("businessPlan", savedPlan);
+        redirectAttributes.addFlashAttribute("message", "Progress saved! You can return to this plan anytime.");
         return "redirect:/business-plan/company-description?planId=" + savedPlan.getId();
     }
 
@@ -45,13 +47,36 @@ public class BusinessPlanController {
         }
     }
 
-
     @PostMapping("/company-description")
-    public String saveCompanyDescription(@ModelAttribute BusinessPlan businessPlan, Model model) {
-        BusinessPlan savedPlan = businessPlanService.save(businessPlan); // Save the business plan to the database
-        model.addAttribute("businessPlan", savedPlan);
-        return "redirect:/business-plan/market-analysis?planId=" + savedPlan.getId(); // Pass the plan ID to the next step
+    public String saveCompanyDescription(
+            @RequestParam("planId") Long planId,
+            @RequestParam("companyDescription") String companyDescription,
+            @RequestParam(value = "status", defaultValue = "IN_PROGRESS") String status,
+            @RequestParam("saveOption") String saveOption, // "exit" or "continue"
+            RedirectAttributes redirectAttributes) {
+
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+        if (optionalPlan.isPresent()) {
+            BusinessPlan businessPlan = optionalPlan.get();
+            businessPlan.setCompanyDescription(companyDescription);
+            businessPlan.setStatus(status);
+            businessPlanService.save(businessPlan);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Company description saved successfully!");
+
+            // Redirect based on save option
+            if ("exit".equals(saveOption)) {
+                return "redirect:/business-plan/dashboard"; // Redirect to dashboard or home page
+            } else {
+                return "redirect:/business-plan/market-analysis?planId=" + planId; // Redirect to the next section
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+            return "redirect:/business-plan/create";
+        }
     }
+
+
 
     @GetMapping("/market-analysis")
     public String marketAnalysisForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
@@ -67,11 +92,34 @@ public class BusinessPlanController {
     }
 
     @PostMapping("/market-analysis")
-    public String saveMarketAnalysis(@ModelAttribute BusinessPlan businessPlan, Model model) {
-        BusinessPlan savedPlan = businessPlanService.save(businessPlan); // Save the business plan after this step
-        model.addAttribute("businessPlan", savedPlan);
-        return "redirect:/business-plan/organization-management?planId=" + savedPlan.getId(); // Pass the plan ID to the next step
+    public String saveMarketAnalysis(
+            @RequestParam("planId") Long planId,
+            @RequestParam("marketAnalysis") String marketAnalysis,
+            @RequestParam(value = "status", defaultValue = "IN_PROGRESS") String status,
+            @RequestParam("saveOption") String saveOption, // "exit" or "continue"
+            RedirectAttributes redirectAttributes) {
+
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+        if (optionalPlan.isPresent()) {
+            BusinessPlan businessPlan = optionalPlan.get();
+            businessPlan.setMarketAnalysis(marketAnalysis);
+            businessPlan.setStatus(status);
+            businessPlanService.save(businessPlan);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Market analysis saved successfully!");
+
+            // Redirect based on save option
+            if ("exit".equals(saveOption)) {
+                return "redirect:/business-plan/dashboard"; // Redirect to dashboard or home page
+            } else {
+                return "redirect:/business-plan/organization-management?planId=" + planId; // Redirect to the next section
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+            return "redirect:/business-plan/create";
+        }
     }
+
 
     @GetMapping("/organization-management")
     public String organizationManagementForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
@@ -86,14 +134,37 @@ public class BusinessPlanController {
         }
     }
 
-   @PostMapping("/organization-management")
-   public String saveOrganizationManagement(@ModelAttribute BusinessPlan businessPlan, Model model) {
-        BusinessPlan savedPlan = businessPlanService.save(businessPlan);
-        model.addAttribute("businessPlan", savedPlan);
-        return "redirect:/business-plan/products-services?planId=" + savedPlan.getId();
-   }
+    @PostMapping("/organization-management")
+    public String saveOrganizationManagment(
+            @RequestParam("planId") Long planId,
+            @RequestParam("organizationManagement") String organizationManagement,
+            @RequestParam(value = "status", defaultValue = "IN_PROGRESS") String status,
+            @RequestParam("saveOption") String saveOption, // "exit" or "continue"
+            RedirectAttributes redirectAttributes) {
 
-   @GetMapping("/products-services")
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+        if (optionalPlan.isPresent()) {
+            BusinessPlan businessPlan = optionalPlan.get();
+            businessPlan.setOrganizationManagement(organizationManagement);
+            businessPlan.setStatus(status);
+            businessPlanService.save(businessPlan);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Organization and management saved successfully!");
+
+            // Redirect based on save option
+            if ("exit".equals(saveOption)) {
+                return "redirect:/business-plan/dashboard"; // Redirect to dashboard or home page
+            } else {
+                return "redirect:/business-plan/products-services?planId=" + planId; // Redirect to the next section
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+            return "redirect:/business-plan/create";
+        }
+    }
+
+
+    @GetMapping("/products-services")
    public String productsServicesForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
        if (optionalPlan.isPresent()) {
@@ -106,14 +177,37 @@ public class BusinessPlanController {
        }
    }
 
-   @PostMapping("/products-services")
-   public String saveProductsServices(@ModelAttribute BusinessPlan businessPlan, Model model) {
-        BusinessPlan savedPlan = businessPlanService.save(businessPlan);
-        model.addAttribute("businessPlan", savedPlan);
-        return "redirect:/business-plan/marketing-strategy?planId=" + savedPlan.getId();
-   }
+    @PostMapping("/products-services")
+    public String saveProductsServices(
+            @RequestParam("planId") Long planId,
+            @RequestParam("productsServices") String productsServices,
+            @RequestParam(value = "status", defaultValue = "IN_PROGRESS") String status,
+            @RequestParam("saveOption") String saveOption, // "exit" or "continue"
+            RedirectAttributes redirectAttributes) {
 
-   @GetMapping("/marketing-strategy")
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+        if (optionalPlan.isPresent()) {
+            BusinessPlan businessPlan = optionalPlan.get();
+            businessPlan.setProductsServices(productsServices);
+            businessPlan.setStatus(status);
+            businessPlanService.save(businessPlan);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Products and services saved successfully!");
+
+            // Redirect based on save option
+            if ("exit".equals(saveOption)) {
+                return "redirect:/business-plan/dashboard"; // Redirect to dashboard or home page
+            } else {
+                return "redirect:/business-plan/marketing-strategy?planId=" + planId; // Redirect to the next section
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+            return "redirect:/business-plan/create";
+        }
+    }
+
+
+    @GetMapping("/marketing-strategy")
    public String marketingStrategyForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
        if (optionalPlan.isPresent()) {
@@ -126,14 +220,38 @@ public class BusinessPlanController {
        }
    }
 
-   @PostMapping("/marketing-strategy")
-   public String saveMarketingStrategy(@ModelAttribute BusinessPlan businessPlan, Model model) {
-        BusinessPlan savedPlan = businessPlanService.save(businessPlan);
-        model.addAttribute("businessPlan", savedPlan);
-        return "redirect:/business-plan/financial-projections?planId=" + savedPlan.getId();
-   }
+    @PostMapping("/marketing-strategy")
+    public String saveMarketingStrategy(
+            @RequestParam("planId") Long planId,
+            @RequestParam("marketingStrategy") String marketingStrategy,
+            @RequestParam(value = "status", defaultValue = "IN_PROGRESS") String status,
+            @RequestParam("saveOption") String saveOption, // "exit" or "continue"
+            RedirectAttributes redirectAttributes) {
 
-   @GetMapping("/financial-projections")
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+        if (optionalPlan.isPresent()) {
+            BusinessPlan businessPlan = optionalPlan.get();
+            businessPlan.setMarketingStrategy(marketingStrategy);
+            businessPlan.setStatus(status);
+            businessPlanService.save(businessPlan);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Marketing strategy saved successfully!");
+
+            // Redirect based on save option
+            if ("exit".equals(saveOption)) {
+                return "redirect:/business-plan/dashboard"; // Redirect to dashboard or home page
+            } else {
+                return "redirect:/business-plan/financial-projections?planId=" + planId; // Redirect to the next section
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+            return "redirect:/business-plan/create";
+        }
+    }
+
+
+
+    @GetMapping("/financial-projections")
    public String financialProjectionsForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
@@ -146,14 +264,37 @@ public class BusinessPlanController {
         }
    }
 
-   @PostMapping("/financial-projections")
-   public String saveFinancialProjections(@ModelAttribute BusinessPlan businessPlan, Model model) {
-        BusinessPlan savedPlan = businessPlanService.save(businessPlan);
-        model.addAttribute("businessPlan", savedPlan);
-        return "redirect:/business-plan/funding-request?planId=" + savedPlan.getId();
-   }
+    @PostMapping("/financial-projections")
+    public String saveFinancialProjections(
+            @RequestParam("planId") Long planId,
+            @RequestParam("financialProjections") String financialProjections,
+            @RequestParam(value = "status", defaultValue = "IN_PROGRESS") String status,
+            @RequestParam("saveOption") String saveOption, // "exit" or "continue"
+            RedirectAttributes redirectAttributes) {
 
-   @GetMapping("/funding-request")
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+        if (optionalPlan.isPresent()) {
+            BusinessPlan businessPlan = optionalPlan.get();
+            businessPlan.setFinancialProjections(financialProjections);
+            businessPlan.setStatus(status);
+            businessPlanService.save(businessPlan);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Financial projections saved successfully!");
+
+            // Redirect based on save option
+            if ("exit".equals(saveOption)) {
+                return "redirect:/business-plan/dashboard"; // Redirect to dashboard or home page
+            } else {
+                return "redirect:/business-plan/funding-request?planId=" + planId; // Redirect to the next section
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+            return "redirect:/business-plan/create";
+        }
+    }
+
+
+    @GetMapping("/funding-request")
    public String fundingRequestForm(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
         if (optionalPlan.isPresent()) {
@@ -165,13 +306,35 @@ public class BusinessPlanController {
             return "redirect:/business-plan/create";
         }
    }
+    @PostMapping("/funding-request")
+    public String saveFundingRequest(
+            @RequestParam("planId") Long planId,
+            @RequestParam("fundingRequest") String fundingRequest,
+            @RequestParam(value = "status", defaultValue = "IN_PROGRESS") String status,
+            @RequestParam("saveOption") String saveOption, // "exit" or "continue"
+            RedirectAttributes redirectAttributes) {
 
-   @PostMapping("/funding-request")
-   public String saveFundingRequest(@ModelAttribute BusinessPlan businessPlan, Model model) {
-        BusinessPlan savedPlan = businessPlanService.save(businessPlan);
-        model.addAttribute("businessPlan", savedPlan);
-        return "redirect:/business-plan/review?planId=" + savedPlan.getId();
-   }
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+        if (optionalPlan.isPresent()) {
+            BusinessPlan businessPlan = optionalPlan.get();
+            businessPlan.setFundingRequest(fundingRequest);
+            businessPlan.setStatus(status);
+            businessPlanService.save(businessPlan);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Funding request saved successfully!");
+
+            // Redirect based on save option
+            if ("exit".equals(saveOption)) {
+                return "redirect:/business-plan/dashboard"; // Redirect to dashboard or home page
+            } else {
+                return "redirect:/business-plan/review?planId=" + planId; // Redirect to the next section
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+            return "redirect:/business-plan/create";
+        }
+    }
+
 
     @GetMapping("/review")
     public String reviewBusinessPlan(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
@@ -184,6 +347,14 @@ public class BusinessPlanController {
             return "redirect:/business-plan/create"; // Handle the case where the plan is not found
         }
     }
+
+    @GetMapping("/dashboard")
+    public String viewDashboard(Model model) {
+        List<BusinessPlan> businessPlans = businessPlanService.findAll(); // Assumes you have a findAll() method in the service
+        model.addAttribute("businessPlans", businessPlans);
+        return "business-plan/dashboard"; // Create a Thymeleaf template with this name
+    }
+
 }
 
 

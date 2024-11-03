@@ -13,7 +13,7 @@
 
     <h1>Products and Services</h1>
     <form action="#" th:action="@{/business-plan/products-services}" th:object="${businessPlan}" method="post">
-        <input type="hidden" th:field="${businessPlan.id}" />
+        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
         <div>
             <label for="productsServices">Products/Services:</label>
             <textarea id="productsServices" th:field="${businessPlan.productsServices}" placeholder="Describe your products or services" required></textarea>
@@ -21,7 +21,8 @@
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>
         </div>
-        <button type="submit">Save and Continue</button>
+        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
     </form>
 </div>
 </body>

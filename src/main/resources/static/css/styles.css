@@ -123,10 +123,13 @@ a:hover {
     background-color: #333;
 }
 /* App Header Styling */
-.app-header {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #1a1a1a; /* Optional: matches sidebar color */
+header {
+    height: 100px; /* or adjust as needed */
+    padding: 20px;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .app-header h1 {

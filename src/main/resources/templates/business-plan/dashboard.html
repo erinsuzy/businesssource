@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Business Plans</title>
+</head>
+<body>
+<h1>Your Business Plans</h1>
+<div th:replace="/fragments/header :: header"></div>
+<div th:replace="/fragments/sidebar :: sidebar"></div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Plan ID</th>
+        <th>Company Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="plan : ${businessPlans}">
+        <td th:text="${plan.id}"></td>
+        <td th:text="${plan.companyName}"></td>
+        <td th:text="${plan.status}"></td>
+        <td>
+            <a th:href="@{/business-plan/company-description(planId=${plan.id})}">Resume</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

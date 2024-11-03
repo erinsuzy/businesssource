@@ -15,7 +15,7 @@
   <h1>Company Description</h1>
 
     <form th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
-    <input type="th:field="${businessPlan.id}" />
+      <input type="hidden" name="planId" th:value="${businessPlan.id}" />
     <div>
       <label for="companyDescription">Company Description</label>
       <textarea id="companyDescription" th:field="${businessPlan.companyDescription}"
@@ -27,8 +27,13 @@
     </div>
 
 
-    <button type="submit">Save and Continue</button>
-  </form>
+
+
+        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+      </form>
+
+    </form>
 </div>
   </html>
 

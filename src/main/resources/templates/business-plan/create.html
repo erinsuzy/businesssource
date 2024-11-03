@@ -22,7 +22,8 @@
         <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
             <label for="companyName">Business Name:</label>
             <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your business name">
-            <button type="submit">Save and Continue</button>
+            <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+            <button type="submit" name="saveOption" value="exit">Save and Exit</button>
         </form>
 
     </div>

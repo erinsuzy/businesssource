@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +24,11 @@ public class BusinessPlanService {
     public Optional<BusinessPlan> findById(Long id) {
         return businessPlanRepository.findById(id);
     }
+
+    public List<BusinessPlan> findAll() {
+        return businessPlanRepository.findAll();
+    }
+
 }
 
 

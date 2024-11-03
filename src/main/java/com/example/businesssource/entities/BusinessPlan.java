@@ -44,6 +44,11 @@ public class BusinessPlan {
     @Column(columnDefinition = "TEXT")
     private String appendix;
 
+    @Column(nullable = false)
+    private String status = "draft"; // Default status is "draft"
+
+
+
     @CreationTimestamp
     private Timestamp createdAt;
     @UpdateTimestamp
@@ -52,7 +57,7 @@ public class BusinessPlan {
 
 
 
-    public BusinessPlan(Long id, String companyName, String companyDescription, String missionStatement, String marketAnalysis, String organizationManagement, String productsServices, String marketingStrategy, String fundingRequest, String financialProjections, String appendix, Timestamp createdAt, Timestamp updatedAt) {
+    public BusinessPlan(Long id, String companyName, String companyDescription, String missionStatement, String marketAnalysis, String organizationManagement, String productsServices, String marketingStrategy, String fundingRequest, String financialProjections, String appendix, Timestamp createdAt, Timestamp updatedAt, String status) {
         this.id = id;
         this.companyName = companyName;
         this.companyDescription = companyDescription;
@@ -66,6 +71,7 @@ public class BusinessPlan {
         this.appendix = appendix;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.status = status;
     }
 
     public BusinessPlan() {
@@ -173,6 +179,14 @@ public class BusinessPlan {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 

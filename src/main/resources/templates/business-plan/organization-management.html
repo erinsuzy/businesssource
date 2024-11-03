@@ -13,7 +13,7 @@
 
     <h1>Organization and Management</h1>
     <form action="#" th:action="@{/business-plan/organization-management}" th:object="${businessPlan}" method="post">
-        <input type="hidden" th:field="${businessPlan.id}" />
+        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
      <div>
          <label for="managementStructure">Management Structure:</label>
             <textarea id="managementStructure" th:field="${businessPlan.organizationManagement}" placeholder="Describe the management structure" required></textarea>
@@ -21,7 +21,8 @@
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>
         </div>
-        <button type="submit">Save and Continue</button>
+        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
     </form>
 </div>
 </body>
