@@ -75,6 +75,23 @@ button:hover {
     color: white;
 }
 
+.action-button {
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Ensures the "Export as PDF" link looks like a button */
+    display: inline-block;
+    margin: 10px; /* Space between buttons if there are multiple */
+}
+
+.action-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
 /* Form input fields */
 input[type="text"], input[type="password"], textarea {
     width: 100%;
@@ -247,13 +264,24 @@ a:hover {
     }
 
 @media print {
-    .app-header, .app-footer {
-        display: none; /* Hides header and footer */
+    /* Hide header, footer, and sidebar */
+    .app-header, .app-footer, .sidebar {
+        display: none;
     }
-    body {
+
+    /* Adjust the main content to fill the full width */
+    .main-content {
         margin: 0;
         padding: 20px;
+        width: 100%; /* Ensures it takes up the full printable area */
+    }
+
+    /* Adjust other elements as needed */
+    body {
+        margin: 0;
     }
 }
+
+
 
 

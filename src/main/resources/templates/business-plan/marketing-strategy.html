@@ -12,7 +12,7 @@
 <div class="main-content">
     <h1>Marketing Strategy</h1>
     <form action="#" th:action="@{/business-plan/marketing-strategy}" th:object="${businessPlan}" method="post">
-        <input type="hidden" th:field="${businessPlan.id}" />
+        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
         <div>
             <label for="marketingStrategy">Products/Services:</label>
             <textarea id="marketingStrategy" th:field="${businessPlan.marketingStrategy}" placeholder="Plan your marketing strategy" required></textarea>

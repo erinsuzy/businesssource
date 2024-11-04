@@ -2,6 +2,7 @@ package com.example.businesssource.controllers;
 
 import com.example.businesssource.entities.BusinessPlan;
 import com.example.businesssource.services.BusinessPlanService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -362,6 +365,18 @@ public class BusinessPlanController {
         return "redirect:/business-plan/dashboard";
     }
 
+    @GetMapping("/export")
+    public void exportBusinessPlanToPdf(@RequestParam Long planId, HttpServletResponse response) throws IOException {
+        BusinessPlan businessPlan = businessPlanService.findBusinessPlanById(planId);
+
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=business_plan.pdf");
+        OutputStream outputStream = response.getOutputStream();
+        businessPlanService.generatePdf(businessPlan, outputStream);
+        outputStream.close();
+    }
+
+
 
 
     @GetMapping("/resume/{id}")
@@ -375,6 +390,22 @@ public class BusinessPlanController {
             model.addAttribute("error", "Business plan not found.");
             return "redirect:/dashboard";
         }
+    }
+    @PostMapping("/mark-completed")
+    public String markAsCompleted(@RequestParam Long planId, RedirectAttributes redirectAttributes) {
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
+
+        if (optionalPlan.isPresent()) {
+            BusinessPlan businessPlan = optionalPlan.get();
+            businessPlan.setStatus("COMPLETED");
+            businessPlanService.save(businessPlan); // Save the updated status
+
+            redirectAttributes.addFlashAttribute("successMessage", "Business plan marked as completed!");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+        }
+
+        return "redirect:/business-plan/review?planId=" + planId;
     }
 
 }

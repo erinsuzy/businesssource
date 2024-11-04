@@ -9,7 +9,7 @@
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
 
 <div class="main-content">
-    <h1>Review Your Business Plan</h1>
+    <h1>Business Plan</h1>
     <input type="hidden" name="planId" th:value="${businessPlan.id}" />
 
     <div>
@@ -42,21 +42,29 @@
     </div>
 
     <div>
+        <h2><a th:href="@{/business-plan/financial-projections(planId=${businessPlan.id})}">Financial Projections</a></h2>
+        <p th:text="${businessPlan.financialProjections}"></p>
+    </div>
+
+    <div>
         <h2><a th:href="@{/business-plan/funding-request(planId=${businessPlan.id})}">Funding Request</a></h2>
         <p th:text="${businessPlan.fundingRequest}"></p>
     </div>
 
-    <div>
-        <h2><a th:href="@{/business-plan/financial-projections(planId=${businessPlan.id})}">Financial Projections</a></h2>
-        <p th:text="${businessPlan.financialProjections}"></p>
-    </div>
+    <form th:action="@{/business-plan/mark-completed}" method="post" style="display: inline;">
+        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
+        <button type="submit" class="action-button">Mark as Completed</button>
+    </form>
 
     <div th:if="${errorMessage}" class="error-message">
         <p th:text="${errorMessage}"></p>
     </div>
 
-    <button type="button" onclick="window.print()">Print Business Plan</button>
-    <button type="button" onclick="location.href='/business-plan/export'">Export as PDF</button>
+    <button type="button" class="action-button" onclick="window.print()">Print Business Plan</button>
+    <a th:href="@{/business-plan/export(planId=${businessPlan.id})}" class="action-button">Export as PDF</a>
+
+
+
 </div>
 </body>
 </html>
