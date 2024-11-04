@@ -1,0 +1,30 @@
+<!-- src/main/resources/templates/business-plan/market-analysis.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Market Analysis</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+<body>
+<div class="main-content">
+
+    <h1>Market Analysis</h1>
+    <form action="#" th:action="@{/business-plan/market-analysis}" th:object="${businessPlan}" method="post">
+        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
+        <div>
+            <label for="marketOverview">Market Overview:</label>
+            <textarea id="marketOverview" th:field="${businessPlan.marketAnalysis}" placeholder="Provide an overview of the market" required></textarea>
+        </div>
+
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+    </form>
+</div>
+</body>
+</html>

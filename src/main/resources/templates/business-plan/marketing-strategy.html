@@ -1,0 +1,28 @@
+<!-- src/main/resources/templates/business-plan/marketing-strategy.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Marketing Strategy</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+
+<div class="main-content">
+    <h1>Marketing Strategy</h1>
+    <form action="#" th:action="@{/business-plan/marketing-strategy}" th:object="${businessPlan}" method="post">
+        <input type="hidden" th:field="${businessPlan.id}" />
+        <div>
+            <label for="marketingStrategy">Products/Services:</label>
+            <textarea id="marketingStrategy" th:field="${businessPlan.marketingStrategy}" placeholder="Plan your marketing strategy" required></textarea>
+        </div>
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+    </form>
+</div>
+</body>
+</html>

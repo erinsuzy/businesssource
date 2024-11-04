@@ -1,0 +1,29 @@
+<!-- src/main/resources/templates/business-plan/products-services.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Products and Services</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+
+<div class="main-content">
+
+    <h1>Products and Services</h1>
+    <form action="#" th:action="@{/business-plan/products-services}" th:object="${businessPlan}" method="post">
+        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
+        <div>
+            <label for="productsServices">Products/Services:</label>
+            <textarea id="productsServices" th:field="${businessPlan.productsServices}" placeholder="Describe your products or services" required></textarea>
+        </div>
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+    </form>
+</div>
+</body>
+</html>
