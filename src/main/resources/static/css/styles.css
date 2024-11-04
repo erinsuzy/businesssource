@@ -9,14 +9,15 @@ body {
 
 /* Sidebar navigation */
 .sidebar {
-    height: 100vh;
-    width: 250px;
     position: fixed;
-    top: 0;
+    top: 100px; /* Matches header height */
     left: 0;
+    width: 250px;
+    height: calc(100vh - 100px); /* Adjust for the header height */
     background-color: #1a1a1a;
     padding-top: 20px;
 }
+
 
 .sidebar a {
     padding: 15px 20px;
@@ -31,11 +32,12 @@ body {
     color: #fff;
 }
 
-/* Main content */
 .main-content {
-    margin-left: 260px; /* Adjusted for sidebar width */
+    margin-left: 260px; /* Adjust for sidebar width */
+    margin-top: 100px; /* Matches header height */
     padding: 20px;
 }
+
 
 h1, h2, h3 {
     color: #1a1a1a;
@@ -91,98 +93,167 @@ a {
 
 a:hover {
     color: #a6e22e;
-}
 
-/* New header styles */
-.header {
+}
+    /* App Name Styling */
+
+    .app-name {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #a6e22e;
+        text-decoration: none;
+        margin: 0;
+    }
+
+    .app-name:hover {
+        color: #7fbf19; /* Hover color for app name */
+    }
+
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: #1a1a1a;
-    padding: 10px 0;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligns items to the left */
+    z-index: 1000;
 }
 
-.header nav ul {
+.app-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #a6e22e;
+    text-decoration: none;
+    margin-right: 40px; /* Space between app name and links */
+}
+
+.app-header nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-around;
+    gap: 15px; /* Space between links */
 }
 
-.header nav ul li {
+.app-header nav ul li {
     display: inline;
 }
 
-.header nav ul li a {
+.app-header nav ul li a {
     color: #a6e22e;
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 10px 15px;
     font-size: 18px;
 }
 
-.header nav ul li a:hover {
-    color: #fff;
-    background-color: #333;
-}
-/* App Header Styling */
-header {
-    height: 100px; /* or adjust as needed */
-    padding: 20px;
-    background-color: #1a1a1a;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.app-header h1 {
-    font-size: 36px;
-    color: #a6e22e; /* Matches your color scheme */
-    margin: 0;
-    font-weight: bold;
-}
 
 .feature-box-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-.feature-box {
-    background-color: #fff;
-    border: 2px solid #a6e22e;
-    border-radius: 8px;
-    padding: 20px;
-    width: 200px;
-    text-align: center;
-    margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-.feature-box-container a.feature-box:hover {
-    background-color: #e0e8e0; /* Slightly darker shade of light color */
-    transform: scale(1.05); /* Keeps the slight scale effect */
-}
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 120px; /* Adjust based on the header height */
+    }
 
 
-.feature-box h3 {
-    color: #1a1a1a;
-    font-size: 20px;
-    margin-bottom: 10px;
-}
+    .feature-box {
+        background-color: #fff;
+        border: 2px solid #a6e22e;
+        border-radius: 8px;
+        padding: 20px;
+        width: 200px;
+        text-align: center;
+        margin: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.2s;
+    }
 
-.feature-box p {
-    color: #333;
-    font-size: 16px;
-}
+    .feature-box-container a.feature-box:hover {
+        background-color: #e0e8e0; /* Slightly darker shade of light color */
+        transform: scale(1.05); /* Keeps the slight scale effect */
+    }
 
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    margin-bottom: 15px;
+
+    .feature-box h3 {
+        color: #1a1a1a;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .feature-box p {
+        color: #333;
+        font-size: 16px;
+    }
+
+    .error-message {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .create-plan-button {
+        background-color: #a6e22e;
+        color: #1a1a1a;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .create-plan-button:hover {
+        background-color: #7fbf19;
+        color: white;
+    }
+
+    /* Style for Resume and Delete buttons */
+
+    .resume-plan-button, .delete-plan-button {
+        padding: 8px 15px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+    }
+
+    /* Specific colors for each button */
+
+    .resume-plan-button {
+        background-color: #4CAF50; /* Green color */
+    }
+
+    .resume-plan-button:hover {
+        background-color: #45a049;
+    }
+
+    .delete-plan-button {
+        background-color: #ff4d4d; /* Red color */
+    }
+
+    .delete-plan-button:hover {
+        background-color: #ff1a1a;
+    }
+
+@media print {
+    .app-header, .app-footer {
+        display: none; /* Hides header and footer */
+    }
+    body {
+        margin: 0;
+        padding: 20px;
+    }
 }
 
 

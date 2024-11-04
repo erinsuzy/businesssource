@@ -3,6 +3,7 @@ package com.example.businesssource.controllers;
 import com.example.businesssource.entities.BusinessPlan;
 import com.example.businesssource.services.BusinessPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -353,6 +354,27 @@ public class BusinessPlanController {
         List<BusinessPlan> businessPlans = businessPlanService.findAll(); // Assumes you have a findAll() method in the service
         model.addAttribute("businessPlans", businessPlans);
         return "business-plan/dashboard"; // Create a Thymeleaf template with this name
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteBusinessPlan(@PathVariable Long id) {
+        businessPlanService.deleteBusinessPlan(id);
+        return "redirect:/business-plan/dashboard";
+    }
+
+
+
+    @GetMapping("/resume/{id}")
+    public String resumeBusinessPlan(@PathVariable Long id, Model model) {
+        BusinessPlan existingPlan = businessPlanService.findBusinessPlanById(id);
+        if (existingPlan != null) {
+            model.addAttribute("businessPlan", existingPlan);
+            return "business-plan/review"; // Make sure this points to your edit view
+        } else {
+            // Handle case where the plan doesn't exist
+            model.addAttribute("error", "Business plan not found.");
+            return "redirect:/dashboard";
+        }
     }
 
 }

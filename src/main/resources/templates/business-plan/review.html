@@ -1,54 +1,60 @@
-<!-- src/main/resources/templates/business-plan/review.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Review Business Plan</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-
 </head>
-<div th:replace="/fragments/header :: header"></div>
-<div th:replace="/fragments/sidebar :: sidebar"></div>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
 
 <div class="main-content">
     <h1>Review Your Business Plan</h1>
     <input type="hidden" name="planId" th:value="${businessPlan.id}" />
-
 
     <div>
         <h2>Company Name</h2>
         <p th:text="${businessPlan.companyName}"></p>
     </div>
     <div>
-        <h2>Mission Statement</h2>
-        <p th:text="${businessPlan.missionStatement}"></p>
+        <h2><a th:href="@{/business-plan/company-description(planId=${businessPlan.id})}">Company Description</a></h2>
+        <p th:text="${businessPlan.companyDescription}"></p>
     </div>
+
     <div>
-        <h2>Market Analysis</h2>
+        <h2><a th:href="@{/business-plan/market-analysis(planId=${businessPlan.id})}">Market Analysis</a></h2>
         <p th:text="${businessPlan.marketAnalysis}"></p>
     </div>
+
     <div>
-        <h2>Organization and Management</h2>
+        <h2><a th:href="@{/business-plan/organization-management(planId=${businessPlan.id})}">Organization and Management</a></h2>
         <p th:text="${businessPlan.organizationManagement}"></p>
     </div>
+
     <div>
-        <h2>Products and Services</h2>
+        <h2><a th:href="@{/business-plan/products-services(planId=${businessPlan.id})}">Products and Services</a></h2>
         <p th:text="${businessPlan.productsServices}"></p>
     </div>
+
     <div>
-        <h2>Marketing Strategy</h2>
+        <h2><a th:href="@{/business-plan/marketing-strategy(planId=${businessPlan.id})}">Marketing Strategy</a></h2>
         <p th:text="${businessPlan.marketingStrategy}"></p>
     </div>
+
     <div>
-        <h2>Funding Request</h2>
+        <h2><a th:href="@{/business-plan/funding-request(planId=${businessPlan.id})}">Funding Request</a></h2>
         <p th:text="${businessPlan.fundingRequest}"></p>
     </div>
+
     <div>
-        <h2>Financial Projections</h2>
+        <h2><a th:href="@{/business-plan/financial-projections(planId=${businessPlan.id})}">Financial Projections</a></h2>
         <p th:text="${businessPlan.financialProjections}"></p>
     </div>
+
     <div th:if="${errorMessage}" class="error-message">
         <p th:text="${errorMessage}"></p>
     </div>
+
     <button type="button" onclick="window.print()">Print Business Plan</button>
     <button type="button" onclick="location.href='/business-plan/export'">Export as PDF</button>
 </div>

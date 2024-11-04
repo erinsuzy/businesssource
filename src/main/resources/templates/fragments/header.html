@@ -1,13 +1,23 @@
-<div th:fragment="header" class = "header">
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>PetCare Pro</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header th:fragment="header" class="app-header">
+    <a href="/" class="app-name">PetCare Pro</a>
     <nav>
         <ul>
-            <header class="app-header">
-                <h1>PetCare Pro</h1>
-            </header>
-            <li><a th:href="@{/business-plan}">Business Plan</a></li>
+            <li><a th:href="@{/business-plan/dashboard}">Business Plan</a></li>
             <li><a th:href="@{/business-name}">Business Name</a></li>
             <li><a th:href="@{/business-forms}">Business Forms</a></li>
             <li><a th:href="@{/resources}">Resources</a></li>
         </ul>
     </nav>
-</div>
+</header>
+</body>
+</html>
+

@@ -29,7 +29,19 @@ public class BusinessPlanService {
         return businessPlanRepository.findAll();
     }
 
+    public void deleteBusinessPlan(Long id) {
+        if (businessPlanRepository.existsById(id)) {
+            businessPlanRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Business plan with ID " + id + " does not exist.");
+        }
+    }
+
+    public BusinessPlan findBusinessPlanById(Long id) {
+        return businessPlanRepository.findById(id).orElse(null);
+    }
 }
+
 
 
 
