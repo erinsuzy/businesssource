@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Question 1</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+<div th:replace="~{/fragments/header :: header}"></div>
+
+<div id="quiz-container">
+    <h2 id="question-title">Question 1 of 5</h2>
+    <p id="question-text">Do you want a full-time or part-time commitment?</p>
+    <form id="quiz-form">
+        <label>
+            <input type="radio" name="answer" value="option1" />
+            Full-time is great!
+        </label><br />
+        <label>
+            <input type="radio" name="answer" value="option2" />
+            Part-time works best for me
+        </label><br />
+        <label>
+            <input type="radio" name="answer" value="option3" />
+            I'm cool with either
+        </label>
+    </form>
+    <div class="quiz-navigation">
+        <button id="prev-btn" disabled>Previous</button>
+        <button id="next-btn">Next</button>
+    </div>
+</div>
