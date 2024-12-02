@@ -116,8 +116,19 @@ submitBtn.addEventListener("click", () => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadQuestion(currentQuestionIndex); // Initialize quiz
+    console.log("Quiz loaded"); // Debugging: Check if this runs
+
+    // Debugging: Log each element to check if they are correctly selected
+    console.log("Question Title:", document.getElementById("question-title"));
+    console.log("Question Text:", document.getElementById("question-text"));
+    console.log("Quiz Form:", document.getElementById("quiz-form"));
+    console.log("Previous Button:", document.getElementById("prev-btn"));
+    console.log("Next Button:", document.getElementById("next-btn"));
+    console.log("Submit Button:", document.getElementById("submit-btn"));
+
+    loadQuestion(currentQuestionIndex); // Initialize the quiz
 });
+
 
 
 function calculateResults(userAnswers) {

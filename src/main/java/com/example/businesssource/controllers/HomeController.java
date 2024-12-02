@@ -42,7 +42,7 @@ public class HomeController {
 
         @GetMapping("/quiz")
         public String showQuizPage() {
-            return "quiz/questions"; // Points to Thymeleaf template quiz.html
+            return "questions"; // Points to Thymeleaf template quiz.html
         }
 
         @GetMapping("/")
