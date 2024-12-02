@@ -23,6 +23,8 @@ public class User {
 
     private String firstName;
     private String lastName;
+    private boolean hasCompletedQuiz = false;
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -32,13 +34,14 @@ public class User {
     // Constructors, getters, and setters
     public User() {}
 
-    public User(String username, String password, String email, String firstName, String lastName, Set<String> roles) {
+    public User(String username, String password, String email, String firstName, String lastName, Set<String> roles, boolean hasCompletedQuiz) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.roles = roles;
+        this.hasCompletedQuiz = hasCompletedQuiz;
     }
 
     // Getters and setters for all fields
@@ -97,5 +100,13 @@ public class User {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public boolean isHasCompletedQuiz() {
+        return hasCompletedQuiz;
+    }
+
+    public void setHasCompletedQuiz(boolean hasCompletedQuiz) {
+        this.hasCompletedQuiz = hasCompletedQuiz;
     }
 }

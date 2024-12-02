@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Quiz</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div id="quiz-container">
+    <h2 id="question-title"></h2>
+    <p id="question-text"></p>
+    <form id="quiz-form"></form>
+    <div class="quiz-navigation">
+        <button id="prev-btn" disabled>Previous</button>
+        <button id="next-btn">Next</button>
+        <button id="submit-btn" style="display: none;">Submit</button>
+    </div>
+</div>
+
+<script src="/quiz/quiz.js"></script>
+</body>
+</html>
