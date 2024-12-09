@@ -24,6 +24,7 @@ public class User {
     private String firstName;
     private String lastName;
     private boolean hasCompletedQuiz = false;
+    private String quizResult;
 
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -34,7 +35,7 @@ public class User {
     // Constructors, getters, and setters
     public User() {}
 
-    public User(String username, String password, String email, String firstName, String lastName, Set<String> roles, boolean hasCompletedQuiz) {
+    public User(String username, String password, String email, String firstName, String lastName, Set<String> roles, boolean hasCompletedQuiz, String quizResult) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -42,9 +43,19 @@ public class User {
         this.lastName = lastName;
         this.roles = roles;
         this.hasCompletedQuiz = hasCompletedQuiz;
+        this.quizResult = quizResult;
     }
 
-    // Getters and setters for all fields
+
+    public String getQuizResult() {
+        return quizResult;
+    }
+
+    public void setQuizResult(String quizResult) {
+        this.quizResult = quizResult;
+    }
+
+
 
     public Long getId() {
         return id;

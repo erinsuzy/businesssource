@@ -5,76 +5,75 @@ const questions = [
             { answer: "Full-time", categories: ["Trainer", "Groomer"] },
             { answer: "Part-time", categories: ["Sitter", "Walker"] },
             { answer: "Don't know yet", categories: ["Photographer"] }
-                ]
+        ]
     },
     {
         text: "What is your budget for starting your business?",
         options: [
-            { answer: "I'm looking for something with minimal upfront costs", categories: ["Walker", "Sitter"] },
-            { answer: "I'm ok with a moderate investment to get started", categories: ["Photographer"] },
-            { answer: "I'm ready to make a significant investment in equipment or setup", categories: ["Trainer", "Groomer"] }
-            ]
+            { answer: "Minimal upfront costs", categories: ["Walker", "Sitter"] },
+            { answer: "Moderate investment", categories: ["Photographer"] },
+            { answer: "Significant investment", categories: ["Trainer", "Groomer"] }
+        ]
     },
     {
         text: "Do you have a flexible schedule to dedicate to your business?",
         options: [
-            { answer: "I have a highly flexible schedule and can work at different times throughout the day", categories: ["Walker", "Trainer"] },
-            { answer: "I have some flexibility but prefer set hours for my workday", categories: ["Groomer", "Photographer"] },
-            { answer: "I need a consistent, predictable schedule for my work", categories: ["Sitter"] }
-            ]
+            { answer: "Highly flexible", categories: ["Walker", "Trainer"] },
+            { answer: "Some flexibility", categories: ["Groomer", "Photographer"] },
+            { answer: "Consistent schedule", categories: ["Sitter"] }
+        ]
     },
     {
-        text: "Are you willing to take courses or training to prepare for your business? (Education is essential for groomers and trainers.)",
+        text: "Are you willing to take courses or training to prepare for your business?",
         options: [
-            { answer: "Yes, I’m open to taking courses or getting certifications if needed", categories: ["Trainer", "Groomer"] },
-            { answer: "Maybe, but I’d prefer a business that doesn’t need extensive training", categories: ["Photographer"] },
-            { answer: "No, I want a business I can start without additional training", categories: ["Sitter", "Walker"] }
-            ]
+            { answer: "Yes", categories: ["Trainer", "Groomer"] },
+            { answer: "Maybe", categories: ["Photographer"] },
+            { answer: "No", categories: ["Sitter", "Walker"] }
+        ]
     },
     {
-        text: "How comfortable are you with customer service and frequent communication with clients?",
+        text: "How comfortable are you with customer service?",
         options: [
-            { answer: "I’m very comfortable and enjoy interacting with clients regularly", categories: ["Trainer", "Sitter"] },
-            { answer: "I’m okay with some communication but prefer to keep it moderate", categories: ["Walker"] },
-            { answer: "I prefer minimal client interaction and would rather focus on the work itself", categories: ["Photographer", "Groomer"] }
-            ]
+            { answer: "Very comfortable", categories: ["Trainer", "Sitter"] },
+            { answer: "Moderately comfortable", categories: ["Walker"] },
+            { answer: "Prefer minimal interaction", categories: ["Photographer", "Groomer"] }
+        ]
     }
 ];
 
 let currentQuestionIndex = 0;
 const answers = [];
 
-const questionTitle = document.getElementById("question-title");
-const questionText = document.getElementById("question-text");
-const quizForm = document.getElementById("quiz-form");
-const prevBtn = document.getElementById("prev-btn");
-const nextBtn = document.getElementById("next-btn");
-const submitBtn = document.getElementById("submit-btn");
+const elements = {
+    questionTitle: document.getElementById("question-title"),
+    questionText: document.getElementById("question-text"),
+    quizForm: document.getElementById("quiz-form"),
+    prevBtn: document.getElementById("prev-btn"),
+    nextBtn: document.getElementById("next-btn"),
+    submitBtn: document.getElementById("submit-btn")
+};
 
+// Load a question based on its index
 function loadQuestion(index) {
     const question = questions[index];
-    questionTitle.textContent = `Question ${index + 1} of ${questions.length}`;
-    questionText.textContent = question.text;
+    elements.questionTitle.textContent = `Question ${index + 1} of ${questions.length}`;
+    elements.questionText.textContent = question.text;
 
-    quizForm.innerHTML = question.options
-        .map(
-            (option, i) =>
-                `<label>
-                    <input type="radio" name="answer" value="${option.answer}" ${
-                    answers[index] === option.answer ? "checked" : ""
-                } />
-                    ${option.answer}
-                 </label><br />`
-        )
+    elements.quizForm.innerHTML = question.options
+        .map((option, i) => `
+            <label>
+                <input type="radio" name="answer" value="${option.answer}" ${answers[index] === option.answer ? "checked" : ""} />
+                ${option.answer}
+            </label><br />
+        `)
         .join("");
 
-    prevBtn.disabled = index === 0;
-    nextBtn.style.display = index === questions.length - 1 ? "none" : "inline-block";
-    submitBtn.style.display = index === questions.length - 1 ? "inline-block" : "none";
+    elements.prevBtn.disabled = index === 0;
+    elements.nextBtn.style.display = index === questions.length - 1 ? "none" : "inline-block";
+    elements.submitBtn.style.display = index === questions.length - 1 ? "inline-block" : "none";
 }
 
-
-
+// Save the selected answer
 function saveAnswer() {
     const selectedOption = document.querySelector('input[name="answer"]:checked');
     if (selectedOption) {
@@ -84,56 +83,16 @@ function saveAnswer() {
     }
 }
 
-
-prevBtn.addEventListener("click", () => {
+// Navigate to the next or previous question
+function handleNavigation(direction) {
     saveAnswer();
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        loadQuestion(currentQuestionIndex);
-    }
-});
+    currentQuestionIndex += direction;
+    loadQuestion(currentQuestionIndex);
+}
 
-nextBtn.addEventListener("click", () => {
-    saveAnswer();
-    if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        loadQuestion(currentQuestionIndex);
-    }
-});
-
-submitBtn.addEventListener("click", () => {
-    saveAnswer();
-    const result = calculateResults(answers);
-
-    // Convert result to query string
-    const resultParam = encodeURIComponent(
-        Array.isArray(result) ? result.join(",") : result
-    );
-
-    // Redirect to results page
-    window.location.href = `/results.html?result=${resultParam}`;
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("Quiz loaded"); // Debugging: Check if this runs
-
-    // Debugging: Log each element to check if they are correctly selected
-    console.log("Question Title:", document.getElementById("question-title"));
-    console.log("Question Text:", document.getElementById("question-text"));
-    console.log("Quiz Form:", document.getElementById("quiz-form"));
-    console.log("Previous Button:", document.getElementById("prev-btn"));
-    console.log("Next Button:", document.getElementById("next-btn"));
-    console.log("Submit Button:", document.getElementById("submit-btn"));
-
-    loadQuestion(currentQuestionIndex); // Initialize the quiz
-});
-
-
-
+// Calculate quiz results
 function calculateResults(userAnswers) {
     const categoryScores = {};
-
     userAnswers.forEach((answer, index) => {
         const selectedOption = questions[index].options.find(opt => opt.answer === answer);
         if (selectedOption) {
@@ -142,16 +101,39 @@ function calculateResults(userAnswers) {
             });
         }
     });
-
-    // Get all categories with the highest score
     const maxScore = Math.max(...Object.values(categoryScores));
-    const bestMatches = Object.keys(categoryScores).filter(
-        category => categoryScores[category] === maxScore
-    );
-
-    // Return the best match or matches
-    return bestMatches.length > 1 ? bestMatches : bestMatches[0];
+    return Object.keys(categoryScores).filter(category => categoryScores[category] === maxScore);
 }
+
+// Save a cookie
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+}
+
+// Event listeners
+elements.prevBtn.addEventListener("click", () => handleNavigation(-1));
+elements.nextBtn.addEventListener("click", () => handleNavigation(1));
+
+elements.submitBtn.addEventListener("click", () => {
+    saveAnswer();
+    const results = calculateResults(answers);
+    const resultParam = encodeURIComponent(results.join(","));
+
+    // Save quiz completion in a cookie
+    setCookie("quizCompleted", "true", 30);
+
+    // Redirect to results page
+    window.location.href = `/results?result=${resultParam}`;
+});
+
+// Initialize quiz
+document.addEventListener("DOMContentLoaded", () => {
+    loadQuestion(currentQuestionIndex);
+});
+
+
 
 
 

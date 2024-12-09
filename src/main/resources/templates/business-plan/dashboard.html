@@ -5,9 +5,11 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Your Business Plans</title>
 </head>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
 <body>
 
-<div th:replace="~{/fragments/header :: header}"></div>
+
 <div class="dashboard-content">
     <h1>Your Business Plans</h1>
 
@@ -35,6 +37,8 @@
                 <a th:href="@{/business-plan/resume/{planId}(planId=${plan.id})}" class="resume-plan-button">Resume</a>
                 <form th:action="@{/business-plan/delete/{id}(id=${plan.id})}" method="post" onsubmit="return confirm('Are you sure you want to delete this business plan?');" style="display: inline;">
                     <button type="submit" class="delete-plan-button">Delete</button>
+
+
                 </form>
             </td>
         </tr>

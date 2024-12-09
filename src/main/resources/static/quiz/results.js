@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const result = urlParams.get("result");
 
-    // Split result into an array if needed
+    // Split result into an array if present
     const resultArray = result ? result.split(",") : [];
 
     // Elements for displaying results
@@ -11,16 +11,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const recommendationsDiv = document.getElementById("recommendations");
 
     if (resultArray.length > 0) {
-        // Display the primary result
-        if (resultArray.length > 1) {
-            resultText.textContent = `Your best matches are: ${resultArray.join(", ")}`;
-        } else {
-            resultText.textContent = `Your best match is: ${resultArray[0]}`;
-        }
+        // Display the primary result(s)
+        resultText.textContent = resultArray.length > 1
+            ? `Your best matches are: ${resultArray.join(", ")}`
+            : `Your best match is: ${resultArray[0]}`;
 
-        // Add recommendations based on the result
+        // Generate and display recommendations
         const recommendations = getRecommendations(resultArray);
         recommendationsDiv.innerHTML = recommendations.map(rec => `<p>${rec}</p>`).join("");
+
+        // Save quiz completion status in a cookie
+        setCookie("quizCompleted", "true", 30); // Save for 30 days
     } else {
         resultText.textContent = "No result found. Please take the quiz again.";
     }
@@ -39,3 +40,21 @@ function getRecommendations(resultArray) {
     return resultArray.map(category => recommendationDetails[category] || "No recommendation available.");
 }
 
+// Utility function to set a cookie
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = `${name}=${value};${expires};path=/`;
+}
+
+// Utility function to get a cookie
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}

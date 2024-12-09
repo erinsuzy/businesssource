@@ -3,53 +3,45 @@ package com.example.businesssource.controllers;
 import com.example.businesssource.entities.User;
 import com.example.businesssource.services.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
-    private final UserService userService;
 
-    public HomeController(UserService userService) {
-        this.userService = userService;
+    @GetMapping("/")
+    public String handleHomePage(HttpSession session) {
+        Boolean hasCompletedQuiz = (Boolean) session.getAttribute("quizCompleted");
+        if (hasCompletedQuiz == null || !hasCompletedQuiz) {
+            return "redirect:/quiz"; // Redirect to quiz if not completed
+        }
+        return "home"; // Render home.html
     }
 
-  /*  @GetMapping("/")
-        public String handleHomePage(HttpSession session) {
+    @GetMapping("/quiz/results")
+    public String showResultsPage(HttpSession session, Model model) {
+        Boolean quizCompleted = (Boolean) session.getAttribute("quizCompleted");
+        String quizResult = (String) session.getAttribute("quizResult");
 
-        User user = userService.getCurrentUser(session);
-            if (user != null) {
-                if (!user.isHasCompletedQuiz()) {
-                    return "redirect:/quiz";
-                }
-                return "redirect:/dashboard";
-            }
-            return "redirect:/login";
-        }
-
-        @PostMapping("/quiz/complete")
-        public String completeQuiz(HttpSession session) {
-            User user = userService.getCurrentUser(session);
-            if (user != null) {
-                user.setHasCompletedQuiz(true);
-                userService.save(user);
-            }
-            return "redirect:/dashboard";
-        }*/
-
-
-
-        @GetMapping("/quiz")
-        public String showQuizPage() {
-            return "questions"; // Points to Thymeleaf template quiz.html
-        }
-
-        @GetMapping("/")
-        public String redirectToQuiz() {
-            return "redirect:/quiz";
+        if (quizCompleted != null && quizCompleted) {
+            model.addAttribute("quizResult", quizResult);
+            return "results"; // Show results page
+        } else {
+            return "redirect:/quiz"; // Redirect to quiz if not completed
         }
     }
+
+
+    @GetMapping("/quiz")
+    public String showQuizPage() {
+        return "questions"; // Render the template
+    }
+}
+
 
 
 

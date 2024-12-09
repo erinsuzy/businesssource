@@ -1,8 +1,11 @@
 package com.example.businesssource.controllers;
 
 import com.example.businesssource.entities.BusinessPlan;
+import com.example.businesssource.entities.User;
 import com.example.businesssource.services.BusinessPlanService;
+import com.example.businesssource.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,8 +24,11 @@ public class BusinessPlanController {
 
     private final BusinessPlanService businessPlanService;
 
-    public BusinessPlanController(BusinessPlanService businessPlanService) {
+    private final UserService userService;
+
+    public BusinessPlanController(BusinessPlanService businessPlanService, UserService userService) {
         this.businessPlanService = businessPlanService;
+        this.userService = userService;
     }
     @GetMapping("/create")
     public String createBusinessPlan(Model model) {
@@ -353,10 +359,20 @@ public class BusinessPlanController {
     }
 
     @GetMapping("/dashboard")
-    public String viewDashboard(Model model) {
-        List<BusinessPlan> businessPlans = businessPlanService.findAll(); // Assumes you have a findAll() method in the service
-        model.addAttribute("businessPlans", businessPlans);
-        return "business-plan/dashboard"; // Create a Thymeleaf template with this name
+    public String showDashboard(HttpSession session, Model model) {
+        try {
+            User currentUser = userService.getCurrentUser(session);
+            model.addAttribute("user", currentUser);
+            // Add additional attributes related to the business plan
+            return "dashboard";
+        } catch (IllegalStateException e) {
+            // Redirect to login if no user is logged in
+            return "redirect:/login";
+        } catch (RuntimeException e) {
+            // Handle unexpected errors (e.g., user deleted from the database)
+            model.addAttribute("error", "An unexpected error occurred. Please log in again.");
+            return "error";
+        }
     }
 
     @PostMapping("/delete/{id}")
