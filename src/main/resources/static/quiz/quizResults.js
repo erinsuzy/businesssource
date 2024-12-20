@@ -2,9 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get the result from the query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const result = urlParams.get("result");
+    console.log("Full URL Parameters:", window.location.search); // Debugging
+    console.log("Parsed Result Parameter:", result); // Debugging
 
     // Split result into an array if present
     const resultArray = result ? result.split(",") : [];
+    console.log("Parsed Result Array:", resultArray); // Debugging
 
     // Elements for displaying results
     const resultText = document.getElementById("result-text");
@@ -18,23 +21,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Generate and display recommendations
         const recommendations = getRecommendations(resultArray);
+        console.log("Generated Recommendations:", recommendations); // Debugging
+
         recommendationsDiv.innerHTML = recommendations.map(rec => `<p>${rec}</p>`).join("");
 
-        // Save quiz completion status in a cookie
-        setCookie("quizCompleted", "true", 30); // Save for 30 days
+        // Save quiz completion in a cookie
+        setCookie("quizCompleted", "true", 30);
     } else {
-        resultText.textContent = "No result found. Please take the quiz again.";
+        resultText.textContent = "No quiz results found. Please retake the quiz.";
     }
 });
 
 // Function to provide detailed recommendations
 function getRecommendations(resultArray) {
     const recommendationDetails = {
-        Trainer: "Trainers require flexibility and strong communication skills. Consider taking certifications to improve your training techniques.",
-        Groomer: "Groomers need an upfront investment in equipment and training but often have a more predictable schedule.",
-        Walker: "Walkers enjoy a flexible schedule and minimal upfront costs. It's a great option if you love spending time outdoors with pets.",
-        Sitter: "Sitters require great customer service and enjoy spending time with pets at their clients' homes. This is an excellent low-cost startup option.",
-        Photographer: "Pet photographers can work on their own schedules and focus on creating beautiful memories for pet owners. A moderate investment in equipment is required."
+        Trainer: "Trainers require flexibility and strong communication skills.",
+        Groomer: "Groomers need an upfront investment in equipment and training.",
+        Walker: "Walkers enjoy a flexible schedule and minimal upfront costs.",
+        Sitter: "Sitters require great customer service.",
+        Photographer: "Pet photographers work on their own schedules."
     };
 
     return resultArray.map(category => recommendationDetails[category] || "No recommendation available.");
@@ -46,15 +51,4 @@ function setCookie(name, value, days) {
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     const expires = "expires=" + date.toUTCString();
     document.cookie = `${name}=${value};${expires};path=/`;
-}
-
-// Utility function to get a cookie
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        let c = cookies[i].trim();
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
 }

@@ -2,20 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Results</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Optional for styling -->
+    <title>Results</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
-<div th:replace="~{/fragments/header :: header}"></div>
 <body>
-<div id="results-container">
-    <h1>Your Best Match</h1>
-    <p id="result-text"></p>
-    <div id="recommendations"></div>
-
-    <button onclick="window.location.href='/quiz'">Retake Quiz</button>
-    <button onclick="window.location.href='/'">Go to Home</button>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div class="results-section">
+    <h1>Your Quiz Results</h1>
+    <div id="result-container">
+        <p id="result-text"></p>
+        <div id="recommendations"></div>
+    </div>
+    <div id="error-message" th:if="${error}">
+        <p th:text="${error}"></p>
+        <a href="/quiz" class="cta-button">Take the Quiz</a>
+    </div>
 </div>
-<script src="/quiz/results.js"></script>
+
+<!-- Include the JavaScript file -->
+<script src="/quiz/quizResults.js"></script>
 </body>
 </html>
+
+

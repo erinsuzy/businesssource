@@ -32,12 +32,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/home", "/quiz", "/quiz/**", "/css/**", "/js/**", "/results").permitAll() // Include /results
-                        .anyRequest().authenticated()
+                        .requestMatchers("/", "/home", "/quiz", "/quiz/**", "/results/**", "/css/**", "/js/**", "/favicon.ico", "/error").permitAll() // Public pages
+                        .anyRequest().authenticated() // All other pages require authentication
                 )
                 .formLogin(login -> login
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .loginPage("/login") // Custom login page
+                        .defaultSuccessUrl("/home", true) // Redirect to home after login
                         .permitAll()
                 )
                 .logout(logout -> logout.permitAll());

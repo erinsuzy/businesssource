@@ -119,21 +119,26 @@ elements.nextBtn.addEventListener("click", () => handleNavigation(1));
 elements.submitBtn.addEventListener("click", () => {
     saveAnswer();
     const results = calculateResults(answers);
-    const resultParam = encodeURIComponent(results.join(","));
+    console.log("Calculated Results:", results); // Debugging
 
-    // Save quiz completion in a cookie
-    setCookie("quizCompleted", "true", 30);
+    if (results && results.length > 0) {
+        const resultParam = encodeURIComponent(results.join(","));
+        console.log("Redirect URL:", `/results?result=${resultParam}`); // Debugging
 
-    // Redirect to results page
-    window.location.href = `/results?result=${resultParam}`;
+        // Save quiz completion in a cookie
+        setCookie("quizCompleted", "true", 30);
+
+        // Redirect to results page
+        window.location.href = `/results?result=${resultParam}`;
+    } else {
+        alert("Error: No results calculated. Please try again.");
+    }
 });
 
 // Initialize quiz
 document.addEventListener("DOMContentLoaded", () => {
     loadQuestion(currentQuestionIndex);
 });
-
-
 
 
 
