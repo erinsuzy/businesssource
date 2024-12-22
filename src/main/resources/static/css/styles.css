@@ -34,8 +34,64 @@ body {
 
 .main-content {
     margin-left: 260px; /* Adjust for sidebar width */
-    margin-top: 100px; /* Matches header height */
+    margin-top: 80px; /* Matches header height */
     padding: 20px;
+}
+
+.welcome-section {
+    text-align: center; /* Center-align the text */
+    padding: 50px 20px; /* Add space inside the section */
+    background-color: #1a1a1a; /* Black background for contrast */
+    color: #a6e22e; /* Green text for your theme */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    margin: 100px auto 20px; /* Add space at the top to avoid overlapping the header */
+    max-width: 800px; /* Limit width for better readability */
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem; /* Large headline */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #a6e22e; /* Green color for heading */
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+.welcome-section p {
+    font-size: 1.2rem; /* Larger font for the paragraph */
+    line-height: 1.6; /* Increase line spacing for readability */
+    color: #ffffff; /* White text for contrast */
+    margin: 0 auto; /* Center-align the paragraph */
+    max-width: 600px; /* Limit width of the text block */
+}
+
+.quiz-button {
+    display: inline-block; /* Ensures proper spacing and alignment */
+    background-color: #a6e22e; /* Green color */
+    color: #1a1a1a; /* Black text */
+    padding: 15px 30px; /* Larger button padding */
+    font-size: 18px; /* Slightly larger font */
+    font-weight: bold; /* Bold text for emphasis */
+    text-align: center;
+    text-decoration: none; /* Remove underline */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    transition: transform 0.3s, background-color 0.3s; /* Smooth hover effects */
+    margin-top: 20px; /* Add space above the button */
+}
+
+.quiz-button:hover {
+    background-color: #7fbf19; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+.quiz-button:active {
+    background-color: #6ea816; /* Even darker green when clicked */
+    transform: scale(0.98); /* Slightly smaller on click */
+}
+
+/* Center the button within the welcome section */
+.welcome-section {
+    text-align: center; /* Center-align all elements */
 }
 
 
@@ -131,6 +187,7 @@ a:hover {
     top: 0;
     left: 0;
     width: 100%;
+    height: 80 px;
     background-color: #1a1a1a;
     padding: 10px 20px;
     display: flex;
@@ -175,35 +232,6 @@ a:hover {
         margin-top: 120px; /* Adjust based on the header height */
     }
 
-.quiz-button {
-    display: flex; /* Enables flexbox layout */
-    align-items: center; /* Vertically centers the text */
-    justify-content: center; /* Horizontally centers the text */
-    background-color: #95cb29; /* Green color */
-    color: white; /* White text for readability */
-    padding: 20px 40px; /* Larger button size */
-    font-size: 20px; /* Larger font */
-    font-weight: bold; /* Make the text stand out */
-    text-align: center; /* Center text */
-    text-decoration: none; /* Remove underline */
-    border-radius: 10px; /* Rounded corners */
-    border: none; /* Remove border */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
-    margin: 20px auto; /* Center the button */
-    height: 80px; /* Ensures the button has a fixed height */
-}
-
-
-.quiz-button:hover {
-    background-color: #84b424; /* Darker green on hover */
-    transform: scale(1.05); /* Slightly larger on hover */
-}
-
-.quiz-button:active {
-    background-color: #749e20; /* Even darker green when clicked */
-    transform: scale(0.98); /* Slightly smaller when clicked */
-}
 
     .feature-box {
         background-color: #fff;
