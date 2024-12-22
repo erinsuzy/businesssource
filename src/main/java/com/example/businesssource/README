@@ -1,18 +1,25 @@
-This application allows entrepreneurs who want to start a pet-focused business to create a business plan, use AI to create a business name, 
-register the business with their state and IRS, and use boilerplate contracts and forms. 
+This application is designed to empower entrepreneurs looking to start a pet-focused business.
+It offers a fun and insightful quiz to help identify the best pet profession for your lifestyle, tools to create a professional business plan,
+generate a business name using AI, register the business with state and federal agencies, and access essential contracts and forms.
+Quiz Feature:
 
-Business Plan feature: 
-The business plan feature walks the user through creating a business plan, step-by-step. It allows the user to save and exit the plan
-and return later to resume editing the plan. After the plan is complete, the user can export the PDF or print their business plan. 
+Discover the ideal pet profession for your lifestyle and goals with a quick and engaging quiz. No sign-up or login is required to take the quiz,
+making it easy to get started right away.
 
-Business Name feature:
-This feature will use AI to help the user to find a business name that suits their business aspirations. 
 
-Resources feature:
-The resources feature will have a checklist that specifies the steps the user will need to take to take the business from idea to reality. 
-The checklist will have links to help the user easily complete the steps. Some checklist items: checking business name with Secretary of State, 
-getting and EIN from the IRS, choosing/designing a logo, buying business cards, getting a business bank account. 
+Exclusive Tools:
 
-Pet business specifics feature:
-This feature will have contracts and forms you will need based on your business, pet business software suggestions, certification options, 
-business insurance companies, pet first aid courses. 
+Business Plan Feature:
+Create a comprehensive business plan with a guided, step-by-step process. Save your progress and pick up where you left off anytime.
+Once complete, you can export your plan as a PDF or print it for your records.
+
+Business Name Feature:
+Leverage AI to brainstorm and select the perfect name that aligns with your business vision.
+
+Resources Feature:
+Access a detailed checklist to take your business from concept to launch. Each step includes helpful links to simplify tasks like verifying your business
+name with the Secretary of State, obtaining an EIN from the IRS, designing a logo, ordering business cards, and setting up a business bank account.
+
+Pet Business Specifics Feature:
+Find everything you need to run a pet-focused business, including customizable contracts and forms tailored to your specific type of business.
+Explore software recommendations, certification opportunities, insurance options, and pet first aid courses.

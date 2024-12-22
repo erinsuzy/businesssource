@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             : `Your best match is: ${resultArray[0]}`;
 
         // Generate and display recommendations
+        /** @type {string[]} */
         const recommendations = getRecommendations(resultArray);
         console.log("Generated Recommendations:", recommendations); // Debugging
 
