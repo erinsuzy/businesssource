@@ -175,6 +175,35 @@ a:hover {
         margin-top: 120px; /* Adjust based on the header height */
     }
 
+.quiz-button {
+    display: flex; /* Enables flexbox layout */
+    align-items: center; /* Vertically centers the text */
+    justify-content: center; /* Horizontally centers the text */
+    background-color: #95cb29; /* Green color */
+    color: white; /* White text for readability */
+    padding: 20px 40px; /* Larger button size */
+    font-size: 20px; /* Larger font */
+    font-weight: bold; /* Make the text stand out */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    border-radius: 10px; /* Rounded corners */
+    border: none; /* Remove border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+    margin: 20px auto; /* Center the button */
+    height: 80px; /* Ensures the button has a fixed height */
+}
+
+
+.quiz-button:hover {
+    background-color: #84b424; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+.quiz-button:active {
+    background-color: #749e20; /* Even darker green when clicked */
+    transform: scale(0.98); /* Slightly smaller when clicked */
+}
 
     .feature-box {
         background-color: #fff;
@@ -326,6 +355,7 @@ a:hover {
         background-color: #ddd;
         cursor: not-allowed;
     }
+
     #results-container {
         text-align: center;
         margin: 50px auto;
@@ -354,6 +384,7 @@ a:hover {
     button:hover {
         background-color: #e0e0e0;
     }
+
 
 }
 

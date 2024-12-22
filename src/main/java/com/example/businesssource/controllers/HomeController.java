@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    // Home Page - No longer enforces quiz completion
+
     @GetMapping("/")
     public String handleHomePage() {
         return "home"; // Always render home.html
