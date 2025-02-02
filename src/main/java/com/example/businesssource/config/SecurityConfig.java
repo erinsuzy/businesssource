@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,16 +32,41 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/home", "/quiz", "/quiz/**", "/results/**", "/css/**", "/js/**", "/favicon.ico", "/error").permitAll() // Public pages
-                        .anyRequest().authenticated() // All other pages require authentication
+
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/home", "/quiz/**", "/results", "/signup", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/business-plan/create/**").hasRole("USER") // Only users can access dashboard
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // Only admins can access admin panel
+                        .anyRequest().authenticated()
                 )
+
                 .formLogin(login -> login
                         .loginPage("/login") // Custom login page
-                        .defaultSuccessUrl("/home", true) // Redirect to home after login
+                        .defaultSuccessUrl("/business-plan/create")
+                        .failureUrl("/login?error=true") // Redirect to login page with an error on failed login
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll());
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // Endpoint for logging out
+                        .logoutSuccessUrl("/login?logout=true") // Redirect to login after logout
+                        .permitAll()
+                )
+                .sessionManagement(session -> session
+                        .maximumSessions(1) // Limit to one active session
+                        .maxSessionsPreventsLogin(false) // Allow new sessions to kick out old ones
+                )
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin) // Allows frames from the same origin
+                )
+                .headers(headers -> headers
+                        .addHeaderWriter((request, response) -> {
+                            response.setHeader("Set-Cookie", "JSESSIONID=" + request.getSession().getId() + "; Path=/; HttpOnly; SameSite=Lax");
+                        })
+                );
+        http.authenticationProvider(authenticationProvider()); // Ensure provider is set
+
+        System.out.println("Security configuration loaded correctly");
+
         return http.build();
     }
 
@@ -53,16 +79,12 @@ public class SecurityConfig {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(customUserDetailsService);
-        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+        authProvider.setPasswordEncoder(passwordEncoder()); // Use the password encoder bean
         return authProvider;
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
-
-
-
-

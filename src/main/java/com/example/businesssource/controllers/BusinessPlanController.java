@@ -26,6 +26,7 @@ public class BusinessPlanController {
 
     private final UserService userService;
 
+    @Autowired
     public BusinessPlanController(BusinessPlanService businessPlanService, UserService userService) {
         this.businessPlanService = businessPlanService;
         this.userService = userService;
@@ -359,17 +360,14 @@ public class BusinessPlanController {
     }
 
     @GetMapping("/dashboard")
-    public String showDashboard(HttpSession session, Model model) {
+    public String showDashboard(Model model) {
         try {
-            User currentUser = userService.getCurrentUser(session);
+            User currentUser = userService.getCurrentUser();
             model.addAttribute("user", currentUser);
-            // Add additional attributes related to the business plan
             return "dashboard";
         } catch (IllegalStateException e) {
-            // Redirect to login if no user is logged in
-            return "redirect:/login";
+            return "redirect:/login"; // Redirect if no user is logged in
         } catch (RuntimeException e) {
-            // Handle unexpected errors (e.g., user deleted from the database)
             model.addAttribute("error", "An unexpected error occurred. Please log in again.");
             return "error";
         }

@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <title>Create Business Plan</title>
-  <!DOCTYPE html>
-  <html xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head>
-    <title>Company Description</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-  </head>
-  <div th:replace="~{/fragments/header :: header}"></div>
-  <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+  <title>Company Description</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
 <body>
-  <div class="main-content">
+<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+
+<div class="main-content">
   <h1>Company Description</h1>
 
-    <form th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
-      <input type="hidden" name="planId" th:value="${businessPlan.id}" />
+  <p class="description">Describe the type of business you want to start. Provide details such as your business type (e.g., dog training, grooming), industry, mission, and vision. Here’s an example: <i>“We will operate a dog training business that helps pet owners improve their relationships with their dogs using positive reinforcement methods.”</i></p>
+
+  <form th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
+    <input type="hidden" name="planId" th:value="${businessPlan.id}" />
+
     <div>
-      <label for="companyDescription">Company Description</label>
-      <textarea id="companyDescription" th:field="${businessPlan.companyDescription}"
-                placeholder="Please describe your company:" required></textarea>
+      <label for="businessType">Business Type</label>
+      <input id="businessType" th:field="${businessPlan.businessType}" placeholder="e.g., Dog Training, Grooming" required />
     </div>
 
-    <div th:if="${errorMessage}" class="error-message">
-      <p th:text="${errorMessage}"></p>
+    <div>
+      <label for="mission">Mission Statement</label>
+      <textarea id="mission" th:field="${businessPlan.mission}" placeholder="Write a brief statement that explains your company’s purpose." required></textarea>
     </div>
 
+    <div>
+      <label for="vision">Vision Statement</label>
+      <textarea id="vision" th:field="${businessPlan.vision}" placeholder="Describe what your company hopes to achieve in the future." required></textarea>
+    </div>
 
+    <div>
+      <label for="competitiveAdvantage">What sets you apart?</label>
+      <textarea id="competitiveAdvantage" th:field="${businessPlan.competitiveAdvantage}" placeholder="Explain your unique selling proposition." required></textarea>
+    </div>
 
-
-        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
-        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
-
-    </form>
-
+    <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+    <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+  </form>
 </div>
 </body>
-  </html>
+</html>
+
+
 

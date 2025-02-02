@@ -13,10 +13,15 @@
         <p id="result-text"></p>
         <div id="recommendations"></div>
     </div>
-    <div id="error-message" th:if="${error}">
+    <div id="error-message" th:if="${error}" style="display: none;">
         <p th:text="${error}"></p>
-        <a href="/quiz" class="cta-button">Take the Quiz</a>
+        <a href="/quiz" class="action-button">Take the Quiz</a>
     </div>
+    <div id="login-signup">
+        <a href="/login" class="next-button">Log In</a>
+        <a href="/signup" class="next-button">Sign Up</a>
+    </div>
+
 </div>
 
 <!-- Include the JavaScript file -->
