@@ -1,37 +1,41 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Get the result from the query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const result = urlParams.get("result");
-    console.log("Full URL Parameters:", window.location.search); // Debugging
-    console.log("Parsed Result Parameter:", result); // Debugging
 
-    // Split result into an array if present
+    console.log("Full URL Parameters:", window.location.search);
+    console.log("Parsed Result Parameter:", result);
+
     const resultArray = result ? result.split(",") : [];
-    console.log("Parsed Result Array:", resultArray); // Debugging
+    console.log("Parsed Result Array:", resultArray);
 
-    // Elements for displaying results
     const resultText = document.getElementById("result-text");
     const recommendationsDiv = document.getElementById("recommendations");
+    const errorMessage = document.getElementById("error-message");
 
-    if (resultArray.length > 0) {
-        // Display the primary result(s)
+    if (resultArray.length > 0 && resultArray[0].trim() !== "") {
         resultText.textContent = resultArray.length > 1
             ? `Your best matches are: ${resultArray.join(", ")}`
             : `Your best match is: ${resultArray[0]}`;
 
-        // Generate and display recommendations
-        /** @type {string[]} */
         const recommendations = getRecommendations(resultArray);
-        console.log("Generated Recommendations:", recommendations); // Debugging
-
         recommendationsDiv.innerHTML = recommendations.map(rec => `<p>${rec}</p>`).join("");
 
-        // Save quiz completion in a cookie
         setCookie("quizCompleted", "true", 30);
+
+        // Hide error message if results exist
+        if (errorMessage) {
+            errorMessage.style.display = "none";
+        }
     } else {
         resultText.textContent = "No quiz results found. Please retake the quiz.";
+
+        // Show error message only if no result exists
+        if (errorMessage) {
+            errorMessage.style.display = "block";
+        }
     }
 });
+
 
 // Function to provide detailed recommendations
 function getRecommendations(resultArray) {

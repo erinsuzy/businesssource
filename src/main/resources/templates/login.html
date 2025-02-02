@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/css/styles.css"> <!-- Link your CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <div th:replace="~{/fragments/header :: header}"></div>
 <body>
 <div class="login-container">
     <h1>Login</h1>
     <form action="/login" method="post">
-        <label for="username">Username or Email:</label>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+
         <button type="submit">Login</button>
 
 

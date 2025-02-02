@@ -8,7 +8,15 @@
 <body>
 <div class="signup-container">
     <h1>Create an Account</h1>
-    <form action="/signup" method="post">
+    <form th:action="@{/signup}" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
 
@@ -17,12 +25,11 @@
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+
         <button type="submit">Sign Up</button>
-
-
     </form>
     <p>Already have an account? <a href="/login">Log in here</a></p>
 </div>
 </body>
 </html>
+
