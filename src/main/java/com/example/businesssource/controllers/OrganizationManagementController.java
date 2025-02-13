@@ -1,7 +1,6 @@
 package com.example.businesssource.controllers;
 
 import com.example.businesssource.entities.BusinessPlan;
-import com.example.businesssource.entities.MarketAnalysis;
 import com.example.businesssource.entities.OrganizationManagement;
 import com.example.businesssource.entities.User;
 import com.example.businesssource.services.OrganizationManagementService;

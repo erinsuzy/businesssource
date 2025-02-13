@@ -12,11 +12,11 @@
 <div class="main-content">
 
     <h1>Products and Services</h1>
-    <form action="#" th:action="@{/business-plan/products-services}" th:object="${businessPlan}" method="post">
+    <form action="#" th:action="@{/business-plan/products-services}" th:object="${productsServices}" method="post">
         <input type="hidden" name="planId" th:value="${businessPlan.id}" />
         <div>
             <label for="productsServices">Products/Services:</label>
-            <textarea id="productsServices" th:field="${businessPlan.productsServices}" placeholder="Describe your products or services" required></textarea>
+            <textarea id="productsServices" th:field="${productsServices.description}" placeholder="Describe your products or services" required></textarea>
         </div>
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>
