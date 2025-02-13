@@ -26,6 +26,8 @@ public class User {
     private boolean hasCompletedQuiz = false;
     private String quizResult;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private BusinessPlan businessPlan;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -119,5 +121,10 @@ public class User {
 
     public void setHasCompletedQuiz(boolean hasCompletedQuiz) {
         this.hasCompletedQuiz = hasCompletedQuiz;
+    }
+
+
+    public BusinessPlan getBusinessPlan() {
+        return businessPlan;
     }
 }

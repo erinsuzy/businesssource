@@ -3,8 +3,9 @@ package com.example.businesssource.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "market_analysis")
-public class MarketAnalysis {
+@Table(name = "organization_management")
+public class OrganizationManagement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,13 +15,15 @@ public class MarketAnalysis {
     private BusinessPlan businessPlan;
 
     @Column(columnDefinition = "TEXT")
-    private String marketOverview;
+    private String structure;
 
-    public MarketAnalysis() {
+    public OrganizationManagement() {
     }
-    public MarketAnalysis(BusinessPlan businessPlan, String marketOverview) {
+
+    public OrganizationManagement(Long id, BusinessPlan businessPlan, String structure) {
+        this.id = id;
         this.businessPlan = businessPlan;
-        this.marketOverview = marketOverview;
+        this.structure = structure;
     }
 
     public Long getId() {
@@ -39,11 +42,11 @@ public class MarketAnalysis {
         this.businessPlan = businessPlan;
     }
 
-    public String getMarketOverview() {
-        return marketOverview;
+    public String getStructure() {
+        return structure;
     }
 
-    public void setMarketOverview(String marketOverview) {
-        this.marketOverview = marketOverview;
+    public void setStructure(String structure) {
+        this.structure = structure;
     }
 }

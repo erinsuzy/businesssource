@@ -7,74 +7,56 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "business_plan")
+@Table(name = "business_plans")
 public class BusinessPlan {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(columnDefinition = "TEXT")
     private String companyName;
 
-    @Column(columnDefinition = "TEXT")
-    private String companyDescription;
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    private CompanyDescription companyDescription;
 
-    @Column(columnDefinition = "TEXT")
-    private String missionStatement;
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    private MarketAnalysis marketAnalysis;
 
-    @Column(columnDefinition = "TEXT")
-    private String marketAnalysis;
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    private OrganizationManagement organizationManagement;
 
-    @Column(columnDefinition = "TEXT")
-    private String organizationManagement;
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    private ProductsServices productsServices;
 
-    @Column(columnDefinition = "TEXT")
-    private String productsServices;
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    private MarketingStrategy marketingStrategy;
 
-    @Column(columnDefinition = "TEXT")
-    private String marketingStrategy;
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    private FinancialProjections financialProjections;
 
-    @Column(columnDefinition = "TEXT")
-    private String fundingRequest;
-
-    @Column(columnDefinition = "TEXT")
-    private String financialProjections;
-
-    @Column(columnDefinition = "TEXT")
-    private String appendix;
-
-    @Column(nullable = false)
-    private String status = "draft"; // Default status is "draft"
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    private FundingRequest fundingRequest;
 
 
-
-    @CreationTimestamp
-    private Timestamp createdAt;
-    @UpdateTimestamp
-    private Timestamp updatedAt;
-
-
-
-
-    public BusinessPlan(Long id, String companyName, String companyDescription, String missionStatement, String marketAnalysis, String organizationManagement, String productsServices, String marketingStrategy, String fundingRequest, String financialProjections, String appendix, Timestamp createdAt, Timestamp updatedAt, String status) {
+    public BusinessPlan(Long id, User user, String companyName, CompanyDescription companyDescription, MarketAnalysis marketAnalysis, OrganizationManagement organizationManagement, ProductsServices productsServices, MarketingStrategy marketingStrategy, FinancialProjections financialProjections, FundingRequest fundingRequest) {
         this.id = id;
+        this.user = user;
         this.companyName = companyName;
         this.companyDescription = companyDescription;
-        this.missionStatement = missionStatement;
         this.marketAnalysis = marketAnalysis;
         this.organizationManagement = organizationManagement;
         this.productsServices = productsServices;
         this.marketingStrategy = marketingStrategy;
-        this.fundingRequest = fundingRequest;
         this.financialProjections = financialProjections;
-        this.appendix = appendix;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.status = status;
+        this.fundingRequest = fundingRequest;
     }
 
     public BusinessPlan() {
+
     }
 
     public Long getId() {
@@ -85,108 +67,73 @@ public class BusinessPlan {
         this.id = id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     public String getCompanyName() {
         return companyName;
     }
-
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 
-    public String getCompanyDescription() {
+    public CompanyDescription getCompanyDescription() {
         return companyDescription;
     }
 
-    public void setCompanyDescription(String companyDescription) {
+    public void setCompanyDescription(CompanyDescription companyDescription) {
         this.companyDescription = companyDescription;
     }
 
-    public String getMissionStatement() {
-        return missionStatement;
-    }
-
-    public void setMissionStatement(String missionStatement) {
-        this.missionStatement = missionStatement;
-    }
-
-    public String getMarketAnalysis() {
+    public MarketAnalysis getMarketAnalysis() {
         return marketAnalysis;
     }
 
-    public void setMarketAnalysis(String marketAnalysis) {
+    public void setMarketAnalysis(MarketAnalysis marketAnalysis) {
         this.marketAnalysis = marketAnalysis;
     }
 
-    public String getOrganizationManagement() {
+    public OrganizationManagement getOrganizationManagement() {
         return organizationManagement;
     }
 
-    public void setOrganizationManagement(String organizationManagement) {
+    public void setOrganizationManagement(OrganizationManagement organizationManagement) {
         this.organizationManagement = organizationManagement;
     }
 
-    public String getProductsServices() {
+    public ProductsServices getProductsServices() {
         return productsServices;
     }
 
-    public void setProductsServices(String productsServices) {
+    public void setProductsServices(ProductsServices productsServices) {
         this.productsServices = productsServices;
     }
 
-    public String getMarketingStrategy() {
+    public MarketingStrategy getMarketingStrategy() {
         return marketingStrategy;
     }
 
-    public void setMarketingStrategy(String marketingStrategy) {
+    public void setMarketingStrategy(MarketingStrategy marketingStrategy) {
         this.marketingStrategy = marketingStrategy;
     }
 
-    public String getFundingRequest() {
-        return fundingRequest;
-    }
-
-    public void setFundingRequest(String fundingRequest) {
-        this.fundingRequest = fundingRequest;
-    }
-
-    public String getFinancialProjections() {
+    public FinancialProjections getFinancialProjections() {
         return financialProjections;
     }
 
-    public void setFinancialProjections(String financialProjections) {
+    public void setFinancialProjections(FinancialProjections financialProjections) {
         this.financialProjections = financialProjections;
     }
 
-    public String getAppendix() {
-        return appendix;
+    public FundingRequest getFundingRequest() {
+        return fundingRequest;
     }
 
-    public void setAppendix(String appendix) {
-        this.appendix = appendix;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setFundingRequest(FundingRequest fundingRequest) {
+        this.fundingRequest = fundingRequest;
     }
 }
-

@@ -4,26 +4,39 @@
 <head>
     <title>Organization and Management</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-
 </head>
+<body>
+
+<!-- Include header and sidebar fragments -->
 <div th:replace="~{/fragments/header :: header}"></div>
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
-<body>
-<div class="main-content">
 
+<div class="main-content">
     <h1>Organization and Management</h1>
-    <form action="#" th:action="@{/business-plan/organization-management}" th:object="${businessPlan}" method="post">
-        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
-     <div>
-         <label for="managementStructure">Management Structure:</label>
-            <textarea id="managementStructure" th:field="${businessPlan.organizationManagement}" placeholder="Describe the management structure" required></textarea>
+
+    <form th:action="@{/business-plan/organization-management}" th:object="${organizationManagement}" method="post">
+        <input type="hidden" name="planId" th:value="*{businessPlan.id}" />
+
+        <div class="form-group">
+            <label for="managementStructure">Management Structure:</label>
+            <textarea id="managementStructure" name="organizationManagement" class="form-control" rows="6"
+                      th:field="*{organizationManagement.structure}"
+                      placeholder="Describe the management structure, ownership, key team members, and their roles."
+                      required></textarea>
         </div>
+
+        <!-- Error Message Display -->
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>
         </div>
-        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
-        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+
+        <div class="button-group">
+            <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+            <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+        </div>
     </form>
 </div>
+
 </body>
 </html>
+
