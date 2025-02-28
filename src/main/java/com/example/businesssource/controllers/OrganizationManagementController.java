@@ -29,7 +29,7 @@ public class OrganizationManagementController {
     @GetMapping
     public String showOrganizationManagementForm(Model model) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         OrganizationManagement organizationManagement = organizationManagementService.getByBusinessPlan(businessPlan)
                 .orElse(new OrganizationManagement());
         organizationManagement.setBusinessPlan(businessPlan);
@@ -40,7 +40,7 @@ public class OrganizationManagementController {
     @PostMapping
     public String saveOrganizationManagement(Model model, @ModelAttribute OrganizationManagement organizationManagement) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         organizationManagement.setBusinessPlan(businessPlan);
         organizationManagementService.saveOrUpdate(organizationManagement);
         return "redirect:/business-plan/products-services";

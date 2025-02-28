@@ -29,7 +29,7 @@ public class ProductsServicesController {
     @GetMapping
     public String showProductsServicesForm(Model model) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         ProductsServices productsServices = productsServicesService.getByBusinessPlan(businessPlan)
                 .orElse(new ProductsServices());
         productsServices.setBusinessPlan(businessPlan);
@@ -40,7 +40,7 @@ public class ProductsServicesController {
     @PostMapping
     public String saveProductsServices(Model model, @ModelAttribute  ProductsServices productsServices) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         productsServices.setBusinessPlan(businessPlan);
         productsServicesService.saveOrUpdate(productsServices);
         return "redirect:/business-plan/marketing-strategy";

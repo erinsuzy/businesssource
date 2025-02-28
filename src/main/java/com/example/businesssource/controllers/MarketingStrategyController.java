@@ -30,7 +30,7 @@ public class MarketingStrategyController {
     @GetMapping
     public String showMarketingStrategyForm(Model model) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         MarketingStrategy marketingStrategy = marketingStrategyService.getByBusinessPlan(businessPlan)
                 .orElse(new MarketingStrategy());
         marketingStrategy.setBusinessPlan(businessPlan);
@@ -41,7 +41,7 @@ public class MarketingStrategyController {
     @PostMapping
     public String saveMarketingStrategy(Model model, @ModelAttribute MarketingStrategy marketingStrategy) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         marketingStrategy.setBusinessPlan(businessPlan);
         marketingStrategyService.saveOrUpdate(marketingStrategy);
         return "redirect:/business-plan/financial-projections";

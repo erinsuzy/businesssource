@@ -1,10 +1,6 @@
 package com.example.businesssource.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "business_plans")
@@ -13,7 +9,7 @@ public class BusinessPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -24,19 +20,19 @@ public class BusinessPlan {
     private CompanyDescription companyDescription;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private MarketAnalysis marketAnalysis;
+    private String marketAnalysis;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private OrganizationManagement organizationManagement;
+    private String organizationManagement;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private ProductsServices productsServices;
+    private String productsServices;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private MarketingStrategy marketingStrategy;
+    private String marketingStrategy;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private FinancialProjections financialProjections;
+    private String financialProjections;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
     private FundingRequest fundingRequest;
@@ -47,11 +43,11 @@ public class BusinessPlan {
         this.user = user;
         this.companyName = companyName;
         this.companyDescription = companyDescription;
-        this.marketAnalysis = marketAnalysis;
-        this.organizationManagement = organizationManagement;
-        this.productsServices = productsServices;
-        this.marketingStrategy = marketingStrategy;
-        this.financialProjections = financialProjections;
+        this.marketAnalysis = String.valueOf(marketAnalysis);
+        this.organizationManagement = String.valueOf(organizationManagement);
+        this.productsServices = String.valueOf(productsServices);
+        this.marketingStrategy = String.valueOf(marketingStrategy);
+        this.financialProjections = financialProjections.toString();
         this.fundingRequest = fundingRequest;
     }
 
@@ -89,43 +85,43 @@ public class BusinessPlan {
         this.companyDescription = companyDescription;
     }
 
-    public MarketAnalysis getMarketAnalysis() {
+    public String getMarketAnalysis() {
         return marketAnalysis;
     }
 
-    public void setMarketAnalysis(MarketAnalysis marketAnalysis) {
+    public void setMarketAnalysis(String marketAnalysis) {
         this.marketAnalysis = marketAnalysis;
     }
 
-    public OrganizationManagement getOrganizationManagement() {
+    public String getOrganizationManagement() {
         return organizationManagement;
     }
 
-    public void setOrganizationManagement(OrganizationManagement organizationManagement) {
+    public void setOrganizationManagement(String organizationManagement) {
         this.organizationManagement = organizationManagement;
     }
 
-    public ProductsServices getProductsServices() {
+    public String getProductsServices() {
         return productsServices;
     }
 
-    public void setProductsServices(ProductsServices productsServices) {
+    public void setProductsServices(String productsServices) {
         this.productsServices = productsServices;
     }
 
-    public MarketingStrategy getMarketingStrategy() {
+    public String getMarketingStrategy() {
         return marketingStrategy;
     }
 
-    public void setMarketingStrategy(MarketingStrategy marketingStrategy) {
+    public void setMarketingStrategy(String marketingStrategy) {
         this.marketingStrategy = marketingStrategy;
     }
 
-    public FinancialProjections getFinancialProjections() {
+    public String getFinancialProjections() {
         return financialProjections;
     }
 
-    public void setFinancialProjections(FinancialProjections financialProjections) {
+    public void setFinancialProjections(String financialProjections) {
         this.financialProjections = financialProjections;
     }
 
@@ -133,7 +129,9 @@ public class BusinessPlan {
         return fundingRequest;
     }
 
-    public void setFundingRequest(FundingRequest fundingRequest) {
+    public void setFundingRequest(String fundingRequest) {
         this.fundingRequest = fundingRequest;
     }
+
+
 }

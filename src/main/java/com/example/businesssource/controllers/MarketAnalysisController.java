@@ -28,7 +28,7 @@ public class MarketAnalysisController {
     @GetMapping
     public String showMarketAnalysisForm(Model model) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         MarketAnalysis marketAnalysis = marketAnalysisService.getByBusinessPlan(businessPlan)
                 .orElse(new MarketAnalysis());
         marketAnalysis.setBusinessPlan(businessPlan);
@@ -39,7 +39,7 @@ public class MarketAnalysisController {
     @PostMapping
     public String saveMarketAnalysis(Model model, @ModelAttribute MarketAnalysis marketAnalysis) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         marketAnalysis.setBusinessPlan(businessPlan);
         marketAnalysisService.saveOrUpdate(marketAnalysis);
         return "redirect:/business-plan/organization-management";

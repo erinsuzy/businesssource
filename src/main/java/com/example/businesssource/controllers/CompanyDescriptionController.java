@@ -28,7 +28,7 @@ public class CompanyDescriptionController {
     @GetMapping
     public String showCompanyDescriptionForm(Model model) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         CompanyDescription companyDescription = companyDescriptionService.getByBusinessPlan(businessPlan)
                 .orElse(new CompanyDescription());
 
@@ -41,7 +41,7 @@ public class CompanyDescriptionController {
     @PostMapping
     public String saveCompanyDescription(@ModelAttribute CompanyDescription companyDescription) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = currentUser.getBusinessPlan();
+        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
         companyDescription.setBusinessPlan(businessPlan);
 
         companyDescriptionService.saveOrUpdate(companyDescription);

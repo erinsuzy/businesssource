@@ -2,6 +2,9 @@ package com.example.businesssource.entities;
 
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,8 +29,9 @@ public class User {
     private boolean hasCompletedQuiz = false;
     private String quizResult;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private BusinessPlan businessPlan;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BusinessPlan> businessPlans = new ArrayList<>();
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -37,17 +41,18 @@ public class User {
     // Constructors, getters, and setters
     public User() {}
 
-    public User(String username, String password, String email, String firstName, String lastName, Set<String> roles, boolean hasCompletedQuiz, String quizResult) {
+    public User(Long id, String username, String password, String email, String firstName, String lastName, boolean hasCompletedQuiz, String quizResult, List<BusinessPlan> businessPlans, Set<String> roles) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.roles = roles;
         this.hasCompletedQuiz = hasCompletedQuiz;
         this.quizResult = quizResult;
+        this.businessPlans = businessPlans;
+        this.roles = roles;
     }
-
 
     public String getQuizResult() {
         return quizResult;
@@ -123,8 +128,11 @@ public class User {
         this.hasCompletedQuiz = hasCompletedQuiz;
     }
 
+    public List<BusinessPlan> getBusinessPlans() {
+        return businessPlans;
+    }
 
-    public BusinessPlan getBusinessPlan() {
-        return businessPlan;
+    public void setBusinessPlans(List<BusinessPlan> businessPlans) {
+        this.businessPlans = businessPlans;
     }
 }
