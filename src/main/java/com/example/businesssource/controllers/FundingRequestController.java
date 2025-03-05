@@ -1,32 +1,30 @@
 package com.example.businesssource.controllers;
 
-import com.example.businesssource.entities.BusinessPlan;
-import com.example.businesssource.entities.MarketAnalysis;
-import com.example.businesssource.entities.MarketingStrategy;
-import com.example.businesssource.entities.User;
-import com.example.businesssource.services.MarketingStrategyService;
+import com.example.businesssource.entities.*;
+import com.example.businesssource.services.FundingRequestService;
 import com.example.businesssource.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
-@RequestMapping("/business-plan/marketing-strategy")
-public class MarketingStrategyController {
+import java.util.List;
 
-    private final MarketingStrategyService marketingStrategyService;
+@Controller
+@RequestMapping("/business-plan/funding-request")
+public class FundingRequestController {
+
+    private final FundingRequestService fundingRequestService;
 
     private final UserService userService;
 
-
-    public MarketingStrategyController(MarketingStrategyService marketingStrategyService, UserService userService) {
-        this.marketingStrategyService = marketingStrategyService;
+    public FundingRequestController(FundingRequestService fundingRequestService, UserService userService) {
+        this.fundingRequestService = fundingRequestService;
         this.userService = userService;
     }
 
     @GetMapping
-    public String showMarketingStrategyForm(@RequestParam("planId") Long planId, Model model) {
+    public String showFundingRequestForm(@RequestParam("planId") Long planId, Model model) {
         User currentUser = userService.getCurrentUser();
         BusinessPlan businessPlan = currentUser.getBusinessPlans()
                 .stream()
@@ -38,19 +36,19 @@ public class MarketingStrategyController {
             return "redirect:/business-plan/create"; // Redirect if no valid business plan is found
         }
 
-        MarketingStrategy marketingStrategy = marketingStrategyService.getByBusinessPlan(businessPlan)
-                .orElse(new MarketingStrategy());
+        FundingRequest fundingRequest = fundingRequestService.getByBusinessPlan(businessPlan)
+                .orElse(new FundingRequest());
 
-        marketingStrategy.setBusinessPlan(businessPlan);
+        fundingRequest.setBusinessPlan(businessPlan);
         model.addAttribute("businessPlan", businessPlan);
-        model.addAttribute("marketingStrategy", marketingStrategy);
-        return "business-plan/marketing-strategy";
+        model.addAttribute("fundingRequest", fundingRequest);
+        return "business-plan/funding-request";
     }
 
     @PostMapping
-    public String saveMarketingStrategy(
+    public String saveFundingRequest(
             @RequestParam("planId") Long planId,
-            @ModelAttribute MarketingStrategy marketingStrategy,
+            @ModelAttribute FundingRequest fundingRequest,
             RedirectAttributes redirectAttributes) {
 
         User currentUser = userService.getCurrentUser();
@@ -65,10 +63,10 @@ public class MarketingStrategyController {
             return "redirect:/business-plan/create";
         }
 
-        marketingStrategy.setBusinessPlan(businessPlan);
-        marketingStrategyService.saveOrUpdate(marketingStrategy);
+        fundingRequest.setBusinessPlan(businessPlan);
+        fundingRequestService.saveOrUpdate(fundingRequest);
 
-        redirectAttributes.addFlashAttribute("successMessage", "Marketing strategy saved successfully!");
-        return "redirect:/business-plan/funding-request?planId=" + planId;
+        redirectAttributes.addFlashAttribute("successMessage", "Funding request saved successfully!");
+        return "redirect:/business-plan/review?planId=" + planId;
     }
 }

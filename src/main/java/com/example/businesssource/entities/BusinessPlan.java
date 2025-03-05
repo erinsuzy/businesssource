@@ -9,6 +9,9 @@ public class BusinessPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String status = "DRAFT";
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -20,34 +23,35 @@ public class BusinessPlan {
     private CompanyDescription companyDescription;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private String marketAnalysis;
+    private MarketAnalysis marketAnalysis;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private String organizationManagement;
+    private OrganizationManagement organizationManagement;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private String productsServices;
+    private ProductsServices productsServices;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private String marketingStrategy;
+    private MarketingStrategy marketingStrategy;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
-    private String financialProjections;
+    private FinancialProjections financialProjections;
 
     @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
     private FundingRequest fundingRequest;
 
 
-    public BusinessPlan(Long id, User user, String companyName, CompanyDescription companyDescription, MarketAnalysis marketAnalysis, OrganizationManagement organizationManagement, ProductsServices productsServices, MarketingStrategy marketingStrategy, FinancialProjections financialProjections, FundingRequest fundingRequest) {
+    public BusinessPlan(Long id, User user, String companyName, String status, CompanyDescription companyDescription, MarketAnalysis marketAnalysis, OrganizationManagement organizationManagement, ProductsServices productsServices, MarketingStrategy marketingStrategy, FinancialProjections financialProjections, FundingRequest fundingRequest) {
         this.id = id;
         this.user = user;
         this.companyName = companyName;
+        this.status = status;
         this.companyDescription = companyDescription;
-        this.marketAnalysis = String.valueOf(marketAnalysis);
-        this.organizationManagement = String.valueOf(organizationManagement);
-        this.productsServices = String.valueOf(productsServices);
-        this.marketingStrategy = String.valueOf(marketingStrategy);
-        this.financialProjections = financialProjections.toString();
+        this.marketAnalysis = marketAnalysis;
+        this.organizationManagement = organizationManagement;
+        this.productsServices = productsServices;
+        this.marketingStrategy = marketingStrategy;
+        this.financialProjections = financialProjections;
         this.fundingRequest = fundingRequest;
     }
 
@@ -63,6 +67,14 @@ public class BusinessPlan {
         this.id = id;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public User getUser() {
         return user;
     }
@@ -70,9 +82,11 @@ public class BusinessPlan {
     public void setUser(User user) {
         this.user = user;
     }
+
     public String getCompanyName() {
         return companyName;
     }
+
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
@@ -85,52 +99,52 @@ public class BusinessPlan {
         this.companyDescription = companyDescription;
     }
 
-    public String getMarketAnalysis() {
+    public void setFundingRequest(FundingRequest fundingRequest) {
+        this.fundingRequest = fundingRequest;
+    }
+
+    public MarketAnalysis getMarketAnalysis() {
         return marketAnalysis;
     }
 
-    public void setMarketAnalysis(String marketAnalysis) {
+    public void setMarketAnalysis(MarketAnalysis marketAnalysis) {
         this.marketAnalysis = marketAnalysis;
     }
 
-    public String getOrganizationManagement() {
+    public OrganizationManagement getOrganizationManagement() {
         return organizationManagement;
     }
 
-    public void setOrganizationManagement(String organizationManagement) {
+    public void setOrganizationManagement(OrganizationManagement organizationManagement) {
         this.organizationManagement = organizationManagement;
     }
 
-    public String getProductsServices() {
+    public ProductsServices getProductsServices() {
         return productsServices;
     }
 
-    public void setProductsServices(String productsServices) {
+    public void setProductsServices(ProductsServices productsServices) {
         this.productsServices = productsServices;
     }
 
-    public String getMarketingStrategy() {
+    public MarketingStrategy getMarketingStrategy() {
         return marketingStrategy;
     }
 
-    public void setMarketingStrategy(String marketingStrategy) {
+    public void setMarketingStrategy(MarketingStrategy marketingStrategy) {
         this.marketingStrategy = marketingStrategy;
     }
 
-    public String getFinancialProjections() {
+    public FinancialProjections getFinancialProjections() {
         return financialProjections;
     }
 
-    public void setFinancialProjections(String financialProjections) {
+    public void setFinancialProjections(FinancialProjections financialProjections) {
         this.financialProjections = financialProjections;
     }
 
     public FundingRequest getFundingRequest() {
         return fundingRequest;
-    }
-
-    public void setFundingRequest(String fundingRequest) {
-        this.fundingRequest = fundingRequest;
     }
 
 

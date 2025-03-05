@@ -3,10 +3,10 @@ package com.example.businesssource.entities;
 
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name = "market_analysis")
-public class MarketAnalysis {
+@Table(name = "funding_request")
+public class FundingRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,13 +16,16 @@ public class MarketAnalysis {
     private BusinessPlan businessPlan;
 
     @Column(columnDefinition = "TEXT")
-    private String marketOverview;
+    private String funds;
 
-    public MarketAnalysis() {
+
+    public FundingRequest() {
     }
-    public MarketAnalysis(BusinessPlan businessPlan, String marketOverview) {
+
+    public FundingRequest(Long id, BusinessPlan businessPlan, String funds) {
+        this.id = id;
         this.businessPlan = businessPlan;
-        this.marketOverview = marketOverview;
+        this.funds = funds;
     }
 
     public Long getId() {
@@ -41,11 +44,11 @@ public class MarketAnalysis {
         this.businessPlan = businessPlan;
     }
 
-    public String getMarketOverview() {
-        return marketOverview;
+    public String getFunds() {
+        return funds;
     }
 
-    public void setMarketOverview(String marketOverview) {
-        this.marketOverview = marketOverview;
+    public void setFunds(String funds) {
+        this.funds = funds;
     }
 }

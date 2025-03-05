@@ -10,22 +10,18 @@
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
 <body>
 
-<div class="main-content">
-    <h1>Funding Request</h1>
-    <form action="#" th:action="@{/business-plan/funding-request}" th:object="${businessPlan}" method="post">
-        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
-        <div>
-            <label for="fundingRequest">Funding Request:</label>
-            <textarea id="fundingRequest" th:field="${businessPlan.fundingRequest}" placeholder="Where will you obtain funding for your business?" required></textarea>
-        </div>
-        <div th:if="${errorMessage}" class="error-message">
-            <p th:text="${errorMessage}"></p>
-        </div>
-        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
-        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+<form th:action="@{/business-plan/fundin-request}" th:object="${fundingRequest}" method="post">
+    <input type="hidden" name="planId" th:value="${businessPlan.id}" />
+    <div>
+        <label for="funds">Funding Request:</label>
+        <textarea id="funds" th:field="*{funds}" placeholder="Where will you obtain funding for your business?" required></textarea>
+    </div>
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+    <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+</form>
 
-
-    </form>
-</div>
 </body>
 </html>

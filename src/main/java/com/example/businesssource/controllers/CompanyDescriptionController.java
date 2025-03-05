@@ -1,17 +1,13 @@
 package com.example.businesssource.controllers;
 
-import com.example.businesssource.entities.BusinessPlan;
-import com.example.businesssource.entities.CompanyDescription;
-import com.example.businesssource.entities.User;
+import com.example.businesssource.entities.*;
 import com.example.businesssource.services.CompanyDescriptionService;
 import com.example.businesssource.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/business-plan/company-description")
@@ -26,26 +22,50 @@ public class CompanyDescriptionController {
     }
 
     @GetMapping
-    public String showCompanyDescriptionForm(Model model) {
+    public String showCompanyDescriptionForm(@RequestParam("planId") Long planId, Model model) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
+        BusinessPlan businessPlan = currentUser.getBusinessPlans()
+                .stream()
+                .filter(plan -> plan.getId().equals(planId))
+                .findFirst()
+                .orElse(null);
+
+        if (businessPlan == null) {
+            return "redirect:/business-plan/create"; // Redirect if no valid business plan is found
+        }
+
         CompanyDescription companyDescription = companyDescriptionService.getByBusinessPlan(businessPlan)
                 .orElse(new CompanyDescription());
 
-        companyDescription.setBusinessPlan(businessPlan); // Ensure linkage
+        companyDescription.setBusinessPlan(businessPlan);
+        model.addAttribute("businessPlan", businessPlan);
         model.addAttribute("companyDescription", companyDescription);
         return "business-plan/company-description";
     }
 
+   @PostMapping
+    public String saveCompanyDescription(
+            @RequestParam("planId") Long planId,
+            @ModelAttribute CompanyDescription companyDescription,
+            RedirectAttributes redirectAttributes) {
 
-    @PostMapping
-    public String saveCompanyDescription(@ModelAttribute CompanyDescription companyDescription) {
         User currentUser = userService.getCurrentUser();
-        BusinessPlan businessPlan = (BusinessPlan) currentUser.getBusinessPlans();
-        companyDescription.setBusinessPlan(businessPlan);
+        BusinessPlan businessPlan = currentUser.getBusinessPlans()
+                .stream()
+                .filter(plan -> plan.getId().equals(planId))
+                .findFirst()
+                .orElse(null);
 
+        if (businessPlan == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
+            return "redirect:/business-plan/create";
+        }
+
+        companyDescription.setBusinessPlan(businessPlan);
         companyDescriptionService.saveOrUpdate(companyDescription);
-        return "redirect:/business-plan/market-analysis";
+
+        redirectAttributes.addFlashAttribute("successMessage", "Company description saved successfully!");
+        return "redirect:/business-plan/products-services?planId=" + planId;
     }
 
 }
