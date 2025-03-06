@@ -1,35 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
 <head>
     <title>Create Business Plan</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+
 </head>
 <body>
-
-<div th:replace="~{/fragments/header :: header}"></div>
-<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+<div class="header">Header</div>
+<div class="sidebar">Sidebar</div>
 
 <div class="main-content">
     <h1>Business Plan Creation Page</h1>
 
-    <!-- Error Message Display -->
-    <div th:if="${errorMessage}" class="error-message">
-        <p th:text="${errorMessage}"></p>
-    </div>
-
-    <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
+    <form>
         <label for="companyName">Business Name:</label>
-        <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your business name" required>
+        <input type="text" id="companyName" placeholder="Enter your business name" required>
 
-        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
-        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+        <button type="submit">Save and Continue</button>
+        <button type="submit">Save and Exit</button>
     </form>
 </div>
-
 </body>
 </html>
-
-
 
 
 

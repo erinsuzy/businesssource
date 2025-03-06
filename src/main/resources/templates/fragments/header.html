@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -7,9 +5,12 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<header th:fragment="header" class="app-header">
-    <a href="/" class="app-name">PetCare Pro</a>
-    <nav>
+<header class="app-header">
+    <div class="header-left">
+        <a href="/" class="app-name">PetCare Pro</a>
+    </div>
+    <div class="header-right">
+        <nav class="header-nav">
         <ul>
             <li><a th:href="@{/dashboard}">Business Plan</a></li>
             <li><a th:href="@{/business-name}">Business Name</a></li>
@@ -17,6 +18,11 @@
             <li><a th:href="@{/resources}">Resources</a></li>
         </ul>
     </nav>
+    </div>
+
+        <div class="user-account">
+            <a href="/account">My Account</a>
+        </div>
 </header>
 </body>
 </html>
