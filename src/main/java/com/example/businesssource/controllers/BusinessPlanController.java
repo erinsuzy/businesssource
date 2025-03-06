@@ -9,31 +9,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/business-plan")
 public class BusinessPlanController {
 
+    private static final Logger logger = LoggerFactory.getLogger(BusinessPlanController.class);
+
     private final BusinessPlanService businessPlanService;
     private final UserService userService;
 
-    @Autowired
     public BusinessPlanController(BusinessPlanService businessPlanService, UserService userService) {
         this.businessPlanService = businessPlanService;
         this.userService = userService;
     }
 
-    // Create a new business plan
     @GetMapping("/create")
     public String createBusinessPlan(Model model) {
-        model.addAttribute("businessPlan", new BusinessPlan());
-        return "business-plan/create";
+        logger.info("🟢 GET /business-plan/create endpoint hit."); // ✅ Log when this method runs
+        BusinessPlan businessPlan = new BusinessPlan();
+        model.addAttribute("businessPlan", businessPlan);
+        logger.info("🟢 BusinessPlan object added to model: {}", businessPlan);
+        return "business-plan/create"; // ✅ Must match Thymeleaf template name
     }
+
+
 
     @PostMapping("/create")
     public String saveBusinessPlan(@ModelAttribute BusinessPlan businessPlan, RedirectAttributes redirectAttributes) {
@@ -69,21 +77,6 @@ public class BusinessPlanController {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
         }
         return "redirect:/business-plan/review?planId=" + planId;
-    }
-
-    // Show dashboard with business plans
-    @GetMapping("/dashboard")
-    public String showDashboard(Model model) {
-        try {
-            User currentUser = userService.getCurrentUser();
-            model.addAttribute("user", currentUser);
-            return "dashboard";
-        } catch (IllegalStateException e) {
-            return "redirect:/login";
-        } catch (RuntimeException e) {
-            model.addAttribute("error", "An unexpected error occurred. Please log in again.");
-            return "error";
-        }
     }
 
     // Delete a business plan

@@ -2,35 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Create Business Plan</title>
-    <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <title>Create Business Plan</title>
-        <link rel="stylesheet" th:href="@{/css/styles.css}">
-    </head>
-    <body>
-    <div th:replace="~{/fragments/header :: header}"></div>
-    <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
 
-    <div class="main-content">
-        <h1>Business Plan Creation Page</h1>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
 
-        <!-- Error Message Display -->
-        <div th:if="${errorMessage}" class="error-message">
-            <p th:text="${errorMessage}"></p>
-        </div>
-        <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
-            <label for="companyName">Business Name:</label>
-            <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your business name">
-            <button type="submit" name="saveOption" value="continue">Save and Continue</button>
-            <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+<div class="main-content">
+    <h1>Business Plan Creation Page</h1>
 
-
-        </form>
-
+    <!-- Error Message Display -->
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
     </div>
-    </body>
-    </html>
+
+    <form th:action="@{/business-plan/create}" th:object="${businessPlan}" method="post">
+        <label for="companyName">Business Name:</label>
+        <input type="text" id="companyName" th:field="*{companyName}" placeholder="Enter your business name" required>
+
+        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
+        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
+    </form>
+</div>
+
+</body>
+</html>
+
 
 
 
