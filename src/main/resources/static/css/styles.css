@@ -7,19 +7,6 @@ body {
     color: #333;
 }
 
-/* Header styling */
-.app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background-color: #1a1a1a;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    z-index: 1000;
-}
 
 .app-name {
     font-size: 2.5rem;
@@ -132,26 +119,26 @@ button:hover {
 }
 /* Enhanced Header Styling */
 .app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background-color: #1a1a1a;
-    padding: 0 30px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Space between logo and navigation */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Add subtle shadow for depth */
+    padding: 0 20px;
+    height: 100px;
+    background-color: #1a1a1a;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
 }
 
 /* Left side - App name/logo */
 .header-left {
-    display: flex;
-    align-items: center;
+    margin-right: 20px; /* Bring elements closer to app name */
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Reduce gap between navigation and account */
+}
 .app-name {
     font-size: 2.5rem;
     font-weight: bold;
@@ -165,24 +152,23 @@ button:hover {
     color: #7fbf19; /* Darker green on hover */
 }
 
-/* Right side - Navigation */
-.header-right {
-    display: flex;
-    align-items: center;
-}
+
+
 
 .header-nav {
-    display: flex;
-    gap: 15px;
+    margin-right: 20px; /* Add some space between nav and account */
 }
+
 
 .header-nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 10px; /* Reduce space between nav items */
 }
+
 
 .header-nav ul li {
     display: inline-block;
@@ -209,12 +195,12 @@ button:hover {
 
 /* User account section - if you have one */
 .user-account {
-    margin-left: 20px;
-    padding-left: 20px;
-    border-left: 1px solid #333;
-    display: flex;
-    align-items: center;
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
 }
+
+
 
 .user-account a {
     color: #a6e22e;
@@ -233,16 +219,179 @@ button:hover {
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-    .app-header {
-        padding: 0 15px;
+    .user-account {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
     }
 
     .app-name {
         font-size: 2rem;
     }
 
-    .header-nav ul li a {
-        padding: 8px 10px;
-        font-size: 14px;
-    }
+}
+/* Welcome Section */
+.welcome-section {
+    margin-top: 120px; /* Header height + spacing */
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+
+.welcome-section p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.quiz-button {
+    background-color: #a6e22e;
+    color: #1a1a1a;
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-button:hover {
+    background-color: #7fbf19;
+    color: white;
+}
+
+/* Feature Boxes */
+.feature-box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #1a1a1a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.feature-box h3 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    font-size: 1rem;
+    color: #555;
+}
+#quiz-container {
+    margin-top: 100px; /* or padding-top: 100px; */
+    padding: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#quiz-container h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+
+#quiz-container p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.quiz-navigation {
+    margin-top: 20px;
+    text-align: right;
+}
+.results-section {
+    margin-top: 120px; /* Offset for fixed header */
+    padding: 40px 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.results-section h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+#result-container {
+    margin-top: 20px;
+}
+
+#result-text {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#recommendations {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Error message */
+#error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    margin: 20px 0;
+}
+
+/* Buttons */
+.next-button, .action-button {
+    display: inline-block;
+    background-color: #a6e22e;
+    color: #1a1a1a;
+    text-decoration: none;
+    padding: 12px 24px;
+    margin: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.next-button:hover, .action-button:hover {
+    background-color: #7fbf19;
+    color: #fff;
 }
