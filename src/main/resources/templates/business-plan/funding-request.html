@@ -6,10 +6,10 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 
 </head>
+
+<body>
 <div th:replace="~{/fragments/header :: header}"></div>
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
-<body>
-
 <form th:action="@{/business-plan/fundin-request}" th:object="${fundingRequest}" method="post">
     <input type="hidden" name="planId" th:value="${businessPlan.id}" />
     <div>

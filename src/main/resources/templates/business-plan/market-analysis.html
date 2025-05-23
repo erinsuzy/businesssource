@@ -6,10 +6,12 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 
 </head>
+
+<body>
 <div th:replace="~{/fragments/header :: header}"></div>
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
-<body>
 <div class="main-content">
+
 
     <h1>Market Analysis</h1>
     <form th:action="@{/business-plan/market-analysis}" th:object="${marketAnalysis}" method="post">

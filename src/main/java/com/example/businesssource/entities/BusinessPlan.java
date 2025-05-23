@@ -19,25 +19,25 @@ public class BusinessPlan {
     @Column(columnDefinition = "TEXT")
     private String companyName;
 
-    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private CompanyDescription companyDescription;
 
-    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private MarketAnalysis marketAnalysis;
 
-    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private OrganizationManagement organizationManagement;
 
-    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private ProductsServices productsServices;
 
-    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private MarketingStrategy marketingStrategy;
 
-    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private FinancialProjections financialProjections;
 
-    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "businessPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private FundingRequest fundingRequest;
 
 
@@ -145,6 +145,30 @@ public class BusinessPlan {
 
     public FundingRequest getFundingRequest() {
         return fundingRequest;
+    }
+    @PreRemove
+    private void removeAssociations() {
+        if (companyDescription != null) {
+            companyDescription.setBusinessPlan(null);
+        }
+        if (marketAnalysis != null) {
+            marketAnalysis.setBusinessPlan(null);
+        }
+        if (organizationManagement != null) {
+            organizationManagement.setBusinessPlan(null);
+        }
+        if (productsServices != null) {
+            productsServices.setBusinessPlan(null);
+        }
+        if (marketingStrategy != null) {
+            marketingStrategy.setBusinessPlan(null);
+        }
+        if (financialProjections != null) {
+            financialProjections.setBusinessPlan(null);
+        }
+        if (fundingRequest != null) {
+            fundingRequest.setBusinessPlan(null);
+        }
     }
 
 

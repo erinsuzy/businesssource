@@ -44,12 +44,23 @@ public class BusinessPlanController {
 
 
     @PostMapping("/create")
-    public String saveBusinessPlan(@ModelAttribute BusinessPlan businessPlan, RedirectAttributes redirectAttributes) {
+    public String saveBusinessPlan(@ModelAttribute BusinessPlan businessPlan,
+                                   @RequestParam("action") String action,
+                                   RedirectAttributes redirectAttributes) {
+        User currentUser = userService.getCurrentUser(); // Get logged-in user
+        businessPlan.setUser(currentUser);               // ✅ Set the user
+
         businessPlan.setStatus("DRAFT");
         BusinessPlan savedPlan = businessPlanService.save(businessPlan);
-        redirectAttributes.addFlashAttribute("message", "Progress saved! You can return to this plan anytime.");
+
+        redirectAttributes.addFlashAttribute("message", "Progress saved!");
+
+        if ("exit".equals(action)) {
+            return "redirect:/dashboard";
+        }
         return "redirect:/business-plan/company-description?planId=" + savedPlan.getId();
     }
+
 
     // Review full business plan
     @GetMapping("/review")
@@ -83,7 +94,7 @@ public class BusinessPlanController {
     @PostMapping("/delete/{id}")
     public String deleteBusinessPlan(@PathVariable Long id) {
         businessPlanService.deleteBusinessPlan(id);
-        return "redirect:/business-plan/dashboard";
+        return "redirect:/dashboard";
     }
 
     // Export business plan as a PDF
