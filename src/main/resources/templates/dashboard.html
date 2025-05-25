@@ -7,56 +7,48 @@
 </head>
 
 <body>
-
-<!-- Header and Sidebar (make sure they're inside <body>) -->
 <div th:replace="~{/fragments/header :: header}"></div>
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+<div class ="main-content">
+<div class="dashboard-content">
+    <h1>Your Business Plans</h1>
 
-<!-- Main content area -->
-<div class="main-content">
-    <div class="dashboard-content">
-        <h1>Your Business Plans</h1>
-
-        <!-- Empty state -->
-        <div th:if="${#lists.isEmpty(businessPlans)}">
-            <p>You don't have any business plans yet.</p>
-            <a th:href="@{/business-plan/create}" class="create-plan-button">Create a New Business Plan</a>
+    <table>
+        <div th:if="${#lists.isEmpty(businessPlans)}" class="empty-state">
+            <p class="no-plans-message">You don't have any business plans yet.</p>
+            <a th:href="@{/business-plan/create}" class="create-plan-button large-centered-button">
+                + Create a New Business Plan
+            </a>
         </div>
-
-        <!-- Table -->
-        <div th:unless="${#lists.isEmpty(businessPlans)}">
-            <table>
-                <thead>
-                <tr>
-                    <th>Plan ID</th>
-                    <th>Company Name</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="plan : ${businessPlans}">
-                    <td th:text="${plan.id}"></td>
-                    <td th:text="${plan.companyName}"></td>
-                    <td th:text="${plan.status}"></td>
-                    <td>
-                        <a th:href="@{/business-plan/resume/{planId}(planId=${plan.id})}" class="button">Resume</a>
-                        <form th:action="@{/business-plan/delete/{id}(id=${plan.id})}" method="post" style="display: inline;">
-                            <button type="submit" class="delete-plan-button"
-                                    onclick="return confirm('Are you sure you want to delete this business plan?');">
-                                Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+        <thead>
+        <tr>
+            <th>Plan ID</th>
+            <th>Company Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="plan : ${businessPlans}">
+            <td th:text="${plan.id}">1</td>
+            <td th:text="${plan.companyName}">Sample Co.</td>
+            <td th:text="${plan.status}">DRAFT</td>
+            <td>
+                <form th:action="@{/business-plan/resume/{planId}(planId=${plan.id})}" method="get" style="display: inline;">
+                    <button type="submit" class="resume-plan-button">Resume</button>
+                </form>
+                <form th:action="@{/business-plan/delete/{id}(id=${plan.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="delete-plan-button"
+                            onclick="return confirm('Are you sure you want to delete this business plan?');">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
-</body>
-</html>
+</div>
 
 
 
