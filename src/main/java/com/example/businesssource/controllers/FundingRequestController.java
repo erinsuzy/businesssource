@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/business-plan/funding-request")
@@ -48,6 +49,7 @@ public class FundingRequestController {
     @PostMapping
     public String saveFundingRequest(
             @RequestParam("planId") Long planId,
+            @RequestParam("saveOption") String saveOption,
             @ModelAttribute FundingRequest fundingRequest,
             RedirectAttributes redirectAttributes) {
 
@@ -62,11 +64,24 @@ public class FundingRequestController {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
             return "redirect:/business-plan/create";
         }
+        // Check if a Funding Request already exists for this Business Plan
+        Optional<FundingRequest> existing = fundingRequestService.getByBusinessPlan(businessPlan);
+
+        if (existing.isPresent()) {
+            FundingRequest existingFunding = existing.get();
+            existingFunding.setFunds(fundingRequest.getFunds());
+            fundingRequest = existingFunding;
+        }
 
         fundingRequest.setBusinessPlan(businessPlan);
         fundingRequestService.saveOrUpdate(fundingRequest);
-
         redirectAttributes.addFlashAttribute("successMessage", "Funding request saved successfully!");
-        return "redirect:/business-plan/review?planId=" + planId;
+
+        if ("exit".equals(saveOption)) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/business-plan/review?planId=" + planId;
+        }
     }
+
 }

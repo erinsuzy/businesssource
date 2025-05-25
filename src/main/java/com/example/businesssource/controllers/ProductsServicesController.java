@@ -1,15 +1,14 @@
 package com.example.businesssource.controllers;
 
-import com.example.businesssource.entities.BusinessPlan;
-import com.example.businesssource.entities.MarketAnalysis;
-import com.example.businesssource.entities.ProductsServices;
-import com.example.businesssource.entities.User;
+import com.example.businesssource.entities.*;
 import com.example.businesssource.services.ProductsServicesService;
 import com.example.businesssource.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/business-plan/products-services")
@@ -50,6 +49,7 @@ public class ProductsServicesController {
     @PostMapping
     public String saveProductsServices(
             @RequestParam("planId") Long planId,
+            @RequestParam("saveOption") String saveOption,
             @ModelAttribute ProductsServices productsServices,
             RedirectAttributes redirectAttributes) {
 
@@ -64,11 +64,24 @@ public class ProductsServicesController {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
             return "redirect:/business-plan/create";
         }
+        Optional<ProductsServices> existing = productsServicesService.getByBusinessPlan(businessPlan);
+
+        if (existing.isPresent()) {
+           ProductsServices existingDescription = existing.get();
+            existingDescription.setDescription(productsServices.getDescription());
+            productsServices = existingDescription;
+        }
 
         productsServices.setBusinessPlan(businessPlan);
         productsServicesService.saveOrUpdate(productsServices);
 
         redirectAttributes.addFlashAttribute("successMessage", "Products and services saved successfully!");
-        return "redirect:/business-plan/market-analysis?planId=" + planId;
+
+        if ("exit".equals(saveOption)) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/business-plan/market-analysis?planId=" + planId;
+        }
     }
+
 }

@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/business-plan/financial-projections")
 public class FinancialProjectionsController {
@@ -44,6 +46,7 @@ public class FinancialProjectionsController {
     @PostMapping
     public String saveFinancialProjections(
             @RequestParam("planId") Long planId,
+            @RequestParam("saveOption") String saveOption,
             @ModelAttribute FinancialProjections financialProjections,
             RedirectAttributes redirectAttributes) {
 
@@ -58,11 +61,25 @@ public class FinancialProjectionsController {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
             return "redirect:/business-plan/create";
         }
+        Optional<FinancialProjections> existing = financialProjectionsService.getByBusinessPlan(businessPlan);
+
+        if (existing.isPresent()) {
+            FinancialProjections existingProjections = existing.get();
+            existingProjections.setForecast(financialProjections.getForecast());
+            financialProjections = existingProjections;
+        }
 
         financialProjections.setBusinessPlan(businessPlan);
         financialProjectionsService.saveOrUpdate(financialProjections);
 
         redirectAttributes.addFlashAttribute("successMessage", "Financial projections saved successfully!");
-        return "redirect:/business-plan/marketing-strategy?planId=" + planId;
+
+        if ("exit".equals(saveOption)) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/business-plan/marketing-strategy?planId=" + planId;
+        }
     }
+
+
 }

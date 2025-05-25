@@ -1,15 +1,14 @@
 package com.example.businesssource.controllers;
 
-import com.example.businesssource.entities.BusinessPlan;
-import com.example.businesssource.entities.MarketAnalysis;
-import com.example.businesssource.entities.OrganizationManagement;
-import com.example.businesssource.entities.User;
+import com.example.businesssource.entities.*;
 import com.example.businesssource.services.OrganizationManagementService;
 import com.example.businesssource.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/business-plan/organization-management")
@@ -47,9 +46,11 @@ public class OrganizationManagementController {
         return "business-plan/organization-management";
     }
 
+
     @PostMapping
     public String saveOrganizationManagement(
             @RequestParam("planId") Long planId,
+            @RequestParam("saveOption") String saveOption,
             @ModelAttribute OrganizationManagement organizationManagement,
             RedirectAttributes redirectAttributes) {
 
@@ -64,11 +65,26 @@ public class OrganizationManagementController {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
             return "redirect:/business-plan/create";
         }
+        Optional<OrganizationManagement> existing = organizationManagementService.getByBusinessPlan(businessPlan);
+
+        if (existing.isPresent()) {
+            OrganizationManagement existingStructure = existing.get();
+            existingStructure.setStructure(organizationManagement.getStructure());
+            organizationManagement = existingStructure;
+        }
+
+
 
         organizationManagement.setBusinessPlan(businessPlan);
         organizationManagementService.saveOrUpdate(organizationManagement);
 
-        redirectAttributes.addFlashAttribute("successMessage", "Organization management saved successfully!");
-        return "redirect:/business-plan/financial-projections?planId=" + planId;
+        redirectAttributes.addFlashAttribute("successMessage", "Organization and management saved successfully!");
+
+        if ("exit".equals(saveOption)) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/business-plan/financial-projections?planId=" + planId;
+        }
     }
+
 }

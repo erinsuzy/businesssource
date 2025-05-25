@@ -32,6 +32,15 @@
     </div>
 
     <div>
+        <h2><a th:href="@{/business-plan/products-services(planId=${businessPlan.id})}">Products and Services</a></h2>
+        <div th:if="${productsServices != null}">
+            <p th:text="${productsServices.description}"></p>
+        </div>
+        <div th:unless="${productsServices != null}">
+            <p>Products and services section not completed yet.</p>
+        </div>
+    </div>
+    <div>
         <h2><a th:href="@{/business-plan/market-analysis(planId=${businessPlan.id})}">Market Analysis</a></h2>
         <div th:if="${marketAnalysis != null}">
             <p th:text="${marketAnalysis.marketOverview}"></p>
@@ -40,6 +49,7 @@
             <p>Market analysis not completed yet.</p>
         </div>
     </div>
+
 
     <div>
         <h2><a th:href="@{/business-plan/organization-management(planId=${businessPlan.id})}">Organization and Management</a></h2>
@@ -52,12 +62,12 @@
     </div>
 
     <div>
-        <h2><a th:href="@{/business-plan/products-services(planId=${businessPlan.id})}">Products and Services</a></h2>
-        <div th:if="${productsServices != null}">
-            <p th:text="${productsServices.description}"></p>
+        <h2><a th:href="@{/business-plan/financial-projections(planId=${businessPlan.id})}">Financial Projections</a></h2>
+        <div th:if="${financialProjections != null}">
+            <p th:text="${financialProjections.forecast}"></p>
         </div>
-        <div th:unless="${productsServices != null}">
-            <p>Products and services section not completed yet.</p>
+        <div th:unless="${financialProjections != null}">
+            <p>Financial projections not completed yet.</p>
         </div>
     </div>
 
@@ -71,15 +81,6 @@
         </div>
     </div>
 
-    <div>
-        <h2><a th:href="@{/business-plan/financial-projections(planId=${businessPlan.id})}">Financial Projections</a></h2>
-        <div th:if="${financialProjections != null}">
-            <p th:text="${financialProjections.forecast}"></p>
-        </div>
-        <div th:unless="${financialProjections != null}">
-            <p>Financial projections not completed yet.</p>
-        </div>
-    </div>
 
     <div>
         <h2><a th:href="@{/business-plan/funding-request(planId=${businessPlan.id})}">Funding Request</a></h2>

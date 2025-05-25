@@ -2,8 +2,7 @@ package com.example.businesssource.controllers;
 
 import com.example.businesssource.entities.BusinessPlan;
 import com.example.businesssource.entities.User;
-import com.example.businesssource.services.BusinessPlanService;
-import com.example.businesssource.services.UserService;
+import com.example.businesssource.services.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -26,10 +25,24 @@ public class BusinessPlanController {
 
     private final BusinessPlanService businessPlanService;
     private final UserService userService;
+    private final CompanyDescriptionService companyDescriptionService;
+    private final MarketAnalysisService marketAnalysisService;
+    private final OrganizationManagementService organizationManagementService;
+    private final ProductsServicesService productsServicesService;
+    private final MarketingStrategyService marketingStrategyService;
+    private final FinancialProjectionsService financialProjectionsService;
+    private final FundingRequestService fundingRequestService;
 
-    public BusinessPlanController(BusinessPlanService businessPlanService, UserService userService) {
+    public BusinessPlanController(BusinessPlanService businessPlanService, UserService userService, CompanyDescriptionService companyDescriptionService, MarketAnalysisService marketAnalysisService, OrganizationManagementService organizationManagementService, ProductsServicesService productsServicesService, MarketingStrategyService marketingStrategyService, FinancialProjectionsService financialProjectionsService, FundingRequestService fundingRequestService) {
         this.businessPlanService = businessPlanService;
         this.userService = userService;
+        this.companyDescriptionService = companyDescriptionService;
+        this.marketAnalysisService = marketAnalysisService;
+        this.organizationManagementService = organizationManagementService;
+        this.productsServicesService = productsServicesService;
+        this.marketingStrategyService = marketingStrategyService;
+        this.financialProjectionsService = financialProjectionsService;
+        this.fundingRequestService = fundingRequestService;
     }
 
     @GetMapping("/create")
@@ -61,19 +74,30 @@ public class BusinessPlanController {
         return "redirect:/business-plan/company-description?planId=" + savedPlan.getId();
     }
 
-
-    // Review full business plan
     @GetMapping("/review")
     public String reviewBusinessPlan(@RequestParam("planId") Long planId, Model model, RedirectAttributes redirectAttributes) {
         Optional<BusinessPlan> optionalPlan = businessPlanService.findById(planId);
-        if (optionalPlan.isPresent()) {
-            model.addAttribute("businessPlan", optionalPlan.get());
-            return "business-plan/review";
-        } else {
+        if (optionalPlan.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
-            return "redirect:/business-plan/create";
+            return "redirect:/dashboard";
         }
+
+        BusinessPlan plan = optionalPlan.get();
+        model.addAttribute("businessPlan", plan);
+        System.out.println(companyDescriptionService.getByBusinessPlan(plan).orElse(null));
+
+
+        model.addAttribute("companyDescription", companyDescriptionService.getByBusinessPlan(plan).orElse(null));
+        model.addAttribute("marketAnalysis", marketAnalysisService.getByBusinessPlan(plan).orElse(null));
+        model.addAttribute("organizationManagement", organizationManagementService.getByBusinessPlan(plan).orElse(null));
+        model.addAttribute("productsServices", productsServicesService.getByBusinessPlan(plan).orElse(null));
+        model.addAttribute("marketingStrategy", marketingStrategyService.getByBusinessPlan(plan).orElse(null));
+        model.addAttribute("financialProjections", financialProjectionsService.getByBusinessPlan(plan).orElse(null));
+        model.addAttribute("fundingRequest", fundingRequestService.getByBusinessPlan(plan).orElse(null));
+
+        return "business-plan/review";
     }
+
 
     // Mark the business plan as completed
     @PostMapping("/mark-completed")
@@ -108,16 +132,27 @@ public class BusinessPlanController {
         outputStream.close();
     }
 
-    // Resume a business plan
     @GetMapping("/resume/{id}")
-    public String resumeBusinessPlan(@PathVariable Long id, Model model) {
-        BusinessPlan existingPlan = businessPlanService.findBusinessPlanById(id);
-        if (existingPlan != null) {
-            model.addAttribute("businessPlan", existingPlan);
-            return "business-plan/review";
-        } else {
-            model.addAttribute("error", "Business plan not found.");
+    public String resumeBusinessPlan(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+        Optional<BusinessPlan> optionalPlan = businessPlanService.findById(id);
+        if (optionalPlan.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Business plan not found.");
             return "redirect:/dashboard";
         }
+
+        BusinessPlan existingPlan = optionalPlan.get();
+        model.addAttribute("businessPlan", existingPlan);
+
+        // ✅ Add each section to the model just like /review
+        model.addAttribute("companyDescription", companyDescriptionService.getByBusinessPlan(existingPlan).orElse(null));
+        model.addAttribute("marketAnalysis", marketAnalysisService.getByBusinessPlan(existingPlan).orElse(null));
+        model.addAttribute("organizationManagement", organizationManagementService.getByBusinessPlan(existingPlan).orElse(null));
+        model.addAttribute("productsServices", productsServicesService.getByBusinessPlan(existingPlan).orElse(null));
+        model.addAttribute("marketingStrategy", marketingStrategyService.getByBusinessPlan(existingPlan).orElse(null));
+        model.addAttribute("financialProjections", financialProjectionsService.getByBusinessPlan(existingPlan).orElse(null));
+        model.addAttribute("fundingRequest", fundingRequestService.getByBusinessPlan(existingPlan).orElse(null));
+
+        return "business-plan/review";
     }
+
 }

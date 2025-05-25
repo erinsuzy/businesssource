@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/business-plan/company-description")
 public class CompanyDescriptionController {
@@ -43,9 +45,10 @@ public class CompanyDescriptionController {
         return "business-plan/company-description";
     }
 
-   @PostMapping
+    @PostMapping
     public String saveCompanyDescription(
             @RequestParam("planId") Long planId,
+            @RequestParam("saveOption") String saveOption,
             @ModelAttribute CompanyDescription companyDescription,
             RedirectAttributes redirectAttributes) {
 
@@ -60,12 +63,29 @@ public class CompanyDescriptionController {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
             return "redirect:/business-plan/create";
         }
+        // ✅ Check for existing CompanyDescription for this plan
+        Optional<CompanyDescription> existing = companyDescriptionService.getByBusinessPlan(businessPlan);
+
+        if (existing.isPresent()) {
+            CompanyDescription existingDescription = existing.get();
+            existingDescription.setBusinessType(companyDescription.getBusinessType());
+            existingDescription.setMissionStatement(companyDescription.getMissionStatement());
+            existingDescription.setCompanyGoals(companyDescription.getCompanyGoals());
+            companyDescription = existingDescription;
+        }
+
 
         companyDescription.setBusinessPlan(businessPlan);
         companyDescriptionService.saveOrUpdate(companyDescription);
 
         redirectAttributes.addFlashAttribute("successMessage", "Company description saved successfully!");
-        return "redirect:/business-plan/products-services?planId=" + planId;
+
+        if ("exit".equals(saveOption)) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/business-plan/products-services?planId=" + planId;
+        }
     }
+
 
 }

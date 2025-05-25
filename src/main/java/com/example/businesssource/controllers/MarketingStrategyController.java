@@ -1,15 +1,15 @@
 package com.example.businesssource.controllers;
 
-import com.example.businesssource.entities.BusinessPlan;
-import com.example.businesssource.entities.MarketAnalysis;
-import com.example.businesssource.entities.MarketingStrategy;
-import com.example.businesssource.entities.User;
+import com.example.businesssource.entities.*;
 import com.example.businesssource.services.MarketingStrategyService;
 import com.example.businesssource.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.yaml.snakeyaml.error.Mark;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/business-plan/marketing-strategy")
@@ -47,9 +47,11 @@ public class MarketingStrategyController {
         return "business-plan/marketing-strategy";
     }
 
+
     @PostMapping
     public String saveMarketingStrategy(
             @RequestParam("planId") Long planId,
+            @RequestParam("saveOption") String saveOption,
             @ModelAttribute MarketingStrategy marketingStrategy,
             RedirectAttributes redirectAttributes) {
 
@@ -64,11 +66,22 @@ public class MarketingStrategyController {
             redirectAttributes.addFlashAttribute("errorMessage", "Business plan not found.");
             return "redirect:/business-plan/create";
         }
-
+        Optional<MarketingStrategy> existing = marketingStrategyService.getByBusinessPlan(businessPlan);
+        if (existing.isPresent()) {
+            MarketingStrategy existingStrategy = existing.get();
+            existingStrategy.setStrategy(marketingStrategy.getStrategy());
+            marketingStrategy = existingStrategy;
+        }
         marketingStrategy.setBusinessPlan(businessPlan);
         marketingStrategyService.saveOrUpdate(marketingStrategy);
 
         redirectAttributes.addFlashAttribute("successMessage", "Marketing strategy saved successfully!");
-        return "redirect:/business-plan/funding-request?planId=" + planId;
+
+        if ("exit".equals(saveOption)) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/business-plan/funding-request?planId=" + planId;
+        }
     }
+
 }
