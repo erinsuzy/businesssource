@@ -6,17 +6,19 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 
 </head>
+
+<body>
 <div th:replace="~{/fragments/header :: header}"></div>
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
-<body>
 <div class="main-content">
 
+
     <h1>Market Analysis</h1>
-    <form action="#" th:action="@{/business-plan/market-analysis}" th:object="${businessPlan}" method="post">
+    <form th:action="@{/business-plan/market-analysis}" th:object="${marketAnalysis}" method="post">
         <input type="hidden" name="planId" th:value="${businessPlan.id}" />
         <div>
             <label for="marketOverview">Market Overview:</label>
-            <textarea id="marketOverview" th:field="${businessPlan.marketAnalysis}" placeholder="Provide an overview of the market" required></textarea>
+            <textarea id="marketOverview" th:field="*{marketOverview}" placeholder="Provide an overview of the market: Who is your target market and how will you cater to that market?" required></textarea>
         </div>
 
         <div th:if="${errorMessage}" class="error-message">

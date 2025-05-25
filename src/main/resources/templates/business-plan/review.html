@@ -5,50 +5,91 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 
+<body>
 <div th:replace="~{/fragments/header :: header}"></div>
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
-<body>
+
 <div class="main-content">
     <h1>Business Plan</h1>
+
     <input type="hidden" name="planId" th:value="${businessPlan.id}" />
 
     <div>
         <h2>Company Name</h2>
         <p th:text="${businessPlan.companyName}"></p>
     </div>
+
     <div>
         <h2><a th:href="@{/business-plan/company-description(planId=${businessPlan.id})}">Company Description</a></h2>
-        <p th:text="${businessPlan.companyDescription}"></p>
-    </div>
-
-    <div>
-        <h2><a th:href="@{/business-plan/market-analysis(planId=${businessPlan.id})}">Market Analysis</a></h2>
-        <p th:text="${businessPlan.marketAnalysis}"></p>
-    </div>
-
-    <div>
-        <h2><a th:href="@{/business-plan/organization-management(planId=${businessPlan.id})}">Organization and Management</a></h2>
-        <p th:text="${businessPlan.organizationManagement}"></p>
+        <div th:if="${companyDescription != null}">
+            <p th:text="${companyDescription.businessType}"></p>
+            <p th:text="${companyDescription.missionStatement}"></p>
+            <p th:text="${companyDescription.companyGoals}"></p>
+        </div>
+        <div th:unless="${companyDescription != null}">
+            <p>Company description not completed yet.</p>
+        </div>
     </div>
 
     <div>
         <h2><a th:href="@{/business-plan/products-services(planId=${businessPlan.id})}">Products and Services</a></h2>
-        <p th:text="${businessPlan.productsServices}"></p>
+        <div th:if="${productsServices != null}">
+            <p th:text="${productsServices.description}"></p>
+        </div>
+        <div th:unless="${productsServices != null}">
+            <p>Products and services section not completed yet.</p>
+        </div>
+    </div>
+    <div>
+        <h2><a th:href="@{/business-plan/market-analysis(planId=${businessPlan.id})}">Market Analysis</a></h2>
+        <div th:if="${marketAnalysis != null}">
+            <p th:text="${marketAnalysis.marketOverview}"></p>
+        </div>
+        <div th:unless="${marketAnalysis != null}">
+            <p>Market analysis not completed yet.</p>
+        </div>
     </div>
 
+
     <div>
-        <h2><a th:href="@{/business-plan/marketing-strategy(planId=${businessPlan.id})}">Marketing Strategy</a></h2>
-        <p th:text="${businessPlan.marketingStrategy}"></p>
+        <h2><a th:href="@{/business-plan/organization-management(planId=${businessPlan.id})}">Organization and Management</a></h2>
+        <div th:if="${organizationManagement != null}">
+            <p th:text="${organizationManagement.structure}"></p>
+        </div>
+        <div th:unless="${organizationManagement != null}">
+            <p>Organization and management section not completed yet.</p>
+        </div>
     </div>
 
     <div>
         <h2><a th:href="@{/business-plan/financial-projections(planId=${businessPlan.id})}">Financial Projections</a></h2>
-        <p th:text="${businessPlan.financialProjections}"></p>
+        <div th:if="${financialProjections != null}">
+            <p th:text="${financialProjections.forecast}"></p>
+        </div>
+        <div th:unless="${financialProjections != null}">
+            <p>Financial projections not completed yet.</p>
+        </div>
     </div>
 
     <div>
+        <h2><a th:href="@{/business-plan/marketing-strategy(planId=${businessPlan.id})}">Marketing Strategy</a></h2>
+        <div th:if="${marketingStrategy != null}">
+            <p th:text="${marketingStrategy.strategy}"></p>
+        </div>
+        <div th:unless="${marketingStrategy != null}">
+            <p>Marketing strategy not completed yet.</p>
+        </div>
+    </div>
+
+
+    <div>
         <h2><a th:href="@{/business-plan/funding-request(planId=${businessPlan.id})}">Funding Request</a></h2>
-        <p th:text="${businessPlan.fundingRequest}"></p>
+        <div th:if="${fundingRequest != null}">
+            <p th:text="${fundingRequest.funds}"></p>
+        </div>
+        <div th:unless="${fundingRequest != null}">
+            <p>Funding request not completed yet.</p>
+        </div>
     </div>
 
     <form th:action="@{/business-plan/mark-completed}" method="post" style="display: inline;">
@@ -62,9 +103,8 @@
 
     <button type="button" class="action-button" onclick="window.print()">Print Business Plan</button>
     <a th:href="@{/business-plan/export(planId=${businessPlan.id})}" class="action-button">Export as PDF</a>
-
-
-
 </div>
+
 </body>
 </html>
+

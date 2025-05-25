@@ -4,36 +4,33 @@
   <title>Company Description</title>
   <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
+
+
 <body>
 <div th:replace="~{/fragments/header :: header}"></div>
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
-
 <div class="main-content">
   <h1>Company Description</h1>
 
   <p class="description">Describe the type of business you want to start. Provide details such as your business type (e.g., dog training, grooming), industry, mission, and vision. Here’s an example: <i>“We will operate a dog training business that helps pet owners improve their relationships with their dogs using positive reinforcement methods.”</i></p>
 
-  <form th:action="@{/business-plan/company-description}" th:object="${businessPlan}" method="post">
-    <input type="hidden" name="planId" th:value="${businessPlan.id}" />
+  <form th:action="@{/business-plan/company-description}" th:object="${companyDescription}" method="post">
+  <input type="hidden" name="planId" th:value="${businessPlan.id}" />
 
     <div>
       <label for="businessType">Business Type</label>
-      <input id="businessType" th:field="${businessPlan.businessType}" placeholder="e.g., Dog Training, Grooming" required />
+      <input id="businessType" th:field="*{businessType}" placeholder="e.g., Dog Training, Grooming" required />
     </div>
+
 
     <div>
       <label for="mission">Mission Statement</label>
-      <textarea id="mission" th:field="${businessPlan.mission}" placeholder="Write a brief statement that explains your company’s purpose." required></textarea>
+      <textarea id="mission" th:field="*{missionStatement}" placeholder="Write a statement that answers these questions: 1. Who are we? &#10; 2. What do we do? &#10; 3. Why do we do it? &#10; 4. For whom do we do it?" required></textarea>
     </div>
 
     <div>
-      <label for="vision">Vision Statement</label>
-      <textarea id="vision" th:field="${businessPlan.vision}" placeholder="Describe what your company hopes to achieve in the future." required></textarea>
-    </div>
-
-    <div>
-      <label for="competitiveAdvantage">What sets you apart?</label>
-      <textarea id="competitiveAdvantage" th:field="${businessPlan.competitiveAdvantage}" placeholder="Explain your unique selling proposition." required></textarea>
+      <label for="goals">Where do you see the company in five years?</label>
+      <textarea id="goals" th:field="*{companyGoals}" placeholder="Explain your unique selling proposition." required></textarea>
     </div>
 
     <button type="submit" name="saveOption" value="continue">Save and Continue</button>

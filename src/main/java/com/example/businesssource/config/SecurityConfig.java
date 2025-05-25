@@ -32,43 +32,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/home", "/quiz/**", "/results", "/signup", "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/business-plan/create/**").hasRole("USER") // Only users can access dashboard
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // Only admins can access admin panel
+                        .requestMatchers("/", "/home", "/quiz/**", "/results", "/signup", "/css/**", "/js/**", "/images/**").permitAll() // Public access
+                        .requestMatchers("/business-plan/create/**", "/dashboard").hasAuthority("ROLE_USER") // Users can access dashboard
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // Admin-only routes
                         .anyRequest().authenticated()
                 )
-
                 .formLogin(login -> login
                         .loginPage("/login") // Custom login page
-                        .defaultSuccessUrl("/business-plan/create")
-                        .failureUrl("/login?error=true") // Redirect to login page with an error on failed login
+                        .defaultSuccessUrl("/dashboard", true) // ✅ Redirects to dashboard after login
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout") // Endpoint for logging out
-                        .logoutSuccessUrl("/login?logout=true") // Redirect to login after logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout") // Redirects to login after logout
                         .permitAll()
-                )
-                .sessionManagement(session -> session
-                        .maximumSessions(1) // Limit to one active session
-                        .maxSessionsPreventsLogin(false) // Allow new sessions to kick out old ones
-                )
-                .headers(headers -> headers
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin) // Allows frames from the same origin
-                )
-                .headers(headers -> headers
-                        .addHeaderWriter((request, response) -> {
-                            response.setHeader("Set-Cookie", "JSESSIONID=" + request.getSession().getId() + "; Path=/; HttpOnly; SameSite=Lax");
-                        })
                 );
-        http.authenticationProvider(authenticationProvider()); // Ensure provider is set
-
-        System.out.println("Security configuration loaded correctly");
 
         return http.build();
-    }
+        }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

@@ -35,12 +35,11 @@ public class BusinessPlanService {
     }
 
     public void deleteBusinessPlan(Long id) {
-        if (businessPlanRepository.existsById(id)) {
-            businessPlanRepository.deleteById(id);
-        } else {
-            throw new IllegalArgumentException("Business plan with ID " + id + " does not exist.");
-        }
+        BusinessPlan plan = businessPlanRepository.findById(id).orElseThrow();
+        businessPlanRepository.delete(plan);
     }
+
+
 
     public BusinessPlan findBusinessPlanById(Long id) {
         return businessPlanRepository.findById(id).orElse(null);

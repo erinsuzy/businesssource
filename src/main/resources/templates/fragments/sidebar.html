@@ -1,14 +1,39 @@
 <div th:fragment="sidebar" class="sidebar">
+
   <ul>
-    <li><a th:href="@{/business-plan/company-description(planId=${businessPlan.id})}">Company Description</a></li>
-    <li><a th:href="@{/business-plan/market-analysis(planId=${businessPlan.id})}">Market Analysis</a></li>
-    <li><a th:href="@{/business-plan/organization-management(planId=${businessPlan.id})}">Organization & Management</a></li>
-    <li><a th:href="@{/business-plan/products-services(planId=${businessPlan.id})}">Products & Services</a></li>
-    <li><a th:href="@{/business-plan/marketing-strategy(planId=${businessPlan.id})}">Marketing Strategy</a></li>
-    <li><a th:href="@{/business-plan/financial-projections(planId=${businessPlan.id})}">Financial Projections</a></li>
-    <li><a th:href="@{/business-plan/funding-request(planId=${businessPlan.id})}">Funding Request</a></li>
-    <li><a th:href="@{/business-plan/review(planId=${businessPlan.id})}">Review Plan</a></li>
-    <li><a th:href="@{/business-plan/dashboard}">Dashboard</a></li>
+    <li>
+      <a th:href="@{/business-plan/create}">Create New Business Plan</a>
+    </li>
+
+    <!-- Only show these if a business plan exists -->
+    <li th:if="${businessPlan != null}">
+      <a th:href="@{/business-plan/company-description(planId=${businessPlan.id})}">Company Description</a>
+    </li>
+    <li th:if="${businessPlan != null}">
+      <a th:href="@{/business-plan/products-services(planId=${businessPlan.id})}">Products and Services</a>
+    </li>
+    <li th:if="${businessPlan != null}">
+      <a th:href="@{/business-plan/market-analysis(planId=${businessPlan.id})}">Market Analysis</a>
+    </li>
+    <li th:if="${businessPlan != null}">
+      <a th:href="@{/business-plan/organization-management(planId=${businessPlan.id})}">Organization and Management</a>
+    </li>
+    <li th:if="${businessPlan != null}">
+      <a th:href="@{/business-plan/financial-projections(planId=${businessPlan.id})}">Financial Projections</a>
+    </li>
+    <li th:if="${businessPlan != null}">
+      <a th:href="@{/business-plan/marketing-strategy(planId=${businessPlan.id})}">Marketing Strategy</a>
+    </li>
+    <li th:if="${businessPlan != null}">
+      <a th:href="@{/business-plan/funding-request(planId=${businessPlan.id})}">Funding Request</a>
+    </li>
+    <li th:if="${businessPlan != null}">
+      <a th:href="@{/business-plan/review(planId=${businessPlan.id})}">Review Business Plan</a>
+    </li>
   </ul>
 </div>
+
+
+
+
 

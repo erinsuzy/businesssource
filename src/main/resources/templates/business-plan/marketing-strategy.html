@@ -11,11 +11,11 @@
 <body>
 <div class="main-content">
     <h1>Marketing Strategy</h1>
-    <form action="#" th:action="@{/business-plan/marketing-strategy}" th:object="${businessPlan}" method="post">
+    <form action="#" th:action="@{/business-plan/marketing-strategy}" th:object="${marketingStrategy}" method="post">
         <input type="hidden" name="planId" th:value="${businessPlan.id}" />
         <div>
             <label for="marketingStrategy">Products/Services:</label>
-            <textarea id="marketingStrategy" th:field="${businessPlan.marketingStrategy}" placeholder="Plan your marketing strategy" required></textarea>
+            <textarea id="marketingStrategy" th:field="*{strategy}" placeholder="Plan your marketing strategy" required></textarea>
         </div>
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>

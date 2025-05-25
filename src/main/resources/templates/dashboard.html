@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Business Plans</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+<div class ="main-content">
+<div class="dashboard-content">
+    <h1>Your Business Plans</h1>
+
+    <table>
+        <div th:if="${#lists.isEmpty(businessPlans)}" class="empty-state">
+            <p class="no-plans-message">You don't have any business plans yet.</p>
+            <a th:href="@{/business-plan/create}" class="create-plan-button large-centered-button">
+                + Create a New Business Plan
+            </a>
+        </div>
+        <thead>
+        <tr>
+            <th>Plan ID</th>
+            <th>Company Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="plan : ${businessPlans}">
+            <td th:text="${plan.id}">1</td>
+            <td th:text="${plan.companyName}">Sample Co.</td>
+            <td th:text="${plan.status}">DRAFT</td>
+            <td>
+                <form th:action="@{/business-plan/resume/{planId}(planId=${plan.id})}" method="get" style="display: inline;">
+                    <button type="submit" class="resume-plan-button">Resume</button>
+                </form>
+                <form th:action="@{/business-plan/delete/{id}(id=${plan.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="delete-plan-button"
+                            onclick="return confirm('Are you sure you want to delete this business plan?');">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+
