@@ -102,16 +102,36 @@
         </div>
     </div>
 
-    <form th:action="@{/business-plan/mark-completed}" method="post" style="display: inline;">
+    <form th:action="@{/business-plan/mark-completed}" method="post" style="display: inline;" onsubmit="markAsCompleted(this)">
         <input type="hidden" name="planId" th:value="${businessPlan.id}" />
-        <button type="submit" class="action-button">Mark as Completed</button>
+        <button type="submit"
+                class="action-button"
+                th:utext="${businessPlan.status == 'COMPLETED'} ? '✔️ Completed' : 'Mark as Completed'"
+                th:disabled="${businessPlan.status == 'COMPLETED'}">
+        </button>
+
     </form>
+    <script>
+        function markAsCompleted(form) {
+            const button = form.querySelector("button");
+            button.innerHTML = "✔️ Completed"; // Update the text with a checkmark
+            button.disabled = true;             // Disable the button to prevent further clicks
+            button.classList.add("completed-button"); // Add the styling class for completed state
+        }
+    </script>
+
+
 
     <div th:if="${errorMessage}" class="error-message">
         <p th:text="${errorMessage}"></p>
     </div>
 
-    <button type="button" class="action-button" onclick="window.print()">Print Business Plan</button>
+    <a th:href="@{/business-plan/export(planId=${businessPlan.id})}"
+       target="_blank"
+       class="action-button">
+        🖨️ Print Business Plan
+    </a>
+
     <form th:action="@{/business-plan/export}" method="get">
         <input type="hidden" name="planId" th:value="${businessPlan.id}" />
         <button type="submit" class="action-button">Download PDF</button>

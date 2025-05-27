@@ -506,4 +506,24 @@ button:hover {
     background-color: #7fbf19;
     color: white;
 }
+.completed-button {
+    background-color: #4caf50; /* green */
+    color: white;
+    font-weight: bold;
+}
+
+.logout-button {
+    background-color: transparent;
+    color: #a6e22e;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 10px;
+    padding: 0;
+}
+
+.logout-button:hover {
+    color: white;
+}
 
