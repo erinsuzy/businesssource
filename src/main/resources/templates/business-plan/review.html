@@ -22,9 +22,19 @@
     <div>
         <h2><a th:href="@{/business-plan/company-description(planId=${businessPlan.id})}">Company Description</a></h2>
         <div th:if="${companyDescription != null}">
-            <p th:text="${companyDescription.businessType}"></p>
-            <p th:text="${companyDescription.missionStatement}"></p>
-            <p th:text="${companyDescription.companyGoals}"></p>
+            <p>
+                <strong>Type of Business:</strong>
+                <span th:text="${companyDescription.businessType}"></span>
+            </p>
+            <p>
+                <strong>Our Mission:</strong>
+                <span th:text="${companyDescription.missionStatement}"></span>
+            </p>
+            <p>
+                <strong>Our Goals:</strong>
+                <span th:text="${companyDescription.companyGoals}"></span>
+            </p>
+
         </div>
         <div th:unless="${companyDescription != null}">
             <p>Company description not completed yet.</p>

@@ -5,6 +5,7 @@ import com.example.businesssource.entities.User;
 import com.example.businesssource.services.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,9 @@ public class BusinessPlanController {
     private final MarketingStrategyService marketingStrategyService;
     private final FinancialProjectionsService financialProjectionsService;
     private final FundingRequestService fundingRequestService;
+    @Autowired
+    private PdfExportService pdfExportService;
+
 
     public BusinessPlanController(BusinessPlanService businessPlanService, UserService userService, CompanyDescriptionService companyDescriptionService, MarketAnalysisService marketAnalysisService, OrganizationManagementService organizationManagementService, ProductsServicesService productsServicesService, MarketingStrategyService marketingStrategyService, FinancialProjectionsService financialProjectionsService, FundingRequestService fundingRequestService) {
         this.businessPlanService = businessPlanService;
@@ -121,16 +125,21 @@ public class BusinessPlanController {
         return "redirect:/dashboard";
     }
 
-    // Export business plan as a PDF
     @GetMapping("/export")
-    public void exportBusinessPlanToPdf(@RequestParam Long planId, HttpServletResponse response) throws IOException {
-        BusinessPlan businessPlan = businessPlanService.findBusinessPlanById(planId);
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=business_plan.pdf");
-        OutputStream outputStream = response.getOutputStream();
-        businessPlanService.generatePdf(businessPlan, outputStream);
-        outputStream.close();
+    public void exportBusinessPlanToPDF(@RequestParam Long planId, HttpServletResponse response) {
+        try {
+            BusinessPlan plan = businessPlanService.getPlanWithAllSections(planId);
+
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=BusinessPlan_" + planId + ".pdf");
+
+            pdfExportService.generatePdf(plan, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException e) {
+            throw new RuntimeException("PDF export failed", e);
+        }
     }
+
 
     @GetMapping("/resume/{id}")
     public String resumeBusinessPlan(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
