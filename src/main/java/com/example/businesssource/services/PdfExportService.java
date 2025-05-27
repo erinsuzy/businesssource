@@ -1,36 +1,40 @@
 package com.example.businesssource.services;
 
 import com.example.businesssource.entities.BusinessPlan;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
+
+
+
 
 import java.io.OutputStream;
 
-@Service
-public class PdfExportService {
 
-    public void generatePdf(BusinessPlan businessPlan, OutputStream outputStream) {
-        try {
-            PdfWriter writer = new PdfWriter(outputStream);
-            PdfDocument pdfDoc = new PdfDocument(writer);
-            Document document = new Document(pdfDoc);
+    @Service
+    public class PdfExportService {
 
-            document.add(new Paragraph("Business Plan"));
-            document.add(new Paragraph("Company Name: " + businessPlan.getCompanyName()));
-            document.add(new Paragraph("Company Description: " + businessPlan.getCompanyDescription()));
-            document.add(new Paragraph("Market Analysis: " + businessPlan.getMarketAnalysis()));
-            document.add(new Paragraph("Organization and Management: " + businessPlan.getOrganizationManagement()));
-            document.add(new Paragraph("Products and Services: " + businessPlan.getProductsServices()));
-            document.add(new Paragraph("Marketing Strategy: " + businessPlan.getMarketingStrategy()));
-            document.add(new Paragraph("Financial Projections: " + businessPlan.getFinancialProjections()));
-            document.add(new Paragraph("Funding Request: " + businessPlan.getFundingRequest()));
+        @Autowired
+        private SpringTemplateEngine templateEngine;
 
-            document.close();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to generate PDF", e);
+        public void generatePdf(BusinessPlan plan, OutputStream outputStream) throws IOException {
+            Context context = new Context();
+            context.setVariable("plan", plan);
+
+            String html = templateEngine.process("pdf/business-plan-pdf", context);
+
+            PdfRendererBuilder builder = new PdfRendererBuilder();
+            builder.useFastMode();
+            builder.withHtmlContent(html, null);
+            builder.toStream(outputStream);
+            builder.run();
         }
     }
-}
+
+

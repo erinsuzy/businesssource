@@ -112,7 +112,11 @@
     </div>
 
     <button type="button" class="action-button" onclick="window.print()">Print Business Plan</button>
-    <a th:href="@{/business-plan/export(planId=${businessPlan.id})}" class="action-button">Export as PDF</a>
+    <form th:action="@{/business-plan/export}" method="get">
+        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
+        <button type="submit" class="action-button">Download PDF</button>
+    </form>
+
 </div>
 
 </body>

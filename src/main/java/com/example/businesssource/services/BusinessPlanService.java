@@ -46,6 +46,23 @@ public class BusinessPlanService {
         return businessPlanRepository.findById(id).orElse(null);
     }
 
+    public BusinessPlan getPlanWithAllSections(Long planId) {
+        BusinessPlan plan = businessPlanRepository.findById(planId)
+                .orElseThrow(() -> new RuntimeException("Plan not found"));
+
+
+        Hibernate.initialize(plan.getCompanyDescription());
+        Hibernate.initialize(plan.getMarketAnalysis());
+        Hibernate.initialize(plan.getProductsServices());
+        Hibernate.initialize(plan.getFundingRequest());
+        Hibernate.initialize(plan.getOrganizationManagement());
+        Hibernate.initialize(plan.getMarketingStrategy());
+        Hibernate.initialize(plan.getFinancialProjections());
+
+
+        return plan;
+    }
+
 }
 
 
