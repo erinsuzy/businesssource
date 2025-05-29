@@ -192,15 +192,55 @@ button:hover {
     background-color: #a6e22e;
     color: #1a1a1a;
 }
+/* Updated logout button styling to match header navigation */
+.logout-link {
+    background-color: #1a1a1a !important;
+    border: none !important;
+    color: #a6e22e;
+    padding: 8px 15px;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    /* Add these properties to remove button defaults and match links */
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline;
+    vertical-align: middle;
+    line-height: normal;
+    border: 1px solid #a6e22e !important;
+    margin: 0;
+}
 
-/* User account section - if you have one */
+.logout-link:hover {
+    background-color: #a6e22e !important;
+    color: #1a1a1a;
+}
+
+.logout-link:focus {
+    background-color: #a6e22e !important;
+    color: #1a1a1a;
+    outline: none !important;
+}
+
+/* Make sure the form doesn't add any spacing */
+.user-account form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+/* Keep the original user-account styling */
 .user-account {
     margin-left: 0;
     padding-left: 0;
     border-left: none;
 }
-
-
 
 .user-account a {
     color: #a6e22e;
@@ -505,5 +545,10 @@ button:hover {
 .large-centered-button:hover {
     background-color: #7fbf19;
     color: white;
+}
+.completed-button {
+    background-color: #4caf50; /* green */
+    color: white;
+    font-weight: bold;
 }
 

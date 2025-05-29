@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        body { font-family: sans-serif; }
+        h1 { font-size: 18pt; text-align: center; }
+        h2 { font-size: 14pt; margin-top: 20px; }
+        p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+<h1>Business Plan</h1>
+
+<p><strong>Company Name:</strong> <span th:text="${plan.companyName}">Company Name</span></p>
+
+<h2>Company Description</h2>
+<p><strong>Business Type:</strong> <span th:text="${plan.companyDescription.businessType}"></span></p>
+<p><strong>Mission Statement:</strong> <span th:text="${plan.companyDescription.missionStatement}"></span></p>
+<p><strong>Goals:</strong> <span th:text="${plan.companyDescription.companyGoals}"></span></p>
+
+<h2>Market Analysis</h2>
+<p><strong>Industry Overview:</strong> <span th:text="${plan.marketAnalysis.marketOverview}"></span></p>
+
+<h2>Organization and Management</h2>
+<p><strong>Legal Organization and Management Type</strong> <span th:text="${plan.organizationManagement.structure}"></span></p>
+
+<h2>Products and Services</h2>
+<p><strong>Products/services Offered:</strong> <span th:text="${plan.productsServices.description}"></span></p>
+
+<h2>Marketing Strategy</h2>
+<p><strong>Marketing Plan:</strong> <span th:text="${plan.marketingStrategy.strategy}"></span></p>
+
+<h2>Financial Projections</h2>
+<p><strong>Financial Forecast:</strong> <span th:text="${plan.financialProjections.forecast}"></span></p>
+
+<h2>Funding Request</h2>
+<p><strong>Funding Plan:</strong> <span th:text="${plan.fundingRequest.funds}"></span></p>
+
+</body>
+</html>

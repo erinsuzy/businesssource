@@ -10,7 +10,8 @@
 <body>
 <div th:replace="~{/fragments/header :: header}"></div>
 <div th:replace="~{/fragments/sidebar :: sidebar}"></div>
-<form th:action="@{/business-plan/fundin-request}" th:object="${fundingRequest}" method="post">
+<div class="main-content">
+<form th:action="@{/business-plan/funding-request}" th:object="${fundingRequest}" method="post">
     <input type="hidden" name="planId" th:value="${businessPlan.id}" />
     <div>
         <label for="funds">Funding Request:</label>
