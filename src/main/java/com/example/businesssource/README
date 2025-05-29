@@ -1,25 +1,82 @@
-This application is designed to empower entrepreneurs looking to start a pet-focused business.
-It offers a fun and insightful quiz to help identify the best pet profession for your lifestyle, tools to create a professional business plan,
-generate a business name using AI, register the business with state and federal agencies, and access essential contracts and forms.
-Quiz Feature:
+BusinessSource (PetCare Pro)
 
-Discover the ideal pet profession for your lifestyle and goals with a quick and engaging quiz. No sign-up or login is required to take the quiz,
-making it easy to get started right away.
+BusinessSource, also known as PetCare Pro, is a web application designed to help aspiring pet business owners start their businesses with confidence. The app guides users through a quiz to suggest business types and provides tools to build a customized business plan, one section at a time.
+
+🚀 Features
+
+🐾 Pet Business Quiz
+
+A short multiple-choice quiz that recommends pet business ideas based on user responses.
+
+📝 Business Plan Builder
+
+Users fill out structured sections of a business plan (e.g., mission, goals, marketing strategy) and can save progress at any point.
+
+📄 Summary View
+
+Inputs are rendered using Thymeleaf into a clean, printable format for review or sharing.
+
+💾 Progress Saving
+
+Users can save their plan in draft form and return later to complete it.
+
+🛠 Tech Stack
+
+Backend: Java, Spring Boot, Thymeleaf
+
+Frontend: HTML, CSS
+
+Database: MySQL
+
+Build Tool: Gradle
+
+IDE: IntelliJ IDEA
+
+📸 Screenshots
 
 
-Exclusive Tools:
+🧑‍💻 Getting Started
 
-Business Plan Feature:
-Create a comprehensive business plan with a guided, step-by-step process. Save your progress and pick up where you left off anytime.
-Once complete, you can export your plan as a PDF or print it for your records.
+To run the project locally:
 
-Business Name Feature:
-Leverage AI to brainstorm and select the perfect name that aligns with your business vision.
 
-Resources Feature:
-Access a detailed checklist to take your business from concept to launch. Each step includes helpful links to simplify tasks like verifying your business
-name with the Secretary of State, obtaining an EIN from the IRS, designing a logo, ordering business cards, and setting up a business bank account.
+Clone the repository:
 
-Pet Business Specifics Feature:
-Find everything you need to run a pet-focused business, including customizable contracts and forms tailored to your specific type of business.
-Explore software recommendations, certification opportunities, insurance options, and pet first aid courses.
+git clone https://github.com/yourusername/businesssource.git
+
+cd businesssource
+
+
+Set up the database:
+
+Create a MySQL database (e.g., petcare_db)
+
+Update application.properties with your DB credentials
+
+Run the app:
+
+./gradlew bootRun
+
+Access in browser:
+
+http://localhost:8080
+
+✅ Status
+
+This is an MVP (Minimum Viable Product) with fully functional quiz and business plan features. Future features planned:
+
+Pet business name generator
+
+Business forms and legal resource hub
+
+Improved user interface and account customization
+
+🤝 Contributing
+
+Currently a solo project, but collaboration is welcome. Reach out if you're interested!
+
+📬 Contact
+
+Created by Erin Schneider
+
+Portfolio coming soon | https://www.linkedin.com/in/erinsschneider/ | erinsschneider@gmail.com
