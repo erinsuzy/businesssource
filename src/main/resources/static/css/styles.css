@@ -192,7 +192,7 @@ button:hover {
     background-color: #a6e22e;
     color: #1a1a1a;
 }
-/* Updated logout button styling to match header navigation */
+
 .logout-link {
     background-color: #1a1a1a !important;
     border: none !important;
@@ -204,7 +204,6 @@ button:hover {
     font-family: inherit;
     transition: all 0.2s ease;
     text-decoration: none;
-    /* Add these properties to remove button defaults and match links */
     outline: none !important;
     box-shadow: none !important;
     -webkit-appearance: none;
@@ -228,14 +227,14 @@ button:hover {
     outline: none !important;
 }
 
-/* Make sure the form doesn't add any spacing */
+
 .user-account form {
     display: inline;
     margin: 0;
     padding: 0;
 }
 
-/* Keep the original user-account styling */
+
 .user-account {
     margin-left: 0;
     padding-left: 0;
