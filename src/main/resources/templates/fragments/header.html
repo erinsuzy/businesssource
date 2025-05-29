@@ -16,11 +16,12 @@
             </nav>
             <div class="user-account" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <span sec:authorize="isAuthenticated()">
-        <a th:href="@{/dashboard}">Dashboard</a>
+        <a th:href="@{/dashboard}">My Account</a>
         |
-        <form th:action="@{/logout}" method="post" style="display:inline;">
-            <button type="submit">Logout</button>
-        </form>
+       <form th:action="@{/logout}" method="post" style="display:inline;">
+    <button type="submit" class="logout-link">Logout</button>
+</form>
+
     </span>
                 <span sec:authorize="isAnonymous()">
         <a th:href="@{/login}">Login</a>
