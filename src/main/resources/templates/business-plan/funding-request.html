@@ -15,9 +15,24 @@
 <form th:action="@{/business-plan/funding-request}" th:object="${fundingRequest}" method="post">
     <input type="hidden" name="planId" th:value="${businessPlan.id}" />
     <div>
-        <label for="funds">Funding Request:</label>
-        <textarea id="funds" th:field="*{funds}" placeholder="Where will you obtain funding for your business?" required></textarea>
+        <label for="funds">Funding Request</label>
+        <p class="helper-text">
+            If you need money to start or grow your business, describe how much you need, what you'll use it for, and how you plan to get it. You might include:
+        </p>
+        <ul class="helper-text">
+            <li>How much funding you’re requesting (if any)</li>
+            <li>What the funds will be used for (e.g., equipment, insurance, website, marketing)</li>
+            <li>How you plan to obtain the funding (e.g., personal savings, loan, grant, crowdfunding)</li>
+            <li>Whether you’ll seek outside investors or remain self-funded</li>
+        </ul>
+        <p class="helper-text">
+            *If you don’t plan to request funding, feel free to note that here.*
+        </p>
+        <textarea id="funds" th:field="*{funds}" required></textarea>
     </div>
+
+
+
     <div th:if="${errorMessage}" class="error-message">
         <p th:text="${errorMessage}"></p>
     </div>

@@ -17,9 +17,23 @@
     <form th:action="@{/business-plan/market-analysis}" th:object="${marketAnalysis}" method="post">
         <input type="hidden" name="planId" th:value="${businessPlan.id}" />
         <div>
-            <label for="marketOverview">Market Overview:</label>
-            <textarea id="marketOverview" th:field="*{marketOverview}" placeholder="Provide an overview of the market: Who is your target market and how will you cater to that market?" required></textarea>
+            <label for="marketOverview">Market Overview</label>
+            <p class="helper-text">
+                Describe the market for your business. You don’t need formal data — just thoughtful answers to questions like:
+            </p>
+            <ul class="helper-text">
+                <li>Who are your ideal customers?</li>
+                <li>What problems do they face that your business solves?</li>
+                <li>Are there similar businesses in your area?</li>
+                <li>What sets your business apart from the competition?</li>
+                <li>Is the demand for your service or product growing?</li>
+            </ul>
+            <p class="helper-text">
+                If you're not sure, think about your own experiences, conversations you've had, or what you’ve seen online or locally.
+            </p>
+            <textarea id="marketOverview" th:field="*{marketOverview}" required></textarea>
         </div>
+
 
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>

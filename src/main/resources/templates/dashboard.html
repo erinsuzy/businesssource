@@ -32,11 +32,25 @@
         <tr th:each="plan : ${businessPlans}">
             <td th:text="${plan.id}">1</td>
             <td th:text="${plan.companyName}">Sample Co.</td>
-            <td th:text="${plan.status}">DRAFT</td>
+            <td>
+    <span class="status-label"
+          th:classappend="${plan.status == 'COMPLETED'} ? ' status-completed' : ' status-draft'"
+          th:text="${plan.status}">
+        DRAFT
+    </span>
+            </td>
+
             <td>
                 <form th:action="@{/business-plan/resume/{planId}(planId=${plan.id})}" method="get" style="display: inline;">
-                    <button type="submit" class="resume-plan-button">Resume</button>
+                    <button type="submit"
+                            class="resume-plan-button"
+                            th:classappend="${plan.status == 'COMPLETED'} ? ' edit-button' : ' resume-button'"
+                            th:text="${plan.status == 'COMPLETED'} ? 'Edit' : 'Resume'">
+                        Resume
+                    </button>
                 </form>
+
+
                 <form th:action="@{/business-plan/delete/{id}(id=${plan.id})}" method="post" style="display: inline;">
                     <button type="submit" class="delete-plan-button"
                             onclick="return confirm('Are you sure you want to delete this business plan?');">
