@@ -17,9 +17,22 @@
     <input type="hidden" name="planId" th:value="${businessPlan.id}" />
 
     <div>
-      <label for="forecast">Financial/Projections:</label>
-      <textarea id="forecast" th:field="*{forecast}" placeholder="What are your financial projections for the first year?" required></textarea>
+      <label for="forecast">Financial Projections</label>
+      <p class="helper-text">
+        Estimate your income and expenses for your first year in business.
+        Consider starting small and projecting growth each month.
+        You might include:
+      </p>
+      <ul>
+        <li>Expected monthly revenue (start low and increase gradually)</li>
+        <li>Estimated monthly expenses (e.g., supplies, marketing, insurance)</li>
+        <li>Total net income (revenue minus expenses)</li>
+      </ul>
+     <p class = "helper-text">Don’t worry about perfection — this is just to help you think ahead!</p>
+
+      <textarea id="forecast" th:field="*{forecast}" required></textarea>
     </div>
+
     <div th:if="${errorMessage}" class="error-message">
       <p th:text="${errorMessage}"></p>
     </div>

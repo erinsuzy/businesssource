@@ -17,13 +17,31 @@
     <form th:action="@{/business-plan/organization-management}" th:object="${organizationManagement}" method="post">
         <input type="hidden" name="planId" th:value="*{businessPlan.id}" />
 
-        <div class="form-group">
-            <label for="managementStructure">Management Structure:</label>
-            <textarea id="managementStructure" name="organizationManagement" class="form-control" rows="6"
-                      th:field="*{structure}"
-                      placeholder="Describe the management structure, ownership, key team members, and their roles."
-                      required></textarea>
+        <div>
+            <label for="managementStructure">Management Structure</label>
+            <p class="helper-text">
+                Describe how your business is organized and who’s involved. You might include:
+            </p>
+            <ul class="helper-text">
+                <li>Ownership structure (e.g., sole proprietorship, LLC, partnership)</li>
+                <li>Your role in the business</li>
+                <li>Key team members and their responsibilities</li>
+                <li>Advisors, mentors, or external professionals (e.g., accountant, attorney)</li>
+            </ul>
+            <p class="helper-text">
+                Not sure how to describe your structure? Here’s a quick guide:
+            </p>
+            <ul class="helper-text">
+                <li><strong>Sole Proprietorship</strong> – You’re the only owner and fully responsible. Easiest to set up, but no legal separation between you and the business.</li>
+                <li><strong>LLC (Limited Liability Company)</strong> – More formal. Offers legal protection by separating your personal assets from the business. May have one or more owners.</li>
+            </ul>
+            <p class="helper-text">
+                You don’t need to choose right now — just describe how you plan to run things for now.
+            </p>
+
+            <textarea id="managementStructure" name="organizationManagement" th:field="*{structure}" required></textarea>
         </div>
+
 
         <!-- Error Message Display -->
         <div th:if="${errorMessage}" class="error-message">

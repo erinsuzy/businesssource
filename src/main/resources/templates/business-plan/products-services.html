@@ -13,18 +13,24 @@
 <div class="main-content">
 
     <h1>Products and Services</h1>
-    <form action="#" th:action="@{/business-plan/products-services}" th:object="${productsServices}" method="post">
-        <input type="hidden" name="planId" th:value="${businessPlan.id}" />
-        <div>
-            <label for="productsServices">Products/Services:</label>
-            <textarea id="productsServices" th:field="*{description}" placeholder="Describe your services in detail" required></textarea>
-        </div>
-        <div th:if="${errorMessage}" class="error-message">
-            <p th:text="${errorMessage}"></p>
-        </div>
-        <button type="submit" name="saveOption" value="continue">Save and Continue</button>
-        <button type="submit" name="saveOption" value="exit">Save and Exit</button>
-    </form>
+    <div>
+        <label for="productsAndServices">Products & Services</label>
+        <p class="helper-text">
+            Describe what your business offers. You can include:
+        </p>
+        <ul class="helper-text">
+            <li>The services or products you plan to offer</li>
+            <li>How they meet the needs of your target market</li>
+            <li>What makes them unique or valuable</li>
+            <li>Your pricing strategy (e.g., hourly, flat rate, package deals)</li>
+            <li>How your prices compare to similar businesses</li>
+        </ul>
+        <p class="helper-text">
+            You don’t need to list every detail, just give a clear idea of what you offer and how you’ll charge for it.
+        </p>
+        <textarea id="productsAndServices" th:field="*{productsServices}" required></textarea>
+    </div>
+
 </div>
 </body>
 </html>

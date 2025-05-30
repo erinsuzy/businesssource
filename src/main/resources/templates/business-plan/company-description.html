@@ -19,18 +19,29 @@
 
     <div>
       <label for="businessType">Business Type</label>
-      <input id="businessType" th:field="*{businessType}" placeholder="e.g., Dog Training, Grooming" required />
+      <p class="helper-text">Briefly describe what kind of business you're starting. Example: Dog Training, Grooming, Pet Sitting</p>
+      <input id="businessType" type="text" th:field="*{businessType}" required />
     </div>
 
 
     <div>
-      <label for="mission">Mission Statement</label>
-      <textarea id="mission" th:field="*{missionStatement}" placeholder="Write a statement that answers these questions: 1. Who are we? &#10; 2. What do we do? &#10; 3. Why do we do it? &#10; 4. For whom do we do it?" required></textarea>
-    </div>
+    <label for="mission">Mission Statement</label>
+    <p class="helper-text">
+      Consider these questions:
+    </p>
+    <ul>
+      <li>Who are we?</li>
+      <li>What do we do?</li>
+      <li>Why do we do it?</li>
+      <li>For whom do we do it?</li>
+    </ul>
+    <textarea id="mission" th:field="*{missionStatement}" required></textarea>
+  </div>
+
 
     <div>
       <label for="goals">Where do you see the company in five years?</label>
-      <textarea id="goals" th:field="*{companyGoals}" placeholder="Explain your unique selling proposition." required></textarea>
+      <textarea id="goals" th:field="*{companyGoals}" placeholder="What do you want the company to look like in 5 years?" required></textarea>
     </div>
 
     <button type="submit" name="saveOption" value="continue">Save and Continue</button>

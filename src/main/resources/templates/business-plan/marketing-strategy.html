@@ -15,9 +15,24 @@
     <form action="#" th:action="@{/business-plan/marketing-strategy}" th:object="${marketingStrategy}" method="post">
         <input type="hidden" name="planId" th:value="${businessPlan.id}" />
         <div>
-            <label for="marketingStrategy">Marketing Strategy:</label>
-            <textarea id="marketingStrategy" th:field="*{strategy}" placeholder="Plan your marketing strategy" required></textarea>
+            <label for="marketingStrategy">Marketing Strategy</label>
+            <p class="helper-text">
+                Outline how you'll attract and retain customers. Consider including:
+            </p>
+            <ul class="helper-text">
+                <li>Who your target audience is</li>
+                <li>How you plan to reach them (social media, flyers, word of mouth, etc.)</li>
+                <li>Any launch promotions or discounts</li>
+                <li>How you’ll build awareness over time</li>
+            </ul>
+            <p class="helper-text">
+                Think about both online and local strategies, and be realistic about your time and budget.
+            </p>
+            <textarea id="marketingStrategy" th:field="*{strategy}" required></textarea>
+
         </div>
+
+
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>
         </div>
